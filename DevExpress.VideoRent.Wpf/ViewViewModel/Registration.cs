@@ -23,6 +23,7 @@ namespace DevExpress.VideoRent.Wpf {
         }
     }
     public class WpfViewsManager : ViewsManager {
+
         public static DemoModuleGroup GroupRental;
         public static DemoModuleGroup GroupCatalog;
         public static DemoModuleGroup GroupAdministration;
@@ -32,6 +33,10 @@ namespace DevExpress.VideoRent.Wpf {
         public static DemoModuleCategory CategoryCompanies;
         public static DemoModuleCategory CategoryCustomers;
         public static DemoModuleCategory CategoryCurrentCustomerRents;
+
+        /// <summary>
+        /// Store all views in a local dictionary
+        /// </summary>
         static void RegisterViews() {
             WpfViewsManager viewsManager = new WpfViewsManager();
             viewsManager.RegisterView(typeof(MovieEdit), typeof(MovieEditView));
@@ -76,6 +81,9 @@ namespace DevExpress.VideoRent.Wpf {
             viewsManager.RegisterView(typeof(FindCustomerEdit), typeof(FindCustomerEditView));
             viewsManager.RegisterView(typeof(Announcer), typeof(AnnouncerView));
         }
+        /// <summary>
+        /// Application grouprs
+        /// </summary>
         static void CreateGroupAndCategories() {
             GroupRental = new VideoRentModuleGroup(ConstStrings.Get("RentalGroup"), "Group_Rental");
             GroupCatalog = new VideoRentModuleGroup(ConstStrings.Get("CatalogGroup"), "Group_Catalog");
@@ -102,6 +110,7 @@ namespace DevExpress.VideoRent.Wpf {
             Mouse.View = new MouseView();
             CreateGroupAndCategories();
         }
+
         public static void Register(DemoModulesControl dmc, UnitOfWork session) {
             DemoModulesControl.Current = dmc;
             RegisterViews();

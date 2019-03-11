@@ -6,6 +6,7 @@
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
     xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+    xmlns:dxdo="http://schemas.devexpress.com/winfx/2008/xaml/docking"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
     xmlns:local="clr-namespace:DevExpress.VideoRent.Wpf"
     xmlns:helpers="clr-namespace:DevExpress.VideoRent.Wpf.Helpers"
@@ -89,6 +90,20 @@
                 </dxr:RibbonDefaultPageCategory>
             </dxr:RibbonControl>
         </dxb:BarManager>
-        <ContentControl Grid.Row="1" x:Name="CustomersEditViewPresenter" Style="{StaticResource ModulePresenter}" />
+        <dxdo:DockLayoutManager Grid.Row="1" x:Name="DockLayoutManager" Background="Transparent">
+            <dxdo:LayoutGroup Orientation="Vertical" Background="Transparent">
+                <dxdo:LayoutPanel ShowCaption="False" ShowBorder="False" Caption="{helpers:ConstString ID=Customers}" Background="Transparent">
+                    <ContentControl Grid.Row="1" x:Name="CustomersEditViewPresenter" Style="{StaticResource ModulePresenter}" />
+                </dxdo:LayoutPanel>
+                <dxdo:LayoutPanel ShowCaption="False" ShowBorder="False" Caption="{helpers:ConstString ID=Stats}" Background="Transparent">
+                    <StackPanel x:Name="doelenContentPanel" Orientation="Horizontal">
+                        <TextBlock x:Name="txtBOmzet" MinWidth="140" TextWrapping="Wrap" Text="Omzet:  "  />
+                        <TextBox x:Name="txtbOmzet" MinWidth="140" TextWrapping="Wrap" Text="" />
+                        <TextBlock x:Name="txtBOmzetMaand" Width="Auto"  TextWrapping="Wrap" Text="Maand" />
+                    </StackPanel>
+                </dxdo:LayoutPanel>
+            </dxdo:LayoutGroup>
+        </dxdo:DockLayoutManager>
+        
     </Grid>
 </mb:DemoModule>

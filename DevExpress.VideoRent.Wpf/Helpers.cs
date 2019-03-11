@@ -184,6 +184,7 @@ namespace DevExpress.VideoRent.Wpf {
             return ImageSourceHelper.CreateImageFromEmbeddedResource(assembly, string.Format("AboutPage/{0}.png", imageName), true);
         }
     }
+
     public class MoviePhotoConverter : DrawingImageToImageSourceConverter {
         public MoviePhotoConverter() {
             NullValue = ReferenceImages.UnknownMovie;

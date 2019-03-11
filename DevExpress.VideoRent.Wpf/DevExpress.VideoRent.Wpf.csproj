@@ -259,6 +259,9 @@
     <Compile Include="Windows\ApplyingThemeSplashScreenWindow.xaml.cs">
       <DependentUpon>ApplyingThemeSplashScreenWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\MainAppWindow.xaml.cs">
+      <DependentUpon>MainAppWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\StartUpSplashScreenWindow.xaml.cs">
       <DependentUpon>StartUpSplashScreenWindow.xaml</DependentUpon>
     </Compile>
@@ -447,6 +450,10 @@
     <Page Include="Windows\ApplyingThemeSplashScreenWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\MainAppWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\StartUpSplashScreenWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

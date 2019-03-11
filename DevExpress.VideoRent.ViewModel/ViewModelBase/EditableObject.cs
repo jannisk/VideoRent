@@ -134,11 +134,17 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         void DoCommandReload(object p) { Reload(); }
         #endregion
     }
+    /// <summary>
+    /// 
+    /// </summary>
     public abstract class ViewsManager {
         static ViewsManager current = null;
         public static ViewsManager Current { get { return current; } protected set { current = value; } }
         public abstract object CreateView(ViewModelModule module);
     }
+    /// <summary>
+    /// 
+    /// </summary>
     public abstract class ViewModelModule : BindingAndDisposable {
         object view;
 
@@ -151,6 +157,9 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
             set { SetValue<object>("View", ref view, value); }
         }
     }
+    /// <summary>
+    /// 
+    /// </summary>
     public abstract class ModuleObjectEdit : ViewModelModule {
         EditableSubobject editObject;
         ModuleObjectDetail detail;

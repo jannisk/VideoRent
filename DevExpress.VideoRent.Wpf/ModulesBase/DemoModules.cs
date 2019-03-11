@@ -31,6 +31,7 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
         public string Title { get { return (string)GetValue(TitleProperty); } private set { SetValue(TitleProperty, value); } }
         public ImageSource Image { get { return (ImageSource)GetValue(ImageProperty); } set { SetValue(ImageProperty, value); } }
     }
+
     public class DemoModuleCategory : DependencyObject {
         #region Dependency Properties
         public static readonly DependencyProperty GroupProperty;
