@@ -30,7 +30,7 @@ namespace DevExpress.VideoRent.Wpf
     /// </summary>
     public partial class MainAppWindow : DXRibbonWindow
     {
-        private event EventHandler  BeforeClosed;
+        public event EventHandler  BeforeClosed;
 
         public UnitOfWork dataSession { get; private set; }
 

@@ -38,7 +38,7 @@ namespace DevExpress.VideoRent.Wpf {
         /// Store all views in a local dictionary
         /// </summary>
         static void RegisterViews() {
-            WpfViewsManager viewsManager = new WpfViewsManager();
+            var viewsManager = new WpfViewsManager();
             viewsManager.RegisterView(typeof(MovieEdit), typeof(MovieEditView));
             viewsManager.RegisterView(typeof(MoviesEdit), typeof(MoviesEditView));
             viewsManager.RegisterView(typeof(MoviePicturesEdit), typeof(MoviePicturesEditView));
@@ -123,18 +123,22 @@ namespace DevExpress.VideoRent.Wpf {
             ModulesManager.Current.OpenModuleObjectDetail(new CompaniesListObject(session), false);
             DemoModulesControl.Current.DefaultPage = ModulesManager.Current.OpenModuleObjectDetail(typeof(Announcer), session).View;
         }
-        Dictionary<Type, Type> viewsTypes = new Dictionary<Type, Type>();
+        /// <summary>
+        /// Keeps together all module types along with their actual UI views
+        /// </summary>
+        readonly Dictionary<Type, Type> _viewsTypes = new Dictionary<Type, Type>();
 
         WpfViewsManager() {
             Current = this;
         }
-        public void RegisterView(Type viewModelModuleType, Type viewType) {
-            viewsTypes.Add(viewModelModuleType, viewType);
+
+        private void RegisterView(Type viewModelModuleType, Type viewType) {
+            _viewsTypes.Add(viewModelModuleType, viewType);
         }
         public override object CreateView(ViewModelModule module) {
-            Type viewModelModuleType = module.GetType();
-            Type viewType = viewsTypes[viewModelModuleType];
-            FrameworkElement view = (FrameworkElement)viewType.GetConstructor(new Type[] { }).Invoke(new object[] { });
+            var viewModelModuleType = module.GetType();
+            var viewType = _viewsTypes[viewModelModuleType];
+            var view = (FrameworkElement)viewType.GetConstructor(new Type[] { }).Invoke(new object[] { });
             module.AfterDispose += (s, e) => { ((DataSource)view.Resources["DataSource"]).DataObject = null; };
             ((DataSource)view.Resources["DataSource"]).DataObject = module;
             if(view is ISupportCustomShow) ((ISupportCustomShow)view).Show();

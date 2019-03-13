@@ -296,16 +296,16 @@
     <Compile Include="MovieCategoriesList\MovieCategoriesListView.xaml.cs">
       <DependentUpon>MovieCategoriesListView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MovieDetail\MovieAddArtistEditView.xaml.cs">
+    <Compile Include="MovieCategoryDetail\MovieDetail\MovieAddArtistEditView.xaml.cs">
       <DependentUpon>MovieAddArtistEditView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MovieDetail\MovieAddCompanyEditView.xaml.cs">
+    <Compile Include="MovieCategoryDetail\MovieDetail\MovieAddCompanyEditView.xaml.cs">
       <DependentUpon>MovieAddCompanyEditView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MovieDetail\MovieAddItemsEditView.xaml.cs">
+    <Compile Include="MovieCategoryDetail\MovieDetail\MovieAddItemsEditView.xaml.cs">
       <DependentUpon>MovieAddItemsEditView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MovieDetail\MovieItemsEditView.xaml.cs">
+    <Compile Include="MovieCategoryDetail\MovieDetail\MovieItemsEditView.xaml.cs">
       <DependentUpon>MovieItemsEditView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MoviesList\MoviePicturesEditView.xaml.cs">
@@ -343,10 +343,10 @@
     <Compile Include="MovieCategoryDetail\MovieCategoryPriceEditView.xaml.cs">
       <DependentUpon>MovieCategoryPriceEditView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MovieDetail\MovieEditView.xaml.cs">
+    <Compile Include="MovieCategoryDetail\MovieDetail\MovieEditView.xaml.cs">
       <DependentUpon>MovieEditView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MovieDetail\MovieDetailView.xaml.cs">
+    <Compile Include="MovieCategoryDetail\MovieDetail\MovieDetailView.xaml.cs">
       <DependentUpon>MovieDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MoviesList\MoviesEditView.xaml.cs">
@@ -507,27 +507,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MovieDetail\MovieAddArtistEditView.xaml">
+    <Page Include="MovieCategoryDetail\MovieDetail\MovieAddArtistEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MovieDetail\MovieAddCompanyEditView.xaml">
+    <Page Include="MovieCategoryDetail\MovieDetail\MovieAddCompanyEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MovieDetail\MovieAddItemsEditView.xaml">
+    <Page Include="MovieCategoryDetail\MovieDetail\MovieAddItemsEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MovieDetail\MovieEditView.xaml">
+    <Page Include="MovieCategoryDetail\MovieDetail\MovieEditView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MovieDetail\MovieDetailView.xaml">
+    <Page Include="MovieCategoryDetail\MovieDetail\MovieDetailView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MovieDetail\MovieItemsEditView.xaml">
+    <Page Include="MovieCategoryDetail\MovieDetail\MovieItemsEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -90,20 +90,6 @@
                 </dxr:RibbonDefaultPageCategory>
             </dxr:RibbonControl>
         </dxb:BarManager>
-        <dxdo:DockLayoutManager Grid.Row="1" x:Name="DockLayoutManager" Background="Transparent">
-            <dxdo:LayoutGroup Orientation="Vertical" Background="Transparent">
-                <dxdo:LayoutPanel ShowCaption="False" ShowBorder="False" Caption="{helpers:ConstString ID=Customers}" Background="Transparent">
-                    <ContentControl Grid.Row="1" x:Name="CustomersEditViewPresenter" Style="{StaticResource ModulePresenter}" />
-                </dxdo:LayoutPanel>
-                <dxdo:LayoutPanel ShowCaption="False" ShowBorder="False" Caption="{helpers:ConstString ID=Stats}" Background="Transparent">
-                    <StackPanel x:Name="doelenContentPanel" Orientation="Horizontal">
-                        <TextBlock x:Name="txtBOmzet" MinWidth="140" TextWrapping="Wrap" Text="Omzet:  "  />
-                        <TextBox x:Name="txtbOmzet" MinWidth="140" TextWrapping="Wrap" Text="" />
-                        <TextBlock x:Name="txtBOmzetMaand" Width="Auto"  TextWrapping="Wrap" Text="Maand" />
-                    </StackPanel>
-                </dxdo:LayoutPanel>
-            </dxdo:LayoutGroup>
-        </dxdo:DockLayoutManager>
-        
+        <ContentControl Grid.Row="1" x:Name="CustomersEditViewPresenter" Style="{StaticResource ModulePresenter}" />
     </Grid>
 </mb:DemoModule>

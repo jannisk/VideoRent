@@ -2,8 +2,10 @@
 
 namespace DevExpress.VideoRent.Wpf {
     public partial class CustomersListView : DemoModule {
-        public CustomersListView() {
+        public CustomersListView()
+        {
             InitializeComponent();
         }
+
     }
 }

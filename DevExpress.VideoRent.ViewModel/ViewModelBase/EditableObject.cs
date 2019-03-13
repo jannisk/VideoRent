@@ -138,23 +138,27 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
     /// 
     /// </summary>
     public abstract class ViewsManager {
-        static ViewsManager current = null;
-        public static ViewsManager Current { get { return current; } protected set { current = value; } }
+        static ViewsManager()
+        {
+            Current = null;
+        }
+
+        public static ViewsManager Current { get; protected set; }
         public abstract object CreateView(ViewModelModule module);
     }
     /// <summary>
     /// 
     /// </summary>
     public abstract class ViewModelModule : BindingAndDisposable {
-        object view;
+        object _view;
 
         public ViewModelModule() {
             if(ViewsManager.Current != null)
                 View = ViewsManager.Current.CreateView(this);
         }
         public object View {
-            get { return view; }
-            set { SetValue<object>("View", ref view, value); }
+            get { return _view; }
+            set { SetValue<object>("View", ref _view, value); }
         }
     }
     /// <summary>
@@ -347,12 +351,12 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
     }
     public delegate void ModuleObjectDetailEventHandler(object sender, ModuleObjectDetailEventArgs e);
     public class ModulesManager {
-        static ModulesManager current = null;
+        static ModulesManager _current = null;
         public static ModulesManager Current {
             get {
-                if(current == null)
-                    current = new ModulesManager();
-                return current;
+                if(_current == null)
+                    _current = new ModulesManager();
+                return _current;
             }
         }
 #if DebugTest
@@ -360,35 +364,45 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
             current = null;
         }
 #endif
-        Dictionary<object, ModuleObjectDetailBase> modulesByKey = new Dictionary<object, ModuleObjectDetailBase>();
-        Dictionary<object, List<ModuleObjectDetailBase>> modulesByType = new Dictionary<object, List<ModuleObjectDetailBase>>();
-        Dictionary<Type, Type> moduleObjectDetailTypes = new Dictionary<Type, Type>();
+        readonly Dictionary<object, ModuleObjectDetailBase> _modulesByKey = new Dictionary<object, ModuleObjectDetailBase>();
+        readonly Dictionary<object, List<ModuleObjectDetailBase>> _modulesByType = new Dictionary<object, List<ModuleObjectDetailBase>>();
+        readonly Dictionary<Type, Type> _moduleObjectDetailTypes = new Dictionary<Type, Type>();
 
         public void RegisterModuleObjectDetailType(Type editObjectType, Type moduleObjectDetailType) {
             if(!editObjectType.IsSubclassOf(typeof(EditableObject))) throw new ArgumentOutOfRangeException("editObjectType");
             if(!moduleObjectDetailType.IsSubclassOf(typeof(ModuleObjectDetail))) throw new ArgumentOutOfRangeException("moduleObjectDetailType");
             if(GetModuleObjectDetailContructor(moduleObjectDetailType, editObjectType) == null) throw new ArgumentOutOfRangeException("moduleObjectDetailType");
-            moduleObjectDetailTypes.Add(editObjectType, moduleObjectDetailType);
+            _moduleObjectDetailTypes.Add(editObjectType, moduleObjectDetailType);
         }
         public ModuleObjectDetailBase OpenModuleObjectDetail(EditableObject editObject, bool focus) {
             return OpenModuleObjectDetail(editObject, focus, null);
         }
         public ModuleObjectDetailBase OpenModuleObjectDetail(EditableObject editObject, bool focus, object tag) {
-            return OpenModuleObjectDetail(editObject.Key, moduleObjectDetailTypes[editObject.GetType()], editObject, focus, tag);
+            return OpenModuleObjectDetail(editObject.Key, _moduleObjectDetailTypes[editObject.GetType()], editObject, focus, tag);
         }
         public ModuleObjectDetailBase OpenModuleObjectDetail(Type moduleObjectDetailType, object tag) {
             return OpenModuleObjectDetail(moduleObjectDetailType, moduleObjectDetailType, null, false, tag);
         }
-        public ModuleObjectDetailBase OpenModuleObjectDetail(object key, Type moduleObjectDetailType, EditableObject editObject, bool focus, object tag) {
+
+        /// <summary>
+        /// Opens or creates a module object detail given it's type and key
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="moduleObjectDetailType">Type of the module object detail.</param>
+        /// <param name="editObject">The edit object.</param>
+        /// <param name="focus">if set to <c>true</c> [focus].</param>
+        /// <param name="tag">The tag.</param>
+        /// <returns></returns>
+        private ModuleObjectDetailBase OpenModuleObjectDetail(object key, Type moduleObjectDetailType, EditableObject editObject, bool focus, object tag) {
             ModuleObjectDetailBase moduleObjectDetail;
-            if(modulesByKey.TryGetValue(key, out moduleObjectDetail)) {
+            if(_modulesByKey.TryGetValue(key, out moduleObjectDetail)) {
                 moduleObjectDetail.Focus();
             } else {
                 moduleObjectDetail = CreateNewModuleObjectDetail(moduleObjectDetailType, editObject, focus, tag);
             }
             return moduleObjectDetail;
         }
-        public bool CloseAllModuleObjectDetails() { return CloseModuleObjectDetails(modulesByKey.Values); }
+        public bool CloseAllModuleObjectDetails() { return CloseModuleObjectDetails(_modulesByKey.Values); }
         public bool CloseModuleObjectDetails(object editObjectTypeKey) { return CloseModuleObjectDetails(GetModulesForType(editObjectTypeKey)); }
         public bool CloseModuleObjectDetails(IEnumerable<ModuleObjectDetailBase> modules) {
             foreach(ModuleObjectDetailBase moduleObjectDetail in modules) {
@@ -402,12 +416,21 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         }
         internal List<ModuleObjectDetailBase> GetModulesForType(object editObjectType) {
             List<ModuleObjectDetailBase> modulesForType;
-            if(!modulesByType.TryGetValue(editObjectType, out modulesForType)) {
+            if(!_modulesByType.TryGetValue(editObjectType, out modulesForType)) {
                 modulesForType = new List<ModuleObjectDetailBase>();
-                modulesByType.Add(editObjectType, modulesForType);
+                _modulesByType.Add(editObjectType, modulesForType);
             }
             return modulesForType;
         }
+
+        /// <summary>
+        /// Creates a new module object detail.
+        /// </summary>
+        /// <param name="moduleObjectDetailType">Type of the module object detail.</param>
+        /// <param name="editObject">The edit object.</param>
+        /// <param name="focus">if set to <c>true</c> [focus].</param>
+        /// <param name="tag">The tag.</param>
+        /// <returns></returns>
         ModuleObjectDetailBase CreateNewModuleObjectDetail(Type moduleObjectDetailType, EditableObject editObject, bool focus, object tag) {
             ModuleObjectDetailBase moduleObjectDetail;
             if(editObject == null) {
@@ -436,19 +459,19 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         void AddModuleObjectDetail(ModuleObjectDetailBase moduleObjectDetailBase) {
             if(moduleObjectDetailBase is ModuleObjectDetail) {
                 ModuleObjectDetail moduleObjectDetail = (ModuleObjectDetail)moduleObjectDetailBase;
-                modulesByKey.Add(moduleObjectDetail.EditObject.Key, moduleObjectDetailBase);
+                _modulesByKey.Add(moduleObjectDetail.EditObject.Key, moduleObjectDetailBase);
                 GetModulesForType(moduleObjectDetail.GetModuleTypeKey()).Add(moduleObjectDetail);
             } else {
-                modulesByKey.Add(moduleObjectDetailBase.GetType(), moduleObjectDetailBase);
+                _modulesByKey.Add(moduleObjectDetailBase.GetType(), moduleObjectDetailBase);
             }
         }
         void RemoveModuleObjectDetail(ModuleObjectDetailBase moduleObjectDetailBase) {
             if(moduleObjectDetailBase is ModuleObjectDetail) {
                 ModuleObjectDetail moduleObjectDetail = (ModuleObjectDetail)moduleObjectDetailBase;
-                modulesByKey.Remove(moduleObjectDetail.EditObject.Key);
+                _modulesByKey.Remove(moduleObjectDetail.EditObject.Key);
                 RemoveFromModulesByTypeIfNeeded(moduleObjectDetail.GetModuleTypeKey());
             } else {
-                modulesByKey.Remove(moduleObjectDetailBase.GetType());
+                _modulesByKey.Remove(moduleObjectDetailBase.GetType());
             }
         }
         void RemoveFromModulesByTypeIfNeeded(object moduleObjectDetailType) {
@@ -456,7 +479,7 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
             foreach(ModuleObjectDetailBase item in details) {
                 if(!item.Disposed) return;
             }
-            modulesByType.Remove(moduleObjectDetailType);
+            _modulesByType.Remove(moduleObjectDetailType);
         }
         void OnModuleObjectDetailAfterDispose(object sender, EventArgs e) {
             ModuleObjectDetailBase moduleObjectDetail = (ModuleObjectDetailBase)sender;

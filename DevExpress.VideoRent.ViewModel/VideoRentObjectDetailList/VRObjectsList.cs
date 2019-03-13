@@ -32,19 +32,19 @@ namespace DevExpress.VideoRent.ViewModel {
     }
     public abstract class VRObjectsList<T> : VRObjectsListBase<T> where T : VideoRentBaseObject {
         object detailsTypeKey = null;
-        VRObjectsEdit<T> listEdit;
-        ModuleObjectEdit viewOptionsEdit;
-        bool hasDetailsToClose = false;
+        VRObjectsEdit<T> _listEdit;
+        ModuleObjectEdit _viewOptionsEdit;
+        bool _hasDetailsToClose = false;
 
         public VRObjectsList(VRObjectsListObject<T> editObject) : base(editObject) { }
         #region Edits
         public VRObjectsEdit<T> ListEdit {
-            get { return listEdit; }
-            protected set { SetValue<VRObjectsEdit<T>>("ListEdit", ref listEdit, value, RaiseListEditChanged); }
+            get { return _listEdit; }
+            protected set { SetValue<VRObjectsEdit<T>>("ListEdit", ref _listEdit, value, RaiseListEditChanged); }
         }
         public ModuleObjectEdit ViewOptionsEdit {
-            get { return viewOptionsEdit; }
-            private set { SetValue<ModuleObjectEdit>("ViewOptionsEdit", ref viewOptionsEdit, value); }
+            get { return _viewOptionsEdit; }
+            private set { SetValue<ModuleObjectEdit>("ViewOptionsEdit", ref _viewOptionsEdit, value); }
         }
         protected override IEnumerable<ModuleObjectEdit> ModuleObjectEdits {
             get {
@@ -58,8 +58,8 @@ namespace DevExpress.VideoRent.ViewModel {
         }
         #endregion
         public bool HasDetailsToClose {
-            get { return hasDetailsToClose; }
-            protected set { SetValue<bool>("HasDetailsToClose", ref hasDetailsToClose, value); }
+            get { return _hasDetailsToClose; }
+            protected set { SetValue<bool>("HasDetailsToClose", ref _hasDetailsToClose, value); }
         }
         public ModuleObjectDetailBase OpenDetail(Guid? vroOid) {
             return OpenDetail(vroOid, null);
@@ -92,6 +92,7 @@ namespace DevExpress.VideoRent.ViewModel {
         void OnViewOptionsEditAfterDispose(object sender, EventArgs e) {
             ViewOptionsEdit = null;
         }
+        
         void RaiseListEditChanged(VRObjectsEdit<T> oldValue, VRObjectsEdit<T> newValue) {
             if(oldValue != null)
                 oldValue.CurrentRecordChanged -= OnListEditCurrentRecordChanged;

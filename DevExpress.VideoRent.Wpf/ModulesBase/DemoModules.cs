@@ -58,17 +58,24 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
             return string.Concat(base.ToString(), string.Format("({0})", Title));
         }
     }
+
+    /// <summary>
+    /// The UI container of a demo module 
+    /// </summary>
     public class DemoModule : CustomShowUserControl, IDisposable {
         static StringIdGenerator idGenerator = new StringIdGenerator();
         bool barItemsPrefixAdded = false;
-        string id;
+        string _id;
 
         public DemoModule() {
-            id = idGenerator.Get();
+            _id = idGenerator.Get();
         }
         ~DemoModule() { Dispose(false); }
-        public bool Disposed { get { return id == null; } }
-        public string Id { get { return id; } }
+        
+        public bool Disposed { get { return _id == null; } }
+        
+        public string Id { get { return _id; } }
+        
         public void Dispose() {
             Dispose(true);
             GC.SuppressFinalize(this);
@@ -109,8 +116,8 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
         internal List<BarItemLinkBase> PageHeaderItemLinks { get; set; }
         protected virtual void DisposeManaged() { }
         protected virtual void DisposeUnmanaged() {
-            idGenerator.Release(id);
-            id = null;
+            idGenerator.Release(_id);
+            _id = null;
         }
         void AddPrefixToBarItemLink(BarItemLinkBase itemLinkBase) {
             BarItemLink itemLink = itemLinkBase as BarItemLink;
@@ -124,6 +131,7 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
             DisposeUnmanaged();
         }
         #region Commands
+        
         class DemoModuleSelectCategoryCommand : ICommand {
             DemoModule demoModule;
 
@@ -137,6 +145,7 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
             }
         }
         DemoModuleSelectCategoryCommand selectCategoryCommand;
+        
         public ICommand SelectCategoryCommand {
             get {
                 if(selectCategoryCommand == null)
@@ -146,6 +155,11 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
         }
         #endregion
     }
+    
+    
+    /// <summary>
+    /// Used to display a demo module chosen by the user 
+    /// </summary>
     public class DemoModulesControl : Control {
         public static DemoModulesControl Current { get; set; }
         #region Dependency Properties
@@ -161,8 +175,8 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
             DefaultPageProperty = DependencyProperty.Register("DefaultPage", typeof(object), ownerType, new PropertyMetadata(null, new PropertyChangedCallback((d, e) => ((DemoModulesControl)d).OnDefaultPageChanged(e))));
         }
         #endregion
-        NavBarControl navBar;
-        ContentPresenter demoModulePresenter;
+        NavBarControl _navBar;
+        ContentPresenter _demoModulePresenter;
         Dictionary<string, RibbonPageCategoryBase> subcategories;
         Dictionary<DemoModuleCategory, List<DemoModule>> demoModules;
         Dictionary<DemoModuleCategory, NavBarItem> navBarItems;
@@ -224,18 +238,18 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
                     RemoveDemoModulePageHeaderItemLinks(currentDemoModuleControl);
                     currentDemoModuleControl = null;
                 }
-                demoModulePresenter.Content = DefaultPage;
-                if(navBar.SelectedItem != null)
-                    navBar.SelectedItem.Group.SelectedItemIndex = -1;
+                _demoModulePresenter.Content = DefaultPage;
+                if(_navBar.SelectedItem != null)
+                    _navBar.SelectedItem.Group.SelectedItemIndex = -1;
             } else {
-                navBar.View.SelectItem(navBarItems[((ClassicShowType)demoModule.ShowMethodType).Category]);
+                _navBar.View.SelectItem(navBarItems[((ClassicShowType)demoModule.ShowMethodType).Category]);
                 Ribbon.SelectedPage = demoModule.Bar;
             }
         }
         public void SelectDemoModuleCategory(DemoModuleCategory category) {
             NavBarItem navBarItem;
             if(!navBarItems.TryGetValue(category, out navBarItem)) return;
-            navBar.View.SelectItem(navBarItem);
+            _navBar.View.SelectItem(navBarItem);
             Ribbon.SelectedPage = demoModules[category][0].Bar;
         }
         public void SelectLastDemoModuleInCategory(DemoModuleCategory category) {
@@ -262,7 +276,7 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
             }
         }
         RibbonControl Ribbon { get { return (RibbonControl)BarManager.Child; } }
-        DemoModuleCategory CurrentCategory { get { return navBar.SelectedItem == null ? null : (DemoModuleCategory)navBar.SelectedItem.DataContext; } }
+        DemoModuleCategory CurrentCategory { get { return _navBar.SelectedItem == null ? null : (DemoModuleCategory)_navBar.SelectedItem.DataContext; } }
         void PrepareDemoModuleBar(DemoModule demoModule) {
             Grid grid = (Grid)demoModule.Content;
             demoModule.BarManager = (BarManager)grid.Children[0];
@@ -334,7 +348,7 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
         }
         void SetDemoModulePresenterContent(object content) {
             MouseHelper.WaitIdle();
-            demoModulePresenter.Content = content;
+            _demoModulePresenter.Content = content;
         }
         void AddDemoModulePageHeaderItemLinks(DemoModule demoModuleControl) {
             foreach(BarItemLinkBase itemLinkBase in demoModuleControl.PageHeaderItemLinks)
@@ -347,9 +361,9 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
         void UpdateNavBar() {
             ListCollectionView listCollectionView = new ListCollectionView(new List<DemoModuleCategory>(demoModules.Keys));
             listCollectionView.GroupDescriptions.Add(new PropertyGroupDescription("Group"));
-            navBar.ItemsSource = listCollectionView;
+            _navBar.ItemsSource = listCollectionView;
             navBarItems.Clear();
-            foreach(NavBarGroup group in navBar.Groups) {
+            foreach(NavBarGroup group in _navBar.Groups) {
                 foreach(NavBarItem item in group.Items) {
                     navBarItems.Add((DemoModuleCategory)item.DataContext, item);
                 }
@@ -382,7 +396,7 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
             NavBarItemControl itemControl = e.OriginalSource as NavBarItemControl;
             if(itemControl == null) return;
             NavBarItem item = (NavBarItem)itemControl.DataContext;
-            if(item != navBar.SelectedItem) return;
+            if(item != _navBar.SelectedItem) return;
             DemoModuleCategory category = (DemoModuleCategory)item.DataContext;
             Ribbon.SelectedPage = demoModules[category][0].Bar;
         }
@@ -391,7 +405,7 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
             e.Group.SetBinding(NavBarGroup.ImageSourceProperty, new Binding("Image") { Source = e.SourceObject });
         }
         void OnNavBarItemAdding(object sender, ItemAddingEventArgs e) {
-            DataTemplate itemTextTemplate = (DataTemplate)navBar.Resources["NavBarItemTextTemplate"];
+            DataTemplate itemTextTemplate = (DataTemplate)_navBar.Resources["NavBarItemTextTemplate"];
             e.Item.SetBinding(NavBarItem.ImageSourceProperty, new Binding("LargeIcon") { Source = e.SourceObject });
             e.Item.SetBinding(NavBarItem.ContentProperty, new Binding("Title") { Source = e.SourceObject, Converter = new ContentToControlConverter(), ConverterParameter = itemTextTemplate });
         }
@@ -402,12 +416,12 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
         public override void OnApplyTemplate() {
             base.OnApplyTemplate();
             subcategories.Add(string.Empty, Ribbon.Categories[0]);
-            navBar = (NavBarControl)GetTemplateChild("NavBar");
-            navBar.View.GroupAdding += OnNavBarGroupAdding;
-            navBar.View.ItemAdding += OnNavBarItemAdding;
-            navBar.View.ItemSelecting += OnNavBarItemSelecting;
-            navBar.View.Click += OnNavBarClick;
-            demoModulePresenter = (ContentPresenter)GetTemplateChild("DemoModulePresenter");
+            _navBar = (NavBarControl)GetTemplateChild("NavBar");
+            _navBar.View.GroupAdding += OnNavBarGroupAdding;
+            _navBar.View.ItemAdding += OnNavBarItemAdding;
+            _navBar.View.ItemSelecting += OnNavBarItemSelecting;
+            _navBar.View.Click += OnNavBarClick;
+            _demoModulePresenter = (ContentPresenter)GetTemplateChild("DemoModulePresenter");
         }
     }
 }
