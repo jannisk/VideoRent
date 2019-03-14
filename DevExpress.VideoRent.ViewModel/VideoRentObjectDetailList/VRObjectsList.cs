@@ -30,6 +30,10 @@ namespace DevExpress.VideoRent.ViewModel {
             SessionCreator.BeforeSessionCreated -= OnSessionCreatorBeforeSessionCreated;
         }
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class VRObjectsList<T> : VRObjectsListBase<T> where T : VideoRentBaseObject {
         object detailsTypeKey = null;
         VRObjectsEdit<T> _listEdit;
@@ -37,6 +41,7 @@ namespace DevExpress.VideoRent.ViewModel {
         bool _hasDetailsToClose = false;
 
         public VRObjectsList(VRObjectsListObject<T> editObject) : base(editObject) { }
+        
         #region Edits
         public VRObjectsEdit<T> ListEdit {
             get { return _listEdit; }

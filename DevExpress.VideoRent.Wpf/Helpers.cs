@@ -190,11 +190,14 @@ namespace DevExpress.VideoRent.Wpf {
             NullValue = ReferenceImages.UnknownMovie;
         }
     }
+    
     public class CustomerPhotoConverter : DrawingImageToImageSourceConverter {
         public CustomerPhotoConverter() {
             NullValue = ReferenceImages.UnknownPerson;
         }
     }
+
+
     public class RentOverdueFormatter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
             int? intValue = value as int?;

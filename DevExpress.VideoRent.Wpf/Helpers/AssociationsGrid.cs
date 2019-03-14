@@ -29,7 +29,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         public static readonly DependencyProperty BottomContentProperty;
         public static readonly DependencyProperty IsAllowEditingItemVisibleProperty;
         static AddDeleteBar() {
-            Type ownerType = typeof(AddDeleteBar);
+            var ownerType = typeof(AddDeleteBar);
             AddItemGlyphProperty = DependencyProperty.Register("AddItemGlyph", typeof(ImageSource), ownerType, new PropertyMetadata(null));
             DeleteItemGlyphProperty = DependencyProperty.Register("DeleteItemGlyph", typeof(ImageSource), ownerType, new PropertyMetadata(null));
             AddItemContentProperty = DependencyProperty.Register("AddItemContent", typeof(object), ownerType, new PropertyMetadata(null));
@@ -100,7 +100,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         public static readonly DependencyProperty ViewStyleProperty;
         static readonly DependencyProperty GridViewProperty;
         static AssociationsGrid() {
-            Type ownerType = typeof(AssociationsGrid);
+            var ownerType = typeof(AssociationsGrid);
             GridStyleProperty = DependencyProperty.Register("GridStyle", typeof(Style), ownerType, new PropertyMetadata(null));
             ViewStyleProperty = DependencyProperty.Register("ViewStyle", typeof(Style), ownerType, new PropertyMetadata(null));
             GridViewProperty = DependencyProperty.Register("GridView", typeof(DataViewBase), ownerType, new PropertyMetadata(null,
@@ -126,7 +126,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         }
         protected override void RaiseMainContentChanged(DependencyPropertyChangedEventArgs e) {
             base.RaiseMainContentChanged(e);
-            GridControl gridControl = e.NewValue as GridControl;
+            var gridControl = e.NewValue as GridControl;
             if(gridControl != null)
                 gridControl.SetBinding(GridControl.StyleProperty, new Binding("GridStyle") { Source = this });
         }
@@ -137,7 +137,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         GridControl GridControl { get { return MainContent as GridControl; } }
         DataViewBase GridView { get { return (GridViewBase)GetValue(GridViewProperty); } set { SetValue(GridViewProperty, value); } }
         void RaiseGridViewChanged(DependencyPropertyChangedEventArgs e) {
-            GridViewBase gridView = (GridViewBase)e.NewValue;
+            var gridView = (GridViewBase)e.NewValue;
             if(gridView != null)
                 gridView.SetBinding(GridViewBase.StyleProperty, new Binding("ViewStyle") { Source = this });
         }

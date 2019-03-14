@@ -11,11 +11,18 @@ namespace DevExpress.VideoRent.Helpers {
     public interface IExceptionProcesser {
         void Process(Exception e);
     }
-   
+   /// <summary>
+   /// Extented persistent object for the current application
+   /// Implements extra attribute of Guid type 
+   /// </summary>
     public abstract class ExtendedXPBaseObject : XPBaseObject {
         Guid oid = Guid.Empty;
 
         public ExtendedXPBaseObject(Session session) : base(session) { }
+        
+        /// <summary>
+        /// After construction inititialize a new Guid object
+        /// </summary>
         public override void AfterConstruction() {
             base.AfterConstruction();
             this.oid = Guid.NewGuid();
@@ -39,6 +46,9 @@ namespace DevExpress.VideoRent.Helpers {
         }
         protected virtual void OnSavingOverride() { }
     }
+    /// <summary>
+    /// 
+    /// </summary>
     public class SessionHelper {
         const string xpoPrefix = "DevExpress.Xpo.";
         static string[] xpoServicesClasses = new string[] { "PersistentBase", "XPBaseObject", "XPObjectType" };

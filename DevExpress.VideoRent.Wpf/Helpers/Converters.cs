@@ -151,6 +151,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
             throw new NotSupportedException();
         }
     }
+
     public class NullContentToVisibilityConverter : IValueConverter {
         public bool Inverted { get; set; }
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {

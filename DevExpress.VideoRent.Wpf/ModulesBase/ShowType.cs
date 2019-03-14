@@ -89,7 +89,7 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
         public bool SelectSignalSlot { get { return (bool)GetValue(SelectSignalSlotProperty); } set { SetValue(SelectSignalSlotProperty, value); } }
         public override void Apply(FrameworkElement content) {
             base.Apply(content);
-            DemoModule module = content as DemoModule;
+            var module = content as DemoModule;
             if(DemoModulesControl.Current == null) return;
             module.Height = double.NaN;
             module.Width = double.NaN;

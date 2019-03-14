@@ -1,13 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
-    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
-    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-    xmlns:dxet="http://schemas.devexpress.com/winfx/2008/xaml/editors/themekeys"
-    xmlns:viewmodel="clr-namespace:DevExpress.VideoRent.ViewModel;assembly=DevExpress.VideoRent.ViewModel"
-    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
-    xmlns:videorent="clr-namespace:DevExpress.VideoRent;assembly=DevExpress.VideoRent"
-    xmlns:helpers="clr-namespace:DevExpress.VideoRent.Wpf.Helpers"
+                    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+                    xmlns:helpers="clr-namespace:DevExpress.VideoRent.Wpf.Helpers"
     xmlns:local="clr-namespace:DevExpress.VideoRent.Wpf">
 
     <helpers:NullContentToVisibilityConverter x:Key="NullContentToVisibilityConverter" />
