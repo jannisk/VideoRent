@@ -1,9 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
                     xmlns:helpers="clr-namespace:DevExpress.VideoRent.Wpf.Helpers"
-    xmlns:local="clr-namespace:DevExpress.VideoRent.Wpf">
-
+                    xmlns:local="clr-namespace:DevExpress.VideoRent.Wpf">
+                    
     <helpers:NullContentToVisibilityConverter x:Key="NullContentToVisibilityConverter" />
     <helpers:StringFormatConverter x:Key="StringFormatConverter" />
     <DataTemplate x:Key="TextToolTipTemplate">
@@ -54,4 +54,6 @@
             </dxlc:LayoutItem>
         </dxlc:LayoutControl>
     </DataTemplate>
+   
 </ResourceDictionary>
+ 

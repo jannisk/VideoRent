@@ -6,6 +6,10 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 
 namespace DevExpress.VideoRent.ViewModel {
+    /// <summary>
+    /// Holds all objects of the provided typedef for a session 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class AllObjects<T> : XPCollection<T> where T : VideoRentBaseObject {
         public static readonly EditableObjectSet Set = new EditableObjectSet();
 
@@ -53,6 +57,7 @@ namespace DevExpress.VideoRent.ViewModel {
             }
         }
     }
+
     public static class SessionCreator {
 #if DEBUG
         public class DebugSession : UnitOfWork {

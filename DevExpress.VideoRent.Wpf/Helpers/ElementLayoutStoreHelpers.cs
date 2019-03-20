@@ -15,6 +15,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         void WriteLayoutData(string folderName, byte[] data, bool clearing);
         byte[] ReadLayoutData(string folderName, bool clearing);
     }
+
     public class ElementLayoutInfo : BindingInfoBase {
         DependencyObject element;
         byte[] initialState = null;

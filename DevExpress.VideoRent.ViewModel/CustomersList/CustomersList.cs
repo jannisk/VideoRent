@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using DevExpress.VideoRent.ViewModel.ViewModelBase;
 
 namespace DevExpress.VideoRent.ViewModel {
@@ -9,8 +10,15 @@ namespace DevExpress.VideoRent.ViewModel {
             ListEdit = new CustomersEdit(VRObjectsListObject.CustomersEditObject, this);
         }
         public new CustomersListObject VRObjectsListObject { get { return (CustomersListObject)EditObject; } }
+
         public CustomersEdit CustomersEdit { get { return (CustomersEdit)ListEdit; } }
         public CustomersViewOptionsEdit CustomersViewOptionsEdit { get { return (CustomersViewOptionsEdit)ViewOptionsEdit; } }
+
+        public int CustomersCount
+        {
+            get { return ((CustomersListObject) EditObject).GetVideoRentObjects().Count; }
+        }
+
         public void SetAsCurrentCustomer(Guid? customerOid) {
             CurrentCustomerProvider.Current.CurrentCustomerOid = customerOid.Value;
         }
@@ -20,6 +28,7 @@ namespace DevExpress.VideoRent.ViewModel {
         protected override ModuleObjectEdit CreateViewOptionsEditOverride() {
             return new CustomersViewOptionsEdit(VRObjectsListObject.CustomersViewOptionsEditObject, this);
         }
+        
         #region Commands
         public Action<object> CommandSetAsCurrent { get { return DoCommandSetAsCurrent; } }
         void DoCommandSetAsCurrent(object p) { SetAsCurrentCustomer(ListEdit.CurrentRecord.Oid); }

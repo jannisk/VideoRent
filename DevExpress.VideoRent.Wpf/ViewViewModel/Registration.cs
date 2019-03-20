@@ -124,17 +124,26 @@ namespace DevExpress.VideoRent.Wpf {
             DemoModulesControl.Current.DefaultPage = ModulesManager.Current.OpenModuleObjectDetail(typeof(Announcer), session).View;
         }
         /// <summary>
-        /// Keeps together all module types along with their actual UI views
+        /// Stores all module types along with their actual UI views
         /// </summary>
         readonly Dictionary<Type, Type> _viewsTypes = new Dictionary<Type, Type>();
 
         WpfViewsManager() {
             Current = this;
         }
-
+        /// <summary>
+        /// Associates a viewmodel type with a view(UI) 
+        /// </summary>
+        /// <param name="viewModelModuleType"></param>
+        /// <param name="viewType"></param>
         private void RegisterView(Type viewModelModuleType, Type viewType) {
             _viewsTypes.Add(viewModelModuleType, viewType);
         }
+        /// <summary>
+        /// Creates the UI elements of a module 
+        /// </summary>
+        /// <param name="module">The module.</param>
+        /// <returns></returns>
         public override object CreateView(ViewModelModule module) {
             var viewModelModuleType = module.GetType();
             var viewType = _viewsTypes[viewModelModuleType];

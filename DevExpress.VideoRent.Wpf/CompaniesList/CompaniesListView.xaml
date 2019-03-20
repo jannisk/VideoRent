@@ -62,7 +62,7 @@
                 <dxb:BarButtonItem x:Name="BbiRefresh" local:ImagesHelper.VideoRentImage="Refresh" Content="{helpers:ConstString ID=Refresh}" />
                 <dxb:BarButtonItem x:Name="BbiView" local:ImagesHelper.VideoRentImage="View" Content="{helpers:ConstString ID=ViewOptions}" />
                 <dxb:BarButtonItem x:Name="BbiCloseDetails" local:ImagesHelper.VideoRentImage="CloseDetails" Content="{helpers:ConstString ID=CloseDetailViews}" />
-                <dxb:BarButtonItem x:Name="BbiUp" local:ImagesHelper.VideoRentImage="Previous" Content="{helpers:ConstString ID=Up}"  Command="{Binding Source={StaticResource GridCommandsSource}, Path=DataObject.MovePrevRow}" helpers:CustomEventCommandHelper.ItemDoubleClick="{Binding Source={StaticResource GridCommandsSource}, Path=DataObject.MovePrevRow}" />
+                <dxb:BarButtonItem x:Name="BbiUp" local:ImagesHelper.VideoRentImage="Previous" Content="{helpers:ConstString ID=Up}"  Command="{Binding Source={StaticResource GridCommandsSource}, Path=DataObject.MoveNextRow}" helpers:CustomEventCommandHelper.ItemDoubleClick="{Binding Source={StaticResource GridCommandsSource}, Path=DataObject.MovePrevRow}" />
                 <dxb:BarButtonItem x:Name="BbiDown" local:ImagesHelper.VideoRentImage="Next" Content="{helpers:ConstString ID=Down}"  Command="{Binding Source={StaticResource GridCommandsSource}, Path=DataObject.MoveNextRow}" helpers:CustomEventCommandHelper.ItemDoubleClick="{Binding Source={StaticResource GridCommandsSource}, Path=DataObject.MoveNextRow}" />
             </dxb:BarManager.Items>
             <dxr:RibbonControl>

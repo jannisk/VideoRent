@@ -182,6 +182,7 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data">
       <Private>False</Private>
     </Reference>
@@ -282,6 +283,9 @@
     </Compile>
     <Compile Include="CustomersList\CustomersListView.xaml.cs">
       <DependentUpon>CustomersListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomersList\CustomerStatsView.xaml.cs">
+      <DependentUpon>CustomerStatsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="CustomersList\CustomersViewOptionsEditView.xaml.cs">
       <DependentUpon>CustomersViewOptionsEditView.xaml</DependentUpon>
@@ -473,6 +477,10 @@
     <Page Include="CustomersList\CustomersListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomersList\CustomerStatsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CustomersList\CustomersViewOptionsEditView.xaml">
       <SubType>Designer</SubType>

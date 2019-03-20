@@ -4,7 +4,7 @@ using DevExpress.VideoRent.ViewModel.ViewModelBase;
 
 namespace DevExpress.VideoRent.ViewModel {
     public class CompaniesList : VRObjectsList<Company> {
-        CompanyMoviesEdit companyMoviesEdit;
+        CompanyMoviesEdit _companyMoviesEdit;
 
         public CompaniesList(CompaniesListObject editObject)
             : base(editObject) {
@@ -15,8 +15,8 @@ namespace DevExpress.VideoRent.ViewModel {
         public CompaniesViewOptionsEdit CompaniesViewOptionsEdit { get { return (CompaniesViewOptionsEdit)ViewOptionsEdit; } }
         #region Edits
         public CompanyMoviesEdit CompanyMoviesEdit {
-            get { return companyMoviesEdit; }
-            set { SetValue<CompanyMoviesEdit>("CompanyMoviesEdit", ref companyMoviesEdit, value, true); }
+            get { return _companyMoviesEdit; }
+            set { SetValue<CompanyMoviesEdit>("CompanyMoviesEdit", ref _companyMoviesEdit, value, true); }
         }
         protected override IEnumerable<ModuleObjectEdit> ModuleObjectEdits {
             get {

@@ -15,7 +15,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         #region Dependency Properties
         public static readonly DependencyProperty TopElementProperty;
         static BindingInfoBase() {
-            Type ownerType = typeof(BindingInfoBase);
+            var ownerType = typeof(BindingInfoBase);
             TopElementProperty = DependencyProperty.Register("TopElement", typeof(FrameworkElement), ownerType, new PropertyMetadata(null,
                 (d, e) => ((BindingInfoBase)d).RaiseTopElementChanged(e)));
         }
@@ -27,18 +27,18 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         protected List<string> ElementNames { get { return elementNames; } }
         protected abstract void Activate(int elementNameIndex, DependencyObject element);
         void RaiseTopElementChanged(DependencyPropertyChangedEventArgs e) {
-            FrameworkElement oldValue = (FrameworkElement)e.OldValue;
-            FrameworkElement newValue = (FrameworkElement)e.NewValue;
+            var oldValue = (FrameworkElement)e.OldValue;
+            var newValue = (FrameworkElement)e.NewValue;
             if(oldValue != null)
                 oldValue.Initialized -= OnTopElementInitialized;
             if(newValue != null)
                 newValue.Initialized += OnTopElementInitialized;
         }
         void OnTopElementInitialized(object sender, EventArgs e) {
-            FrameworkElement topElement = (FrameworkElement)sender;
-            for(int i = 0; i < ElementNames.Count; ++i) {
+            var topElement = (FrameworkElement)sender;
+            for(var i = 0; i < ElementNames.Count; ++i) {
                 if(string.IsNullOrEmpty(ElementNames[i])) continue;
-                DependencyObject element = FindName(topElement, ElementNames[i]);
+                var element = FindName(topElement, ElementNames[i]);
                 if(element != null) {
                     ShareDataContext(element as FrameworkElement, FrameworkElement.DataContextProperty);
                     ShareDataContext(element as FrameworkContentElement, FrameworkContentElement.DataContextProperty);
@@ -55,7 +55,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
             BindingOperations.SetBinding(element, dataContextProperty, new Binding("DataContext") { Source = this });
         }
         static DependencyObject FindName(FrameworkElement topElement, string name) {
-            int d = name.IndexOf(':');
+            var d = name.IndexOf(':');
             if(d < 0) return topElement.FindName(name) as DependencyObject;
             return name.Remove(d) == "top" ? topElement : topElement.Resources[name.Substring(d + 1)] as DependencyObject;
         }
@@ -68,7 +68,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         public static readonly DependencyProperty IsValidProperty;
         public static readonly DependencyProperty DoValidateSignalSlotProperty;
         static BindingsInfoCollection() {
-            Type ownerType = typeof(BindingsInfoCollection);
+            var ownerType = typeof(BindingsInfoCollection);
             ItemsProperty = DependencyProperty.Register("Items", typeof(ObservableCollection<BindingInfoBase>), ownerType, new PropertyMetadata(null));
             TopElementProperty = DependencyProperty.Register("TopElement", typeof(FrameworkElement), ownerType, new PropertyMetadata(null));
             IsValidProperty = DependencyProperty.Register("IsValid", typeof(bool), ownerType, new PropertyMetadata(true));
@@ -79,7 +79,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         List<ValidationInfo> validations = new List<ValidationInfo>();
 
         public BindingsInfoCollection() {
-            ObservableCollection<BindingInfoBase> items = new ObservableCollection<BindingInfoBase>();
+            var items = new ObservableCollection<BindingInfoBase>();
             items.CollectionChanged += OnItemsCollectionChanged;
             Items = items;
         }
@@ -87,8 +87,8 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         public bool IsValid { get { return (bool)GetValue(IsValidProperty); } set { SetValue(IsValidProperty, value); } }
         public bool DoValidateSignalSlot { get { return (bool)GetValue(DoValidateSignalSlotProperty); } set { SetValue(DoValidateSignalSlotProperty, value); } }
         public bool DoValidate() {
-            bool isValid = true;
-            foreach(ValidationInfo validationInfo in this.validations) {
+            var isValid = true;
+            foreach(var validationInfo in this.validations) {
                 if(!validationInfo.DoValidate())
                     isValid = false;
             }
@@ -98,10 +98,10 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         internal FrameworkElement TopElement { get { return (FrameworkElement)GetValue(TopElementProperty); } set { SetValue(TopElementProperty, value); } }
         void OnItemsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
             this.validations.Clear();
-            foreach(BindingInfoBase bindingInfo in Items) {
+            foreach(var bindingInfo in Items) {
                 bindingInfo.SetBinding(BindingInfoBase.DataContextProperty, new Binding("DataContext") { Source = this });
                 bindingInfo.SetBinding(BindingInfoBase.TopElementProperty, new Binding("TopElement") { Source = this });
-                ValidationInfo validation = bindingInfo as ValidationInfo;
+                var validation = bindingInfo as ValidationInfo;
                 if(validation != null)
                     this.validations.Add(validation);
             }
@@ -114,14 +114,14 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
     public class DataBindingsHelper : DependencyObject {
         public static readonly DependencyProperty BindingsProperty;
         static DataBindingsHelper() {
-            Type ownerType = typeof(DataBindingsHelper);
+            var ownerType = typeof(DataBindingsHelper);
             BindingsProperty = DependencyProperty.RegisterAttached("Bindings", typeof(BindingsInfoCollection), ownerType, new PropertyMetadata(null, BindingsChanged));
         }
         public static BindingsInfoCollection GetBindings(FrameworkElement target) { return (BindingsInfoCollection)target.GetValue(BindingsProperty); }
         public static void SetBindings(FrameworkElement target, BindingsInfoCollection bindings) { target.SetValue(BindingsProperty, bindings); }
         static void BindingsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-            FrameworkElement target = (FrameworkElement)d;
-            BindingsInfoCollection bindings = (BindingsInfoCollection)e.NewValue;
+            var target = (FrameworkElement)d;
+            var bindings = (BindingsInfoCollection)e.NewValue;
             bindings.TopElement = target;
         }
     }
@@ -160,7 +160,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         bool editsUpdating = false;
 
         public ValidationInfo() {
-            for(int i = EditsMaxCount; --i >= 0; )
+            for(var i = EditsMaxCount; --i >= 0; )
                 ElementNames.Add(string.Empty);
         }
         public string EditName0 { get { return ElementNames[0]; } set { ElementNames[0] = value; } }
@@ -170,12 +170,12 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         public IValidationRule Rule { get; set; }
         public bool DoValidate() {
             CleanEdits();
-            bool isValid = false;
+            var isValid = false;
             object errorContent = null;
-            ErrorType errorType = ErrorType.None;
-            foreach(BaseEdit edit in this.edits) {
+            var errorType = ErrorType.None;
+            foreach(var edit in this.edits) {
                 if(edit == null) continue;
-                ValidationEventArgs vea = new ValidationEventArgs(BaseEdit.ValidateEvent, edit, edit.EditValue, null);
+                var vea = new ValidationEventArgs(BaseEdit.ValidateEvent, edit, edit.EditValue, null);
                 Rule.Validate(edit, vea);
                 if(vea.IsValid) {
                     isValid = true;
@@ -190,7 +190,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
             return this.isValid;
         }
         protected override void Activate(int elementNameIndex, DependencyObject element) {
-            BaseEdit edit = element as BaseEdit;
+            var edit = element as BaseEdit;
             this.edits[elementNameIndex] = edit;
             if(edit == null) return;
             edit.InvalidValueBehavior = InvalidValueBehavior.AllowLeaveEditor;
@@ -198,7 +198,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         }
         void CleanEdits() {
             this.editsCleaning = true;
-            foreach(BaseEdit edit in this.edits) {
+            foreach(var edit in this.edits) {
                 if(edit == null || edit.ValidationError == null) continue;
                 edit.DoValidate();
             }
@@ -206,7 +206,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         }
         void UpdateEdits() {
             this.editsUpdating = true;
-            foreach(BaseEdit edit in this.edits) {
+            foreach(var edit in this.edits) {
                 if(edit == null) continue;
                 edit.DoValidate();
             }
@@ -226,7 +226,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         }
         void OnEditValidate(object sender, ValidationEventArgs e) {
             if(this.editsCleaning) return;
-            BaseEdit validateEdit = (BaseEdit)sender;
+            var validateEdit = (BaseEdit)sender;
             if(this.editsUpdating || object.Equals(e.Value, validateEdit.EditValue)) {
                 WriteError(ref e);
             } else {

@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="DevExpress.VideoRent.Wpf.CustomerStatsView"
+             xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"  
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:helpers="clr-namespace:DevExpress.VideoRent.Wpf.Helpers"
+             mc:Ignorable="d"
+             d:DesignWidth="1000">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/DevExpress.VideoRent.Wpf;component/Themes/EditsStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="CustomersInfoTemplate">
+                <Grid Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <dxlc:LayoutControl Grid.Row="0" Orientation="Vertical" Padding="0" ItemSpace="0">
+                        <dxlc:LayoutItem>
+                            <TextBlock Text="{helpers:ConstString ID=CustomersStatsTitle1}" FontSize="22" TextWrapping="Wrap" />
+                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem Margin="10,0">
+                            <TextBlock Text="ASD" FontSize="21" />
+                        </dxlc:LayoutItem>                      
+                        <dxlc:LayoutGroup Orientation="Vertical">
+                            <dxlc:LayoutItem HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent"  VerticalContentAlignment="Top">
+                                <TextBlock  Text="{Binding CustomersCount}" TextAlignment="Left" FontSize="16"></TextBlock>
+                            </dxlc:LayoutItem>
+                            <dxlc:LayoutItem>
+                                <TextBlock Foreground="#FFF9F4F4" HorizontalAlignment="Left" Height="130" Width="230"  VerticalAlignment="Top" Background="#FF0C5580"/>
+                            </dxlc:LayoutItem>
+                            <dxlc:LayoutGroup Orientation="Horizontal">
+                                <dxlc:LayoutItem>
+                                    <TextBlock  Foreground="#FFF9F4F4" Height="65" Width="130"  HorizontalAlignment="Left" Background="#FF7B9970"/>
+                                </dxlc:LayoutItem>
+                                <dxlc:LayoutItem>
+                                    <TextBlock Foreground="#FFF9F4F4"  Height="65" Width="130" HorizontalAlignment="Right" Background="#FF709399"/>
+                                </dxlc:LayoutItem>
+                            </dxlc:LayoutGroup>
+                        </dxlc:LayoutGroup>
+                    </dxlc:LayoutControl>
+                </Grid>
+            </DataTemplate>
+            <helpers:DataSource x:Key="DataSource" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+   
+    <helpers:DataBindingsHelper.Bindings>
+        <helpers:BindingsInfoCollection DataContext="{Binding Source={StaticResource DataSource}, Path=DataObject}">
+            <helpers:BindingInfo ElementName="CustomersInfoPresenter" Property="{x:Static ContentControl.ContentProperty}" Value="{Binding ListEdit.View}" />
+        </helpers:BindingsInfoCollection>
+    </helpers:DataBindingsHelper.Bindings>
+    
+    <ScrollViewer  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+        <dxlc:LayoutControl x:Name="CustomerStatsLayoutControl" Orientation="Horizontal" Padding="0" ItemSpace="12" VerticalAlignment="Stretch">
+            <dxlc:LayoutItem>
+                <ContentControl x:Name="CustomersInfoPresenter" ContentTemplate="{StaticResource CustomersInfoTemplate}" />
+            </dxlc:LayoutItem>
+        </dxlc:LayoutControl>
+            
+    </ScrollViewer>
+</UserControl> 
+

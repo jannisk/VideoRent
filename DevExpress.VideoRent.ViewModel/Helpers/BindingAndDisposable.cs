@@ -47,10 +47,10 @@ namespace DevExpress.VideoRent.ViewModel.Helpers {
         #endregion
     }
     public abstract class BindingAndDisposable : Disposable, INotifyPropertyChanged {
-        bool disposeSignal;
+        bool _disposeSignal;
         public bool DisposeSignal {
-            get { return disposeSignal; }
-            private set { SetValue<bool>("DisposeSignal", ref disposeSignal, value); }
+            get { return _disposeSignal; }
+            private set { SetValue<bool>("DisposeSignal", ref _disposeSignal, value); }
         }
         public event PropertyChangedEventHandler PropertyChanged;
         protected void SetValue<T>(string propertyName, ref T field, T newValue) {

@@ -18,9 +18,9 @@ namespace DevExpress.VideoRent.Wpf {
             LayoutManager.Current.Subscribe(OnLayoutManagerAfterLoad, OnLayoutManagerBeforeSave);
         }
         public static WpfLayoutData GetLayoutData() {
-            XPCollection<WpfLayoutData> layoutDataCollection = LayoutManager.Current.GetLayoutData<WpfLayoutData>();
+            var layoutDataCollection = LayoutManager.Current.GetLayoutData<WpfLayoutData>();
             if(layoutDataCollection.Count != 0) return layoutDataCollection[0];
-            WpfLayoutData layoutData = new WpfLayoutData(VideoRentCurrentUser.GetCurrentUser(LayoutManager.Current.Session));
+            var layoutData = new WpfLayoutData(VideoRentCurrentUser.GetCurrentUser(LayoutManager.Current.Session));
             LayoutManager.Current.LayoutData.Add(layoutData);
             return layoutData;
         }
@@ -78,10 +78,10 @@ namespace DevExpress.VideoRent.Wpf {
     }
     public class ElementLayoutData : LayoutData {
         public static ElementLayoutData GetLayoutData(string folderName) {
-            XPCollection<ElementLayoutData> layoutDataCollection = LayoutManager.Current.GetLayoutData<ElementLayoutData>();
+            var layoutDataCollection = LayoutManager.Current.GetLayoutData<ElementLayoutData>();
             layoutDataCollection.Filter = CriteriaOperator.Parse("FolderName = ?", folderName);
             if(layoutDataCollection.Count != 0) return layoutDataCollection[0];
-            ElementLayoutData layoutData = new ElementLayoutData(VideoRentCurrentUser.GetCurrentUser(LayoutManager.Current.Session), folderName);
+            var layoutData = new ElementLayoutData(VideoRentCurrentUser.GetCurrentUser(LayoutManager.Current.Session), folderName);
             LayoutManager.Current.LayoutData.Add(layoutData);
             return layoutData;
         }
@@ -114,7 +114,7 @@ namespace DevExpress.VideoRent.Wpf {
             public SaveLoadLayoutDataEventHandler SaveHandler { get; private set; }
             public SaveLoadLayoutDataEventHandler LoadHandler { get; private set; }
             public override bool Equals(object obj) {
-                SaveLoadHandlers handlers = obj as SaveLoadHandlers;
+                var handlers = obj as SaveLoadHandlers;
                 if(handlers == null) return false;
                 return object.Equals(SaveHandler, handlers.SaveHandler) && object.Equals(LoadHandler, handlers.LoadHandler);
             }
@@ -122,8 +122,8 @@ namespace DevExpress.VideoRent.Wpf {
                 return SaveHandler.GetHashCode() + LoadHandler.GetHashCode();
             }
             public static bool operator ==(SaveLoadHandlers h1, SaveLoadHandlers h2) {
-                bool h1IsNull = (object)h1 == null;
-                bool h2IsNull = (object)h2 == null;
+                var h1IsNull = (object)h1 == null;
+                var h2IsNull = (object)h2 == null;
                 if(h1IsNull && h2IsNull) return true;
                 if(h1IsNull || h2IsNull) return false;
                 return h1.SaveHandler == h2.SaveHandler && h1.LoadHandler == h2.LoadHandler;
@@ -151,7 +151,7 @@ namespace DevExpress.VideoRent.Wpf {
             return ElementLayoutData.GetLayoutData(folderName).Data;
         }
         protected override void DisposeManaged() {
-            foreach(SaveLoadHandlers handlers in saveLoadHandlers)
+            foreach(var handlers in saveLoadHandlers)
                 LayoutManager.Current.Unsubscribe(handlers.LoadHandler, handlers.SaveHandler);
             saveLoadHandlers.Clear();
             base.DisposeManaged();
@@ -211,7 +211,7 @@ namespace DevExpress.VideoRent.Wpf {
             base.DisposeManaged();
         }
         void OnLayoutManagerAfterLoad(object sender, EventArgs e) {
-            WpfLayoutData layoutData = WpfLayoutData.GetLayoutData();
+            var layoutData = WpfLayoutData.GetLayoutData();
             SaveAllLayouts = layoutData.SaveAllLayouts;
             SaveDetailViewLayouts = layoutData.SaveDetailViewLayouts;
             SaveGridControlsLayouts = layoutData.SaveGridControlsLayouts;
@@ -219,7 +219,7 @@ namespace DevExpress.VideoRent.Wpf {
             SaveLayoutControlsLayouts = layoutData.SaveLayoutControlsLayouts;
         }
         void OnLayoutManagerBeforeSave(object sender, EventArgs e) {
-            WpfLayoutData layoutData = WpfLayoutData.GetLayoutData();
+            var layoutData = WpfLayoutData.GetLayoutData();
             layoutData.SaveAllLayouts = SaveAllLayouts;
             layoutData.SaveDetailViewLayouts = SaveDetailViewLayouts;
             layoutData.SaveGridControlsLayouts = SaveGridControlsLayouts;

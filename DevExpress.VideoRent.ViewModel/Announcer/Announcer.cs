@@ -4,7 +4,7 @@ using DevExpress.Xpo;
 
 namespace DevExpress.VideoRent.ViewModel {
     public class Announcer : ModuleObjectDetailBase {
-        Session session = null;
+        readonly Session session = null;
         MoviesListObject moviesListObject;
         ArtistsListObject artistsListObject;
         MovieCategoriesListObject movieCategoriesListObject;

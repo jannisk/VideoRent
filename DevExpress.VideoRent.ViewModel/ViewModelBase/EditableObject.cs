@@ -59,13 +59,14 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         }
     }
     public abstract class EditableObject : BindingAndDisposable {
-        const int MaxUpdatesRounds = 50;
-        EditableObjectSet set;
+        
+        const int MAX_UPDATES_ROUNDS = 50;
+        readonly EditableObjectSet _set;
 
         public EditableObject(EditableObjectSet set) {
-            this.set = set;
+            _set = set;
         }
-        public EditableObjectSet Set { get { return set; } }
+        public EditableObjectSet Set { get { return _set; } }
         public abstract object Key { get; }
         public abstract bool Dirty { get; }
         public event EventHandler Changed;
@@ -73,12 +74,12 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         public void Reload() {
             ReloadBegin();
 #if DEBUG
-            bool done = false;
+            var done = false;
 #endif
-            Dictionary<EditableSubobject, bool> updated = new Dictionary<EditableSubobject, bool>();
-            for(int i = 0; i < MaxUpdatesRounds; ++i) {
-                LinkedList<EditableSubobject> needUpdate = new LinkedList<EditableSubobject>(Subobjects);
-                foreach(EditableSubobject subobject in new List<EditableSubobject>(needUpdate)) {
+            var updated = new Dictionary<EditableSubobject, bool>();
+            for(var i = 0; i < MAX_UPDATES_ROUNDS; ++i) {
+                var needUpdate = new LinkedList<EditableSubobject>(Subobjects);
+                foreach(var subobject in new List<EditableSubobject>(needUpdate)) {
                     if(updated.ContainsKey(subobject))
                         needUpdate.Remove(subobject);
                 }
@@ -88,7 +89,7 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
 #endif
                     break;
                 } else {
-                    foreach(EditableSubobject subobject in needUpdate) {
+                    foreach(var subobject in needUpdate) {
                         if(!subobject.Disposed)
                             subobject.Update();
                         updated.Add(subobject, true);
@@ -134,6 +135,7 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         void DoCommandReload(object p) { Reload(); }
         #endregion
     }
+
     /// <summary>
     /// 
     /// </summary>
@@ -147,7 +149,8 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         public abstract object CreateView(ViewModelModule module);
     }
     /// <summary>
-    /// 
+    /// Generic class to create viewable objects across the application.
+    /// This class creates the views but does not show them
     /// </summary>
     public abstract class ViewModelModule : BindingAndDisposable {
         object _view;
@@ -216,26 +219,28 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
     }
     public enum YesNoCancel { Yes, No, Cancel }
     public abstract class ModuleObjectDetailBase : ViewModelModule {
-        bool focusSignal;
-        object tag;
+        private bool _focusSignal;
+        private object _tag;
 
         public ModuleObjectDetailBase() { }
         public ModuleObjectDetailBase(object tag) {
             Tag = tag;
         }
         public bool FocusSignal {
-            get { return focusSignal; }
-            private set { SetValue<bool>("FocusSignal", ref focusSignal, value); }
+            get { return _focusSignal; }
+            private set { SetValue<bool>("FocusSignal", ref _focusSignal, value); }
         }
         public void Focus() {
             FocusSignal = true;
             FocusSignal = false;
         }
         public object Tag {
-            get { return tag; }
-            protected set { SetValue<object>("Tag", ref tag, value); }
+            get { return _tag; }
+            protected set { SetValue<object>("Tag", ref _tag, value); }
         }
     }
+
+
     public abstract class ModuleObjectDetail : ModuleObjectDetailBase {
         bool dirtyRough = false;
         EditableObject editObject;
@@ -259,8 +264,8 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         protected virtual IEnumerable<ModuleObjectEdit> ModuleObjectEdits { get { return new ModuleObjectEdit[] { }; } }
         #endregion
         public bool DoValidate() {
-            bool ret = true;
-            foreach(ModuleObjectEdit edit in ModuleObjectEdits) {
+            var ret = true;
+            foreach(var edit in ModuleObjectEdits) {
                 if(!edit.DoValidate())
                     ret = false;
             }
@@ -277,7 +282,7 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
             BeginOperation();
             if(!DoValidate()) return false;
             RaiseBeforeSave();
-            foreach(ModuleObjectEdit edit in ModuleObjectEdits)
+            foreach(var edit in ModuleObjectEdits)
                 edit.Dispose();
             EditObject.SaveAndDispose();
             Dispose();
@@ -285,7 +290,7 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         }
         public bool Close() {
             if(EditObject.Dirty) {
-                YesNoCancel askResult = AskSaveChanges();
+                var askResult = AskSaveChanges();
                 if(askResult == YesNoCancel.Cancel) return false;
                 if(askResult == YesNoCancel.Yes) return SaveAndDispose();
             }
@@ -294,7 +299,7 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         }
         public bool PrepareToClose() {
             if(EditObject.Dirty) {
-                YesNoCancel askResult = AskSaveChanges();
+                var askResult = AskSaveChanges();
                 if(askResult == YesNoCancel.Cancel) return false;
                 if(askResult == YesNoCancel.Yes) return Save();
             }
@@ -310,7 +315,7 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
             DirtyRough = editObject.Dirty;
         }
         protected override void DisposeManaged() {
-            foreach(ModuleObjectEdit edit in ModuleObjectEdits)
+            foreach(var edit in ModuleObjectEdits)
                 edit.Dispose();
             EditObject.Dispose();
             base.DisposeManaged();
@@ -405,11 +410,11 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         public bool CloseAllModuleObjectDetails() { return CloseModuleObjectDetails(_modulesByKey.Values); }
         public bool CloseModuleObjectDetails(object editObjectTypeKey) { return CloseModuleObjectDetails(GetModulesForType(editObjectTypeKey)); }
         public bool CloseModuleObjectDetails(IEnumerable<ModuleObjectDetailBase> modules) {
-            foreach(ModuleObjectDetailBase moduleObjectDetail in modules) {
+            foreach(var moduleObjectDetail in modules) {
                 moduleObjectDetail.Focus();
                 if(moduleObjectDetail is ModuleObjectDetail && !((ModuleObjectDetail)moduleObjectDetail).PrepareToClose()) return false;
             }
-            foreach(ModuleObjectDetailBase moduleObjectDetail in new List<ModuleObjectDetailBase>(modules)) {
+            foreach(var moduleObjectDetail in new List<ModuleObjectDetailBase>(modules)) {
                 moduleObjectDetail.Dispose();
             }
             return true;
@@ -458,7 +463,7 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         }
         void AddModuleObjectDetail(ModuleObjectDetailBase moduleObjectDetailBase) {
             if(moduleObjectDetailBase is ModuleObjectDetail) {
-                ModuleObjectDetail moduleObjectDetail = (ModuleObjectDetail)moduleObjectDetailBase;
+                var moduleObjectDetail = (ModuleObjectDetail)moduleObjectDetailBase;
                 _modulesByKey.Add(moduleObjectDetail.EditObject.Key, moduleObjectDetailBase);
                 GetModulesForType(moduleObjectDetail.GetModuleTypeKey()).Add(moduleObjectDetail);
             } else {
@@ -467,7 +472,7 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         }
         void RemoveModuleObjectDetail(ModuleObjectDetailBase moduleObjectDetailBase) {
             if(moduleObjectDetailBase is ModuleObjectDetail) {
-                ModuleObjectDetail moduleObjectDetail = (ModuleObjectDetail)moduleObjectDetailBase;
+                var moduleObjectDetail = (ModuleObjectDetail)moduleObjectDetailBase;
                 _modulesByKey.Remove(moduleObjectDetail.EditObject.Key);
                 RemoveFromModulesByTypeIfNeeded(moduleObjectDetail.GetModuleTypeKey());
             } else {
@@ -475,14 +480,14 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
             }
         }
         void RemoveFromModulesByTypeIfNeeded(object moduleObjectDetailType) {
-            List<ModuleObjectDetailBase> details = GetModulesForType(moduleObjectDetailType);
-            foreach(ModuleObjectDetailBase item in details) {
+            var details = GetModulesForType(moduleObjectDetailType);
+            foreach(var item in details) {
                 if(!item.Disposed) return;
             }
             _modulesByType.Remove(moduleObjectDetailType);
         }
         void OnModuleObjectDetailAfterDispose(object sender, EventArgs e) {
-            ModuleObjectDetailBase moduleObjectDetail = (ModuleObjectDetailBase)sender;
+            var moduleObjectDetail = (ModuleObjectDetailBase)sender;
             RemoveModuleObjectDetail(moduleObjectDetail);
         }
     }

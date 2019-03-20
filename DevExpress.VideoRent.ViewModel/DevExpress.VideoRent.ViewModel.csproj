@@ -165,6 +165,7 @@
     <Compile Include="CustomersList\CustomersEditObject.cs" />
     <Compile Include="CustomersList\CustomersList.cs" />
     <Compile Include="CustomersList\CustomersListObject.cs" />
+    <Compile Include="CustomersList\CustomerStats.cs" />
     <Compile Include="CustomersList\CustomersViewOptionsEdit.cs" />
     <Compile Include="CustomersList\CustomersViewOptionsEditObject.cs" />
     <Compile Include="EditData.cs" />
