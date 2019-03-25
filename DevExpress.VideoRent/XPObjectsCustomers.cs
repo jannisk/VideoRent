@@ -20,6 +20,7 @@ namespace DevExpress.VideoRent {
         string address;
         string phone;
         string comments;
+        Account account;
         CustomerDiscountLevel discountLevel;
 
         public Customer(Session session) : base(session) { }
@@ -43,6 +44,11 @@ namespace DevExpress.VideoRent {
         public override void AfterConstruction() {
             base.AfterConstruction();
             discountLevel = CustomerDiscountLevel.FirstTime;
+            account = new Account(Session);
+            account.AccountType = AccountTypeEnum.Receivable;
+            account.Customer = (Customer)this;
+            account.AccountBalance = 0;
+            account.AccountName = FirstName;
         }
 #if SL
         [Indexed(Unique = true)]
@@ -97,6 +103,14 @@ namespace DevExpress.VideoRent {
                 return photo;
             }
         }
+
+        //[Association("Customer-Accounts")]
+        //public Account CustomerAccount
+        //{
+        //    get { return account; }
+        //    set { SetPropertyValue<Account>("Account", ref account, value); }
+        //}
+
         [Association("Customer-Receipts")]
         public XPCollection<Receipt> Receipts { get { return GetCollection<Receipt>("Receipts"); } }
         public XPCollection<Rent> ActiveRents { get { return new XPCollection<Rent>(Session, CriteriaOperator.Parse("Customer = ? and Active = ?", this, true)); } }

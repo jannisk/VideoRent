@@ -6,15 +6,8 @@ using DevExpress.VideoRent.Helpers;
 using DevExpress.VideoRent.ViewModel.ViewModelBase;
 using DevExpress.Xpo;
 #if SL
-using DevExpress.Xpf.Drawing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.Silverlight.Testing;
 #else
-using TestClassAttribute = NUnit.Framework.TestFixtureAttribute;
-using TestMethodAttribute = NUnit.Framework.TestAttribute;
-using TestInitializeAttribute = NUnit.Framework.SetUpAttribute;
-using TestCleanupAttribute = NUnit.Framework.TearDownAttribute;
-using NUnit.Framework;
 #endif
 
 namespace DevExpress.VideoRent.ViewModel.Tests {

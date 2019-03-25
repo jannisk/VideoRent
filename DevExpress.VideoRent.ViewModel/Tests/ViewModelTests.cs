@@ -11,7 +11,6 @@ using DevExpress.Xpo;
 #if SL
 using DevExpress.Xpf.Drawing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Microsoft.Silverlight.Testing;
 #else
 using TestClassAttribute = NUnit.Framework.TestFixtureAttribute;
 using TestMethodAttribute = NUnit.Framework.TestAttribute;

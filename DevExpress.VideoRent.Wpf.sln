@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExpress.VideoRent.Wpf", "DevExpress.VideoRent.Wpf\DevExpress.VideoRent.Wpf.csproj", "{DE3AA91B-D8FC-4C1B-A8FD-E84C63C2C89F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExpress.VideoRent", "DevExpress.VideoRent\DevExpress.VideoRent.csproj", "{64358044-1010-4E3D-A18D-ACB7755C40FA}"

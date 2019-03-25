@@ -4,6 +4,7 @@ using DevExpress.VideoRent.ViewModel.ViewModelBase;
 
 namespace DevExpress.VideoRent.ViewModel {
     public class CustomersList : VRObjectsList<Customer> {
+        CustomerAccountsEdit _customerAccountsEdit;
 
         public CustomersList(CustomersListObject editObject)
             : base(editObject) {
@@ -13,6 +14,12 @@ namespace DevExpress.VideoRent.ViewModel {
 
         public CustomersEdit CustomersEdit { get { return (CustomersEdit)ListEdit; } }
         public CustomersViewOptionsEdit CustomersViewOptionsEdit { get { return (CustomersViewOptionsEdit)ViewOptionsEdit; } }
+
+        public CustomerAccountsEdit CompanyMoviesEdit
+        {
+            get { return _customerAccountsEdit; }
+            set { SetValue<CustomerAccountsEdit>("CustomerAccountsEdit", ref _customerAccountsEdit, value, true); }
+        }
 
         public int CustomersCount
         {

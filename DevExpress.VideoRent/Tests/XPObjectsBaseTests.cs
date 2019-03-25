@@ -10,14 +10,11 @@ using DevExpress.Xpo.Metadata;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Silverlight.Testing;
 #else
-using TestClassAttribute = NUnit.Framework.TestFixtureAttribute;
-using TestMethodAttribute = NUnit.Framework.TestAttribute;
-using TestInitializeAttribute = NUnit.Framework.SetUpAttribute;
-using TestCleanupAttribute = NUnit.Framework.TearDownAttribute;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
 
-namespace DevExpress.VideoRent.Tests {
+namespace DevExpress.VideoRent.Tests 
+{
     public class TestDataLayer : SimpleDataLayer {
         private int selectCount = 0, updateCount = 0;
         List<string> selectsLog = new List<string>();
