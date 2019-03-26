@@ -43,6 +43,7 @@ namespace DevExpress.VideoRent {
             }
         }
     }
+
     public class RentInfo {
         IRentItem item;
         int days;
@@ -57,6 +58,7 @@ namespace DevExpress.VideoRent {
         public IRentItem Item { get { return item; } }
         public int Days { get { return days; } }
     }
+
     public class MovieItem : VideoRentBaseObject, IRentItem {
         Movie movie;
         MovieItemStatus status;

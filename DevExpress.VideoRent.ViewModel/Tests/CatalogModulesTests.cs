@@ -8,6 +8,7 @@ using DevExpress.Xpo;
 #if SL
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 #else
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
 
 namespace DevExpress.VideoRent.ViewModel.Tests {

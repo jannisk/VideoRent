@@ -44,11 +44,13 @@ namespace DevExpress.VideoRent {
         public override void AfterConstruction() {
             base.AfterConstruction();
             discountLevel = CustomerDiscountLevel.FirstTime;
-            account = new Account(Session);
-            account.AccountType = AccountTypeEnum.Receivable;
-            account.Customer = (Customer)this;
-            account.AccountBalance = 0;
-            account.AccountName = FirstName;
+            account = new Account(Session)
+            {
+                Type = AccountTypeEnum.Payable,
+                Customer = (Customer) this,
+                Balance = 10,
+                Name = FirstName
+            };
         }
 #if SL
         [Indexed(Unique = true)]
@@ -104,12 +106,11 @@ namespace DevExpress.VideoRent {
             }
         }
 
-        //[Association("Customer-Accounts")]
-        //public Account CustomerAccount
-        //{
-        //    get { return account; }
-        //    set { SetPropertyValue<Account>("Account", ref account, value); }
-        //}
+        [Association("Customer-Accounts")]
+        public XPCollection<Account> Accounts
+        {
+            get { return GetCollection<Account>("Accounts"); } 
+        }
 
         [Association("Customer-Receipts")]
         public XPCollection<Receipt> Receipts { get { return GetCollection<Receipt>("Receipts"); } }
@@ -163,6 +164,11 @@ namespace DevExpress.VideoRent {
             if(receipt != null) receipt.CalcPayment();
             return receipt;
         }
+        /// <summary>
+        /// Buys an item given by the specified rentInfo.
+        /// </summary>
+        /// <param name="rentsInfo">The rents info.</param>
+        /// <returns></returns>
         public Receipt Buy(ICollection<RentInfo> rentsInfo) {
             Receipt receipt = null;
             foreach(RentInfo rentInfo in rentsInfo) {
@@ -174,6 +180,7 @@ namespace DevExpress.VideoRent {
             if(receipt != null) receipt.CalcPayment();
             return receipt;
         }
+
         public Receipt DoRent(RentInfo rentInfo) {
             return DoRent(new RentInfo[] { rentInfo });
         }

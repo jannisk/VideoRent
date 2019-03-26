@@ -355,6 +355,7 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         public ModuleObjectDetail ModuleObjectDetail { get { return moduleObjectDetail; } }
     }
     public delegate void ModuleObjectDetailEventHandler(object sender, ModuleObjectDetailEventArgs e);
+    
     public class ModulesManager {
         static ModulesManager _current = null;
         public static ModulesManager Current {
@@ -366,7 +367,7 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         }
 #if DebugTest
         public static void Reset() {
-            current = null;
+            _current = null;
         }
 #endif
         readonly Dictionary<object, ModuleObjectDetailBase> _modulesByKey = new Dictionary<object, ModuleObjectDetailBase>();

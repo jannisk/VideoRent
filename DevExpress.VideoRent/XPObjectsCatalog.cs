@@ -241,7 +241,7 @@ namespace DevExpress.VideoRent {
         public MovieItem AddItem() {
             return new MovieItem(this);
         }
-        internal MovieItem AddItem(MovieItemFormat format, decimal sellPrice) {
+        public MovieItem AddItem(MovieItemFormat format, decimal sellPrice) {
             return new MovieItem(this, format, sellPrice, string.Format(Properties.Resources.ShelfPattern, this.MovieId % ReferenceData.ShelvesCount + 1));
         }
         public bool IsAvailableForRent { get { return GetActiveItems().Count > 0; } }

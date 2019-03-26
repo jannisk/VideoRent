@@ -1,4 +1,4 @@
-#if DebugTest
+
 using System;
 using System.ComponentModel;
 using System.Reflection;
@@ -7,11 +7,11 @@ using DevExpress.VideoRent.Helpers;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
-
 #if SL
 using Microsoft.Silverlight.Testing;
 #else
 #endif
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DevExpress.VideoRent.Tests {
     [TestClass]
@@ -20,28 +20,28 @@ namespace DevExpress.VideoRent.Tests {
         public void GeneratedId() {
             Assert.AreEqual(1, Avatar.MovieId);
             Assert.AreEqual(3, Anton.CustomerId);
-            Customer lastCustomer = new Customer(Session);
+            var lastCustomer = new Customer(Session);
             Session.CommitChanges();
-            int lastId = lastCustomer.CustomerId;
-            Customer customerWithId = new Customer(Session, lastId + 1, string.Empty, string.Empty, string.Empty);
-            Customer customer = new Customer(Session);
+            var lastId = lastCustomer.CustomerId;
+            var customerWithId = new Customer(Session, lastId + 1, string.Empty, string.Empty, string.Empty);
+            var customer = new Customer(Session);
             Session.CommitChanges();
             Assert.AreEqual(customerWithId.CustomerId + 1, customer.CustomerId);
         }
         [TestMethod]
         public void GenerateCustomerId() {
-            using(NestedUnitOfWork nuow = Session.BeginNestedUnitOfWork()) {
+            using(var nuow = Session.BeginNestedUnitOfWork()) {
                 new Customer(nuow, "First", "Customer");
                 nuow.CommitChanges();
             }
             Session.CommitChanges();
-            int firstId = Session.FindObject<Customer>(CriteriaOperator.Parse("FullName = ?", "First Customer")).CustomerId;
-            using(NestedUnitOfWork nuow = Session.BeginNestedUnitOfWork()) {
+            var firstId = Session.FindObject<Customer>(CriteriaOperator.Parse("FullName = ?", "First Customer")).CustomerId;
+            using(var nuow = Session.BeginNestedUnitOfWork()) {
                 new Customer(nuow, "Second", "Customer");
                 nuow.CommitChanges();
             }
             Session.CommitChanges();
-            int secondId = Session.FindObject<Customer>(CriteriaOperator.Parse("FullName = ?", "Second Customer")).CustomerId;
+            var secondId = Session.FindObject<Customer>(CriteriaOperator.Parse("FullName = ?", "Second Customer")).CustomerId;
             Assert.AreEqual(1, secondId - firstId);
         }
         [TestMethod]
@@ -51,7 +51,7 @@ namespace DevExpress.VideoRent.Tests {
         }
         [TestMethod]
         public void AddMovieItem_AvailableForRent() {
-            Movie movie = new Movie(Session);
+            var movie = new Movie(Session);
             Assert.IsFalse(movie.IsAvailableForRent);
             movie.AddItem();
             Assert.IsTrue(movie.IsAvailableForRent);
@@ -62,11 +62,11 @@ namespace DevExpress.VideoRent.Tests {
         }
         [TestMethod]
         public void RentMovieByCustomer_AvailableForRent() {
-            Movie movie = new Movie(Session);
+            var movie = new Movie(Session);
             movie.AddItem(MovieItemFormat.DVD, 10);
             Assert.IsTrue(movie.IsAvailableForRent);
-            Customer customer = new Customer(Session);
-            Rent rent = customer.DoRent(new RentInfo(movie)).Rents[0];
+            var customer = new Customer(Session);
+            var rent = customer.DoRent(new RentInfo(movie)).Rents[0];
             Assert.IsNotNull(rent);
             Assert.AreEqual(1, rent.Days);
             Assert.AreEqual(customer, rent.Customer);
@@ -76,7 +76,7 @@ namespace DevExpress.VideoRent.Tests {
         }
         [TestMethod]
         public void Rent_And_ReturnMovie() {
-            Rent rent = Andrew.DoRent(new RentInfo(Avatar)).Rents[0];
+            var rent = Andrew.DoRent(new RentInfo(Avatar)).Rents[0];
             Assert.IsFalse(Avatar.IsAvailableForRent);
             Assert.IsTrue(rent.Active);
             rent.Return();
@@ -86,7 +86,7 @@ namespace DevExpress.VideoRent.Tests {
         [TestMethod]
         public void RentOn_And_DateReturned() {
             VideoRentDateTime.AddDays(-2);
-            Rent rent = Andrew.DoRent(new RentInfo(Avatar)).Rents[0];
+            var rent = Andrew.DoRent(new RentInfo(Avatar)).Rents[0];
             Assert.IsNull(rent.ReturnedOn);
             VideoRentDateTime.AddDays(2);
             rent.Return();
@@ -96,56 +96,56 @@ namespace DevExpress.VideoRent.Tests {
         [TestMethod]
         public void Directors() {
             Assert.AreEqual("James Cameron", Avatar.Directors);
-            Artist director = new Artist(Session, "Test", "Director");
+            var director = new Artist(Session, "Test", "Director");
             Avatar.AddArtist(director, MovieArtistLine.GetDirector(Session));
             Session.CommitChanges();
             Assert.AreEqual("James Cameron, Test Director", Avatar.Directors);
         }
         [TestMethod]
         public void RentStatus() {
-            Rent rent = Andrew.DoRent(new RentInfo(Avatar)).Rents[0];
-            MovieItem avatarItem = rent.Item;
+            var rent = Andrew.DoRent(new RentInfo(Avatar)).Rents[0];
+            var avatarItem = rent.Item;
             Assert.IsTrue(rent.Active);
             Assert.AreEqual(MovieItemStatus.Rented, avatarItem.Status);
             rent.Return();
             Assert.IsFalse(rent.Active);
             Assert.AreEqual(MovieItemStatus.Active, avatarItem.Status);
-            Rent newRent = Anton.DoRent(new RentInfo(avatarItem)).Rents[0];
+            var newRent = Anton.DoRent(new RentInfo(avatarItem)).Rents[0];
             Assert.IsTrue(newRent.Active);
             Assert.AreEqual(MovieItemStatus.Rented, avatarItem.Status);
             Assert.IsFalse(rent.Active);
         }
         [TestMethod]
         public void CreatingAndDeletingPrices() {
-            MovieCategory category = new MovieCategory(Session);
-            foreach(MovieItemFormat format in EnumHelper.GetValues<MovieItemFormat>()) {
-                MovieCategoryPrice price = category.GetPrice(MovieItemFormat.DVD);
+            var category = new MovieCategory(Session);
+            foreach(var format in EnumHelper.GetValues<MovieItemFormat>()) {
+                var price = category.GetPrice(MovieItemFormat.DVD);
                 Assert.IsNotNull(price);
             }
-            XPCollection<MovieCategoryPrice> prices = category.Prices;
+            var prices = category.Prices;
             category.Delete();
-            foreach(MovieCategoryPrice price in prices)
+            foreach(var price in prices)
                 Assert.IsTrue(price.IsDeleted);
         }
         [TestMethod]
         public void CreatingMovieAndCheckDefaultCategory() {
-            Movie movie = new Movie(Session);
+            var movie = new Movie(Session);
             Assert.IsNotNull(movie.Category);
             Assert.AreEqual(movie.Category, MovieCategory.GetDefaultCategory(Session));
         }
         [TestMethod]
         public void SaveMovieWithNullCategory() {
-            Movie movie = new Movie(Session, "new film");
+            var movie = new Movie(Session, "new film");
             movie.Category = null;
             Session.CommitChanges();
             Assert.AreEqual(MovieCategory.GetDefaultCategory(Session), movie.Category);
         }
         [TestMethod]
         public void MovieItemCreateFewItems() {
-            int itemsCount = new XPCollection<MovieItem>(Session).Count;
+            var itemsCount = new XPCollection<MovieItem>(Session).Count;
             MovieItem.CreateFewItems(Avatar.Items[0], 0);
             Session.CommitChanges();
-            int newItemsCount = new XPCollection<MovieItem>(Session).Count;
+            var newItemsCount = new XPCollection<MovieItem>(Session).Count;
             Assert.AreEqual(itemsCount, newItemsCount);
             MovieItem.CreateFewItems(Avatar.Items[0], 3);
             Session.CommitChanges();
@@ -156,46 +156,46 @@ namespace DevExpress.VideoRent.Tests {
         public void MovieItemCountInfo() {
             MovieItem.CreateFewItems(Avatar.Items[0], 100);
             Session.CommitChanges();
-            MovieItem.CountInfo countInfo = new MovieItem.CountInfo(Avatar.Items);
+            var countInfo = new MovieItem.CountInfo(Avatar.Items);
             Assert.AreEqual(Avatar.Items.Count, countInfo.Total);
         }
         [TestMethod]
         public void MovieItemLastRentedOn() {
             VideoRentDateTime.AddDays(10);
-            DateTime rentDate = VideoRentDateTime.Now;
-            Rent rent = Anton.DoRent(new RentInfo(Postal)).Rents[0];
-            MovieItem item = rent.Item;
+            var rentDate = VideoRentDateTime.Now;
+            var rent = Anton.DoRent(new RentInfo(Postal)).Rents[0];
+            var item = rent.Item;
             VideoRentDateTime.AddDays(2);
             rent.Return();
             Assert.AreEqual(rentDate, item.LastRentedOn);
         }
         [TestMethod]
         public void RentMovies_CalcPayment() {
-            Receipt receipt = Alex.Buy(new RentInfo[] { new RentInfo(Avatar), new RentInfo(Cube) });
+            var receipt = Alex.Buy(new RentInfo[] { new RentInfo(Avatar), new RentInfo(Cube) });
             Assert.AreEqual(2, receipt.Rents.Count);
             Assert.AreEqual(MovieItemStatus.Sold, receipt.Rents[0].Item.Status);
             Assert.AreEqual(MovieItemStatus.Sold, receipt.Rents[1].Item.Status);
-            decimal payment = receipt.Rents[0].Item.SellingPrice + receipt.Rents[1].Item.SellingPrice;
+            var payment = receipt.Rents[0].Item.SellingPrice + receipt.Rents[1].Item.SellingPrice;
             Assert.AreEqual(payment, receipt.Payment);
         }
         [TestMethod]
         public void ReturnMovie() {
-            Rent rent = Alex.DoRent(new RentInfo(Avatar, 1)).Rents[0];
+            var rent = Alex.DoRent(new RentInfo(Avatar, 1)).Rents[0];
             VideoRentDateTime.AddDays(3);
-            Receipt overdueReceipt = Alex.ReturnRent(rent);
+            var overdueReceipt = Alex.ReturnRent(rent);
             Assert.IsNotNull(overdueReceipt);
             Assert.AreNotEqual(0, overdueReceipt.Payment);
         }
         [TestMethod]
         public void MovieItemAsRentItem() {
-            MovieItem item = Avatar.GetActiveItems()[0];
+            var item = Avatar.GetActiveItems()[0];
             Assert.AreEqual(item, item.RentItem);
             item.Status = MovieItemStatus.Rented;
             Assert.IsNull(item.RentItem);
         }
         [TestMethod]
         public void CustomerIsDebter() {
-            Receipt antonReceipt = Anton.DoRent(new RentInfo(Postal, 1));
+            var antonReceipt = Anton.DoRent(new RentInfo(Postal, 1));
             VideoRentDateTime.AddDays(5);
             Andrew.DoRent(new RentInfo(Avatar, 3));
             Session.CommitChanges();
@@ -214,9 +214,9 @@ namespace DevExpress.VideoRent.Tests {
             Avatar.Category = null;
             Avatar.Delete();
             Session.CommitChanges();
-            MovieCategory category = MovieCategory.GetDefaultCategory(Session);
-            XPCollection<Movie> movies = new XPCollection<Movie>(category.Movies);
-            foreach(Movie movie in movies) {
+            var category = MovieCategory.GetDefaultCategory(Session);
+            var movies = new XPCollection<Movie>(category.Movies);
+            foreach(var movie in movies) {
                 movie.Awards = "1";
             }
             Session.CommitChanges();
@@ -229,8 +229,8 @@ namespace DevExpress.VideoRent.Tests {
         }
         [TestMethod]
         public void TryDeleteItemWasInRent() {
-            MovieItem item = Avatar.AddItem();
-            Receipt receipt = Andrew.DoRent(new RentInfo(item));
+            var item = Avatar.AddItem();
+            var receipt = Andrew.DoRent(new RentInfo(item));
             VideoRentDateTime.AddDays(3);
             Andrew.ReturnRents(receipt.Rents);
             SessionHelper.CommitSession(Session, null);
@@ -240,17 +240,17 @@ namespace DevExpress.VideoRent.Tests {
         }
         [TestMethod]
         public void DeleteMovieItemOnRemove() {
-            MovieItem item = Avatar.AddItem();
+            var item = Avatar.AddItem();
             SessionHelper.CommitSession(Session, null);
             Avatar.Items.Remove(item);
             Assert.IsTrue(item.IsDeleted);
         }
         [TestMethod]
         public void ChangeArtistMovie() {
-            XPCollection<MovieArtist> changedObjects = new XPCollection<MovieArtist>(Session, CriteriaOperator.Parse("Movie = ? AND Artist = ?", Cube, JamesCameron));
+            var changedObjects = new XPCollection<MovieArtist>(Session, CriteriaOperator.Parse("Movie = ? AND Artist = ?", Cube, JamesCameron));
             Assert.AreEqual(0, changedObjects.Count);
-            XPCollection<MovieArtist> col = new XPCollection<MovieArtist>(Session, CriteriaOperator.Parse("Movie = ? AND Artist = ?", Avatar, JamesCameron));
-            MovieArtist ma = col[0];
+            var col = new XPCollection<MovieArtist>(Session, CriteriaOperator.Parse("Movie = ? AND Artist = ?", Avatar, JamesCameron));
+            var ma = col[0];
             ma.Movie = Cube;
             SessionHelper.CommitSession(Session, null);
             changedObjects = new XPCollection<MovieArtist>(Session, CriteriaOperator.Parse("Movie = ? AND Artist = ?", Cube, JamesCameron));
@@ -261,27 +261,27 @@ namespace DevExpress.VideoRent.Tests {
     public class PriceTests : XPOObjectsBaseTests {
         [TestMethod]
         public void MovieItem_CalcOnOrderPrice() {
-            MovieCategory newFilms = new MovieCategory(Session);
-            MovieCategoryPrice newFilmsOnDVD = newFilms.GetPrice(MovieItemFormat.DVD);
+            var newFilms = new MovieCategory(Session);
+            var newFilmsOnDVD = newFilms.GetPrice(MovieItemFormat.DVD);
             newFilmsOnDVD.LateRentPrice = 4;
             newFilmsOnDVD.Days1RentPrice = 2;
             newFilmsOnDVD.Days2RentPrice = 1;
             Avatar.Category = newFilms;
-            MovieItem avatarItem = Avatar.Items[0];
-            decimal onOrderPrice = avatarItem.CalcOnOrderPrice(9);
+            var avatarItem = Avatar.Items[0];
+            var onOrderPrice = avatarItem.CalcOnOrderPrice(9);
             Assert.AreEqual(7 * 1 + (9 - 7) * 4, onOrderPrice);
             onOrderPrice = avatarItem.CalcOnOrderPrice(1);
             Assert.AreEqual(1 * 2, onOrderPrice);
         }
         [TestMethod]
         public void MovieItem_CalcRentMaxDaysCount() {
-            MovieCategory newFilms = new MovieCategory(Session);
-            MovieCategoryPrice newFilmsOnDVD = newFilms.GetPrice(MovieItemFormat.DVD);
+            var newFilms = new MovieCategory(Session);
+            var newFilmsOnDVD = newFilms.GetPrice(MovieItemFormat.DVD);
             newFilmsOnDVD.LateRentPrice = 1;
             newFilmsOnDVD.Days1RentPrice = 2;
             newFilmsOnDVD.Days2RentPrice = 1;
             Avatar.Category = newFilms;
-            MovieItem avatarItem = Avatar.Items[0];
+            var avatarItem = Avatar.Items[0];
             avatarItem.SellingPrice = 2;
             Assert.AreEqual(0, avatarItem.CalcRentMaxDaysCount());
             avatarItem.SellingPrice = 4;
@@ -298,7 +298,7 @@ namespace DevExpress.VideoRent.Tests {
     public class XPOCatalogTests : XPOObjectsBaseTests {
         [TestMethod]
         public void ArtistLine_FindDirector() {
-            MovieArtistLine line = MovieArtistLine.GetDirector(Session);
+            var line = MovieArtistLine.GetDirector(Session);
             Assert.IsNotNull(line);
         }
         [TestMethod]
@@ -314,8 +314,8 @@ namespace DevExpress.VideoRent.Tests {
         }
         [TestMethod]
         public void AllowDelete() {
-            Movie movie = new Movie(Session, "1");
-            MovieItem item = movie.AddItem(MovieItemFormat.DVD, 10);
+            var movie = new Movie(Session, "1");
+            var item = movie.AddItem(MovieItemFormat.DVD, 10);
             Andrew.DoRent(new RentInfo(item));
             Session.CommitChanges();
             Assert.IsFalse(movie.AllowDelete);
@@ -338,18 +338,18 @@ namespace DevExpress.VideoRent.Tests {
             SessionHelper.CopySession(Session, copy, Session.Dictionary.CollectClassInfos(typeof(VideoRentBaseObject).Assembly), null, 0);
             copy.CommitChanges();
             IDGenerator.EnableGeneration();
-            Movie copyPostal = copy.FindObject<Movie>(CriteriaOperator.Parse("Title = ?", "Postal"));
+            var copyPostal = copy.FindObject<Movie>(CriteriaOperator.Parse("Title = ?", "Postal"));
             Assert.AreEqual("Postal", copyPostal.Title);
             Assert.AreEqual("ru, us", copyPostal.CountriesAsString);
             Assert.IsNotNull(MovieCategory.GetDefaultCategory(copy));
             Assert.AreEqual(MovieCategory.GetDefaultCategory(copy), copyPostal.Category);
-            Customer copyAnton = copy.FindObject<Customer>(CriteriaOperator.Parse("FirstName = ? and LastName = ?", "Anton", "Abanin"));
+            var copyAnton = copy.FindObject<Customer>(CriteriaOperator.Parse("FirstName = ? and LastName = ?", "Anton", "Abanin"));
             Assert.AreEqual(3, copyAnton.CustomerId);
         }
         [TestMethod]
         public void SessionHelper_GetObjectByKey() {
-            Movie movie = new Movie(Session);
-            NestedUnitOfWork nested = Session.BeginNestedUnitOfWork();
+            var movie = new Movie(Session);
+            var nested = Session.BeginNestedUnitOfWork();
             Assert.IsNotNull(SessionHelper.GetObjectByKey<Movie>(movie.Oid, nested));
             nested.CommitChanges();
         }
@@ -367,12 +367,12 @@ namespace DevExpress.VideoRent.Tests {
         [TestMethod]
         public void GenerateIDFast() {
             IDGenerator.EnableFastGeneration(Session);
-            Movie movie5 = new Movie(Session, "movie");
+            var movie5 = new Movie(Session, "movie");
             Session.CommitChanges();
             Assert.AreEqual(5, movie5.MovieId);
             IDGenerator.DisableFastGeneration();
             Session.CommitChanges();
-            Movie movie6 = new Movie(Session, "movie");
+            var movie6 = new Movie(Session, "movie");
             Session.CommitChanges();
             Assert.AreEqual(6, movie6.MovieId);
         }
@@ -381,7 +381,7 @@ namespace DevExpress.VideoRent.Tests {
 #endif
         [TestMethod]
         public void Generate() {
-            StandartBackgroundWorker backgroundWorker = new StandartBackgroundWorker();
+            var backgroundWorker = new StandartBackgroundWorker();
             backgroundWorker.WorkerReportsProgress = true;
             backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(backgroundWorker_RunWorkerCompleted);
 #if SL
@@ -407,24 +407,24 @@ namespace DevExpress.VideoRent.Tests {
 #endif
         }
         void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
-            XPCollection<Rent> rents = new XPCollection<Rent>(Session);
-            XPCollection<Receipt> receipts = new XPCollection<Receipt>(Session);
+            var rents = new XPCollection<Rent>(Session);
+            var receipts = new XPCollection<Receipt>(Session);
             rentsIdsAssert = true;
-            for(int i = 1; i <= rents.Count; ++i) {
+            for(var i = 1; i <= rents.Count; ++i) {
                 if(Session.FindObject<Rent>(CriteriaOperator.Parse("RentId = ?", i)) == null) {
                     rentsIdsAssert = false;
                     break;
                 }
             }
             receiptsIdsAssert = true;
-            for(int i = 1; i <= receipts.Count; ++i) {
+            for(var i = 1; i <= receipts.Count; ++i) {
                 if(Session.FindObject<Receipt>(CriteriaOperator.Parse("ReceiptId = ?", i)) == null) {
                     receiptsIdsAssert = false;
                     break;
                 }
             }
             rentsDatesAssert = true;
-            foreach(Rent rent in rents) {
+            foreach(var rent in rents) {
                 if(rent.ReturnedOn != null && rent.RentedOn.Date == ((DateTime)rent.ReturnedOn).Date) {
                     rentsDatesAssert = false;
                     break;
@@ -438,4 +438,4 @@ namespace DevExpress.VideoRent.Tests {
         }
     }
 }
-#endif
+

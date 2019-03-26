@@ -15,54 +15,54 @@ namespace DevExpress.VideoRent
 
     public class Account : VideoRentBaseObject
     {
-        double balance;
-        int Code;
-        AccountTypeEnum type;
-        string Name;
-        Customer customer;
+        double _balance;
+        int _code;
+        AccountTypeEnum _type;
+        string _name;
+        Customer _customer;
 
         /// <summary>
         /// 
         /// </summary>
-        public string AccountName
+        public string Name
         {
             get { return GetPropertyValue<string>("Name"); }
             set
             {
-                SetPropertyValue<string>("Name", value);
+                SetPropertyValue<string>("Name", ref _name,  value);
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public AccountTypeEnum AccountType
+        public AccountTypeEnum Type
         {
-            get { return GetPropertyValue<AccountTypeEnum>("type"); }
+            get { return GetPropertyValue<AccountTypeEnum>("Type"); }
             set
             {
-                SetPropertyValue<AccountTypeEnum>("type", value);
+                SetPropertyValue<AccountTypeEnum>("Type", ref _type, value);
             }
         }
 
-        public int AccountCode
+        public int Code
         {
             get { return GetPropertyValue<int>("Code"); }
-            set { SetPropertyValue<int>("Code", value); }
+            set { SetPropertyValue<int>("Code", ref _code, value); }
         }
 
-        public double AccountBalance
+        public double Balance
         {
             get { return GetPropertyValue<double>("Balance"); }
-            set { SetPropertyValue<double>("Balance", value); }
+            set { SetPropertyValue<double>("Balance", ref _balance, value); }
         }
 
 
-        [Association("Customers-Account")]
+        [Persistent, Association("Customer-Accounts")]
         public Customer Customer
         {
-            get { return customer; }
-            set { SetPropertyValue<Customer>("Customer", ref customer, value); }
+            get { return _customer; }
+            set { SetPropertyValue<Customer>("Customer", ref _customer, value); }
         }
 
         public Account(Session session) : base(session)

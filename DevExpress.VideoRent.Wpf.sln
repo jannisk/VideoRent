@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExpress.VideoRent.Wpf", "DevExpress.VideoRent.Wpf\DevExpress.VideoRent.Wpf.csproj", "{DE3AA91B-D8FC-4C1B-A8FD-E84C63C2C89F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExpress.VideoRent", "DevExpress.VideoRent\DevExpress.VideoRent.csproj", "{64358044-1010-4E3D-A18D-ACB7755C40FA}"
@@ -16,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{625971
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestVideorent", "UnitTestVideorent\UnitTestVideorent.csproj", "{5D83B5EF-994A-4DE7-AAE8-5A0B71A5C075}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +75,15 @@ Global
 		{E2ACD1A2-B73F-466A-8282-101F846ED8FA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E2ACD1A2-B73F-466A-8282-101F846ED8FA}.Release|x86.ActiveCfg = Release|x86
 		{E2ACD1A2-B73F-466A-8282-101F846ED8FA}.Release|x86.Build.0 = Release|x86
+		{5D83B5EF-994A-4DE7-AAE8-5A0B71A5C075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D83B5EF-994A-4DE7-AAE8-5A0B71A5C075}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D83B5EF-994A-4DE7-AAE8-5A0B71A5C075}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5D83B5EF-994A-4DE7-AAE8-5A0B71A5C075}.DebugTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D83B5EF-994A-4DE7-AAE8-5A0B71A5C075}.DebugTest|Any CPU.Build.0 = Debug|Any CPU
+		{5D83B5EF-994A-4DE7-AAE8-5A0B71A5C075}.DebugTest|x86.ActiveCfg = Debug|Any CPU
+		{5D83B5EF-994A-4DE7-AAE8-5A0B71A5C075}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D83B5EF-994A-4DE7-AAE8-5A0B71A5C075}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D83B5EF-994A-4DE7-AAE8-5A0B71A5C075}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

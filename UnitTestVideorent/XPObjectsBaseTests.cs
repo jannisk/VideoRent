@@ -1,5 +1,4 @@
 
-#if DebugTest
 using System;
 using System.Collections.Generic;
 using DevExpress.Data.Filtering;
@@ -11,6 +10,7 @@ using DevExpress.Xpo.Metadata;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Silverlight.Testing;
 #else
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
 
 namespace DevExpress.VideoRent.Tests 
@@ -72,6 +72,7 @@ namespace DevExpress.VideoRent.Tests
 #endif
         static ReflectionDictionary dict;
         UnitOfWork session;
+        
         [TestInitialize]
         public virtual void Init() {
             VideoRent.Helpers.VideoRentDateTime.RealTime = false;
@@ -116,7 +117,7 @@ namespace DevExpress.VideoRent.Tests
             return session.FindObject<Company>(CriteriaOperator.Parse("Name = ?", name));
         }
         protected virtual void CreateData(UnitOfWork session) {
-            VideoRentCurrentUser.Login(session, ReferenceData.AdministratorString);
+            //VideoRentCurrentUser.Login(session, ReferenceData.AdministratorString);
             CreateMovies(session);
             session.CommitChanges();
             CreateCustomers(session);
@@ -190,6 +191,7 @@ namespace DevExpress.VideoRent.Tests
             movie.Tagline = "Avatar Tagline";
             movie.WebSite = "http://www.avatarmovie.com/";
         }
+
         void CreateMovie(UnitOfWork session, string title, int quanity) {
             Movie movie = new Movie(session, title);
             for(int i = 0; i < quanity; i++) {
@@ -198,4 +200,3 @@ namespace DevExpress.VideoRent.Tests
         }
     }
 }
-#endif
