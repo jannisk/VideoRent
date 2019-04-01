@@ -100,6 +100,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounting\Account.cs" />
+    <Compile Include="Accounting\Journal.cs" />
+    <Compile Include="Accounting\Move.cs" />
+    <Compile Include="Accounting\MoveLine.cs" />
     <Compile Include="Helpers\BackgroundWorker.cs" />
     <Compile Include="Helpers\MyMySqlConnectionProvider.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />

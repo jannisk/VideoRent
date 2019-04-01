@@ -44,13 +44,8 @@ namespace DevExpress.VideoRent {
         public override void AfterConstruction() {
             base.AfterConstruction();
             discountLevel = CustomerDiscountLevel.FirstTime;
-            account = new Account(Session)
-            {
-                Type = AccountTypeEnum.Payable,
-                Customer = (Customer) this,
-                Balance = 10,
-                Name = FirstName
-            };
+            account = new Account(Session, this);
+          
         }
 #if SL
         [Indexed(Unique = true)]
@@ -150,6 +145,16 @@ namespace DevExpress.VideoRent {
                 return string.Format("{0}({1:d6})", FullName, CustomerId);
             }
         }
+
+        public void Deposit(int amount)
+        {         
+            Accounts[0].DepositAmount(amount);
+        }
+
+        public void Withdraw(int amount)
+        {
+        }
+
         public bool IsDebter {
             get { return Session.FindObject<Rent>(CriteriaOperator.Parse("Customer = ? and Active = ? and ActiveType = ?", this, true, ActiveRentType.Overdue)) != null; }
         }

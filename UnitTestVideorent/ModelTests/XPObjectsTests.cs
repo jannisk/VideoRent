@@ -31,7 +31,7 @@ namespace DevExpress.VideoRent.Tests {
         [TestMethod]
         public void GenerateCustomerId() {
             using(var nuow = Session.BeginNestedUnitOfWork()) {
-                new Customer(nuow, "First", "Customer");
+                var acustomer = new Customer(nuow, "First", "Customer");
                 nuow.CommitChanges();
             }
             Session.CommitChanges();

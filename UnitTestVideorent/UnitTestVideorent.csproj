@@ -55,10 +55,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="ModelTests\XPObjectsAccountingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XPObjectsBaseTests.cs" />
-    <Compile Include="XPObjectsTests.cs" />
+    <Compile Include="ModelTests\XPObjectsBaseTests.cs" />
+    <Compile Include="ModelTests\XPObjectsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DevExpress.VideoRent\DevExpress.VideoRent.csproj">
