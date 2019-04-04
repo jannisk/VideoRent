@@ -146,9 +146,9 @@ namespace DevExpress.VideoRent {
             }
         }
 
-        public void Deposit(int amount)
+        public void Deposit(int amount, Account cashAccount)
         {         
-            Accounts[0].DepositAmount(amount);
+            Accounts[0].DepositAmount(amount, cashAccount);
         }
 
         public void Withdraw(int amount)

@@ -10,11 +10,14 @@ namespace DevExpress.VideoRent.Tests
         [TestMethod]
         public void CreateCustomerAndCheckBalance()
         {
-            var cashAccount = new Account(Session, 300, AccountTypeEnum.Receivable, "Cash", string.Empty);
-            Andrew.Deposit(300);
-            Andrew.Deposit(100);
-            Andrew.Deposit(150);
-            Assert.IsTrue(cashAccount.Balance == 850);
+            var cashAccount = new CashAccount(Session);
+            Session.CommitChanges();
+            Andrew.Deposit(300, cashAccount);
+            Andrew.Deposit(100, cashAccount);
+            Andrew.Deposit(150, cashAccount);
+            Session.CommitChanges();
+
+            Assert.IsTrue(cashAccount.Balance == 550);
         }
 
         [TestMethod]
@@ -38,14 +41,15 @@ namespace DevExpress.VideoRent.Tests
         }
 
         [TestMethod]
-        public void CheckMoves()
+        public void CheckAccountBalance()
         {
-            var cashAccount = new Account(Session, 300, AccountTypeEnum.Receivable, "Cash", string.Empty);
-            Andrew.Deposit(30);
+            var cashAccount = new CashAccount(Session) {Debit = 300};
             Session.CommitChanges();
-            Alex.Deposit(30);
+            Andrew.Deposit(30, cashAccount);
             Session.CommitChanges();
-            Assert.IsTrue(cashAccount.Balance == 240);
+            Alex.Deposit(30, cashAccount);
+            Session.CommitChanges();
+            Assert.IsTrue(cashAccount.Balance == 360);
         }
     }
 }

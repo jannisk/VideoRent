@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DevExpress.Internal;
 using DevExpress.Xpo;
 
 namespace DevExpress.VideoRent
@@ -14,22 +15,32 @@ namespace DevExpress.VideoRent
 
     public class CashAccount:Account
     {
-        private static CashAccount _instance;
-
-        public static CashAccount Instance(Session session)
-        {
-            return _instance ?? new CashAccount(session);
-        }
-
+       
         public CashAccount(Session session):base(session)
         {
             Type = AccountTypeEnum.Cash;
+        }
+
+        public override Double Balance
+        {
+            get { return Debit - Credit; }
+            set { SetPropertyValue<double>("Balance", ref _balance, value); }
+        }
+
+        internal override void AddEntry(MoveLine moveLine)
+        {
+            if (moveLine.Amount <  0)
+               Debit += -moveLine.Amount;
+            else
+            {
+                Credit += moveLine.Amount;
+            }
         }
     }
 
     public class Account : VideoRentBaseObject
     {
-        double _balance;
+        protected double _balance;
         int _code;
         AccountTypeEnum _type;
         string _name;
@@ -58,12 +69,9 @@ namespace DevExpress.VideoRent
             }
         }
 
-        internal void AddEntry(MoveLine moveLine)
+        internal virtual void AddEntry(MoveLine moveLine)
         {
-            if (Type == AccountTypeEnum.Cash)
-                Debit += moveLine.Amount;
-            else
-                Credit += moveLine.Amount;
+            Credit += moveLine.Amount;
         }
 
         public int Credit
@@ -93,9 +101,9 @@ namespace DevExpress.VideoRent
             set { SetPropertyValue<int>("Code", ref _code, value); }
         }
 
-        public double Balance
+        public virtual double Balance
         {
-            get { return Credit - Debit; }
+            get {  return Credit - Debit; }
             set { SetPropertyValue<double>("Balance", ref _balance, value); }
         }
 
@@ -145,12 +153,12 @@ namespace DevExpress.VideoRent
         [Association("Account-MoveLines")]
         public XPCollection<MoveLine> MoveLines { get { return GetCollection<MoveLine>("MoveLines"); } }
 
-        internal void DepositAmount(int amount)
+        internal void DepositAmount(int amount, Account cashAccount)
         {
-            var aJournal = new Journal(Session);
-            aJournal.Add(amount, this);
-            aJournal.Add(-amount, CashAccount.Instance(Session));
-            aJournal.Post();
+                var aJournal = new Journal(Session);
+                aJournal.Add(amount, this);
+                aJournal.Add(-amount, cashAccount);
+                aJournal.Post();
         }
     }
 }

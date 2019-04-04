@@ -22,7 +22,7 @@ namespace DevExpress.VideoRent
         public MoveLine(Session session, Move amove, Journal journalEntry, Account account, int amount) : this(session)
         {
             _move = amove;
-            _journal = journalEntry;
+            Journal = journalEntry;
             _accountId = account;
             _amount = amount;
 
