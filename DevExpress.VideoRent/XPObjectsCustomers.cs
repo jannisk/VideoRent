@@ -45,7 +45,7 @@ namespace DevExpress.VideoRent {
             base.AfterConstruction();
             discountLevel = CustomerDiscountLevel.FirstTime;
             account = new Account(Session, this);
-          
+            
         }
 #if SL
         [Indexed(Unique = true)]

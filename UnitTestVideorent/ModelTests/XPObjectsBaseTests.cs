@@ -68,8 +68,10 @@ namespace DevExpress.VideoRent.Tests
 #if SL
     public class XPOObjectsBaseTests : SilverlightTest {
 #else
-    public class XPOObjectsBaseTests {
+  
 #endif
+     public class XPOObjectsBaseTests
+    {
         static ReflectionDictionary dict;
         UnitOfWork session;
         

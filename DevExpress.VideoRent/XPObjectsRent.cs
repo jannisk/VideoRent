@@ -47,6 +47,10 @@ namespace DevExpress.VideoRent {
     public class RentInfo {
         IRentItem item;
         int days;
+
+        public IRentItem Item { get { return item; } }
+        public int Days { get { return days; } }
+
         public RentInfo(IRentItem item, int days)
             : base() {
             this.item = item;
@@ -55,8 +59,7 @@ namespace DevExpress.VideoRent {
         public RentInfo(IRentItem item) : this(item, 0) { }
         public RentInfo(Movie movie, MovieItemFormat format, int days) : this(new MovieInFormat(movie, format), days) { }
         public RentInfo(Movie movie, MovieItemFormat format) : this(new MovieInFormat(movie, format)) { }
-        public IRentItem Item { get { return item; } }
-        public int Days { get { return days; } }
+       
     }
 
     public class MovieItem : VideoRentBaseObject, IRentItem {

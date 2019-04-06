@@ -27,7 +27,7 @@ namespace DevExpress.VideoRent {
         {
             var defaultAdmin =
                 session.FindObject<Employee>(CriteriaOperator.Parse("Role = ?", EmployeeRole.Administrator));
-            defaultAdmin.Password = string.Empty;
+            //defaultAdmin.Password = string.Empty;
             if (defaultAdmin == null)
                new Employee(session, ReferenceData.AdministratorString, string.Empty).Role = EmployeeRole.Administrator;
         }

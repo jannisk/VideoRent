@@ -1,4 +1,5 @@
-﻿using System;
+﻿#define DebugTest
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using DevExpress.VideoRent.ViewModel.Helpers;

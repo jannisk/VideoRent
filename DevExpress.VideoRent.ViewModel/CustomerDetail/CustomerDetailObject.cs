@@ -5,7 +5,7 @@ using DevExpress.Xpo;
 
 namespace DevExpress.VideoRent.ViewModel {
     public class CustomerDetailObject : VRObjectDetailObject<Customer>, ICustomerEditObjectParent {
-        CustomerEditObject customerEditObject;
+        CustomerEditObject _customerEditObject;
 
         public CustomerDetailObject(Session session, Guid? customerOid) : base(session, customerOid) { }
         protected override Customer CreateNewObjectOverride() {
@@ -14,23 +14,23 @@ namespace DevExpress.VideoRent.ViewModel {
         #region Subobjects
         internal CustomerEditObject CustomerEditObject {
             get {
-                if(customerEditObject == null)
-                    customerEditObject = new CustomerEditObject(this, VideoRentObjectOid);
-                return customerEditObject;
+                if(_customerEditObject == null)
+                    _customerEditObject = new CustomerEditObject(this, VideoRentObjectOid);
+                return _customerEditObject;
             }
         }
         internal override IEnumerable<EditableSubobject> Subobjects {
             get {
-                List<EditableSubobject> list = new List<EditableSubobject>(base.Subobjects);
-                if(customerEditObject != null)
-                    list.Add(customerEditObject);
+                var list = new List<EditableSubobject>(base.Subobjects);
+                if(_customerEditObject != null)
+                    list.Add(_customerEditObject);
                 return list;
             }
         }
         internal override bool ReleaseSubobject(EditableSubobject editableSubobject) {
             if(base.ReleaseSubobject(editableSubobject)) return true;
-            if(editableSubobject == customerEditObject) {
-                customerEditObject = null;
+            if(editableSubobject == _customerEditObject) {
+                _customerEditObject = null;
                 return true;
             }
             return false;

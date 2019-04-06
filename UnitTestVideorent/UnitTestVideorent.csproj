@@ -41,6 +41,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -56,11 +57,21 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ModelTests\XPObjectsAccountingTests.cs" />
+    <Compile Include="ModelViewTests\RentModulesTests.cs" />
+    <Compile Include="ModelViewTests\ViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ModelTests\XPObjectsBaseTests.cs" />
     <Compile Include="ModelTests\XPObjectsTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DevExpress.VideoRent.Resources\DevExpress.VideoRent.Resources.csproj">
+      <Project>{30e7937a-0651-4865-b8ae-97c2a8d405f8}</Project>
+      <Name>DevExpress.VideoRent.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DevExpress.VideoRent.ViewModel\DevExpress.VideoRent.ViewModel.csproj">
+      <Project>{e2acd1a2-b73f-466a-8282-101f846ed8fa}</Project>
+      <Name>DevExpress.VideoRent.ViewModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DevExpress.VideoRent\DevExpress.VideoRent.csproj">
       <Project>{64358044-1010-4e3d-a18d-acb7755c40fa}</Project>
       <Name>DevExpress.VideoRent</Name>
