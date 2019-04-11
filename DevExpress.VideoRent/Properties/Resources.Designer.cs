@@ -61,7 +61,7 @@ namespace DevExpress.VideoRent.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Active.
+        ///   Looks up a localized string similar to status.
         /// </summary>
         public static string Active {
             get {
@@ -70,7 +70,7 @@ namespace DevExpress.VideoRent.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Active.
+        ///   Looks up a localized string similar to status.
         /// </summary>
         public static string ActiveRent {
             get {
@@ -340,7 +340,7 @@ namespace DevExpress.VideoRent.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Active Renter.
+        ///   Looks up a localized string similar to status Renter.
         /// </summary>
         public static string RenterActive {
             get {

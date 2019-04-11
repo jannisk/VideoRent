@@ -124,6 +124,8 @@ namespace DevExpress.VideoRent.Tests
             session.CommitChanges();
             CreateCustomers(session);
             session.CommitChanges();
+            CreatePlayers(session);
+            session.CommitChanges();
             CreateArtists(session);
             session.CommitChanges();
             CreateCountries(session);
@@ -171,7 +173,23 @@ namespace DevExpress.VideoRent.Tests
             CreateCustomer(session, "Anton", "Abanin");
         }
 
-        protected Customer CreateCustomer(UnitOfWork session, string firstName, string lastName) {
+         protected virtual void CreatePlayers(UnitOfWork session)
+         {
+            CreatePlayer(session, Andrew, "Bob", "Telnov", PersonGender.Male);
+            CreatePlayer(session, Andrew, "Rob", "Telnov", PersonGender.Male);
+            CreatePlayer(session, Alex, "Niki", "Abidarov", PersonGender.Female);
+            CreatePlayer(session, Alex, "Mina", "Abidarov", PersonGender.Female);
+            CreatePlayer(session, Anton, "Anders", "Abanin", PersonGender.Male);
+            CreatePlayer(session, Anton, "Anita", "Abanin", PersonGender.Female);
+         }
+
+
+         private Player CreatePlayer(UnitOfWork unitOfWork, Customer parent, string firstName, string lastName, PersonGender gender)
+         {
+             return new Player(unitOfWork, parent, firstName, "", lastName, gender);
+         }
+
+         protected Customer CreateCustomer(UnitOfWork session, string firstName, string lastName) {
             return new Customer(session, firstName, lastName);
         }
         protected virtual void CreateMovies(UnitOfWork session) {

@@ -31,17 +31,17 @@ namespace DevExpress.VideoRent.Tests {
         [TestMethod]
         public void GenerateCustomerId() {
             using(var nuow = Session.BeginNestedUnitOfWork()) {
-                var acustomer = new Customer(nuow, "First", "Customer");
+                var acustomer = new Customer(nuow, "First", "Owner");
                 nuow.CommitChanges();
             }
             Session.CommitChanges();
-            var firstId = Session.FindObject<Customer>(CriteriaOperator.Parse("FullName = ?", "First Customer")).CustomerId;
+            var firstId = Session.FindObject<Customer>(CriteriaOperator.Parse("FullName = ?", "First Owner")).CustomerId;
             using(var nuow = Session.BeginNestedUnitOfWork()) {
-                new Customer(nuow, "Second", "Customer");
+                new Customer(nuow, "Second", "Owner");
                 nuow.CommitChanges();
             }
             Session.CommitChanges();
-            var secondId = Session.FindObject<Customer>(CriteriaOperator.Parse("FullName = ?", "Second Customer")).CustomerId;
+            var secondId = Session.FindObject<Customer>(CriteriaOperator.Parse("FullName = ?", "Second Owner")).CustomerId;
             Assert.AreEqual(1, secondId - firstId);
         }
         [TestMethod]

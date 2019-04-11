@@ -23,6 +23,9 @@ namespace DevExpress.VideoRent {
     public enum EmployeeRole { Administrator, Operator }
     public enum PersonGender { Male, Female }
     public enum ReceiptType { Rentals, Purchases, LateFees }
+    public enum MembershipType {Regular, Contributional}
+    public enum MembershipStatus{ Active, Inactive, Canceled }
+
     public enum CustomerDiscountLevel { FirstTime, Basic, Occasional, Active, Prodigious }
     public enum ActiveRentType { None, Overdue, Today, Active }
     public class ReferenceData {

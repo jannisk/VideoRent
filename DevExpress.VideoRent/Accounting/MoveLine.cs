@@ -1,4 +1,5 @@
 using System;
+using DevExpress.VideoRent.Helpers;
 using DevExpress.Xpo;
 using DevExpress.Data.Filtering;
 
@@ -16,7 +17,7 @@ namespace DevExpress.VideoRent
 
         public MoveLine(Session session) : base(session)
         {
-            _datePosted = DateTime.Now;
+            DatePosted = VideoRentDateTime.Now;
         }
 
         public MoveLine(Session session, Move amove, Journal journalEntry, Account account, int amount) : this(session)
@@ -67,6 +68,7 @@ namespace DevExpress.VideoRent
             }
         }
 
+
         Move _move;
         [Association(@"MoveLineReferencesMove")]
         public Move MoveId
@@ -103,6 +105,7 @@ namespace DevExpress.VideoRent
             get { return _journal; }
             set { SetPropertyValue<Journal>("Journal", ref _journal, value); }
         }
+
     }
 
 }

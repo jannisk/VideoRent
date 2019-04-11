@@ -23,6 +23,12 @@ namespace DevExpress.VideoRent.Helpers {
             if(RealTime) throw new Exception("In real-time mode this method not implemented");
             debugNow = debugNow.AddDays(days);
         }
+        public static void AddMonths(int months)
+        {
+            if (RealTime) throw new Exception("In real-time mode this method not implemented");
+            debugNow = debugNow.AddMonths(months);
+        }
+
         public static void SetTimeOfDay(DateTime time) {
             if(RealTime) throw new Exception("In real-time mode this method not implemented");
             debugNow = new DateTime(debugNow.Year, debugNow.Month, debugNow.Day, time.Hour, time.Minute, time.Second, time.Millisecond);

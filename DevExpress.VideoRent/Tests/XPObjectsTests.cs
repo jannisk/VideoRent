@@ -20,28 +20,28 @@ namespace DevExpress.VideoRent.Tests {
         public void GeneratedId() {
             Assert.AreEqual(1, Avatar.MovieId);
             Assert.AreEqual(3, Anton.CustomerId);
-            Customer lastCustomer = new Customer(Session);
+            Owner lastCustomer = new Owner(Session);
             Session.CommitChanges();
             int lastId = lastCustomer.CustomerId;
-            Customer customerWithId = new Customer(Session, lastId + 1, string.Empty, string.Empty, string.Empty);
-            Customer customer = new Customer(Session);
+            Owner customerWithId = new Owner(Session, lastId + 1, string.Empty, string.Empty, string.Empty);
+            Owner customer = new Owner(Session);
             Session.CommitChanges();
             Assert.AreEqual(customerWithId.CustomerId + 1, customer.CustomerId);
         }
         [TestMethod]
         public void GenerateCustomerId() {
             using(NestedUnitOfWork nuow = Session.BeginNestedUnitOfWork()) {
-                new Customer(nuow, "First", "Customer");
+                new Owner(nuow, "First", "Owner");
                 nuow.CommitChanges();
             }
             Session.CommitChanges();
-            int firstId = Session.FindObject<Customer>(CriteriaOperator.Parse("FullName = ?", "First Customer")).CustomerId;
+            int firstId = Session.FindObject<Owner>(CriteriaOperator.Parse("FullName = ?", "First Owner")).CustomerId;
             using(NestedUnitOfWork nuow = Session.BeginNestedUnitOfWork()) {
-                new Customer(nuow, "Second", "Customer");
+                new Owner(nuow, "Second", "Owner");
                 nuow.CommitChanges();
             }
             Session.CommitChanges();
-            int secondId = Session.FindObject<Customer>(CriteriaOperator.Parse("FullName = ?", "Second Customer")).CustomerId;
+            int secondId = Session.FindObject<Owner>(CriteriaOperator.Parse("FullName = ?", "Second Owner")).CustomerId;
             Assert.AreEqual(1, secondId - firstId);
         }
         [TestMethod]
@@ -65,11 +65,11 @@ namespace DevExpress.VideoRent.Tests {
             Movie movie = new Movie(Session);
             movie.AddItem(MovieItemFormat.DVD, 10);
             Assert.IsTrue(movie.IsAvailableForRent);
-            Customer customer = new Customer(Session);
+            Owner customer = new Owner(Session);
             Rent rent = customer.DoRent(new RentInfo(movie)).Rents[0];
             Assert.IsNotNull(rent);
             Assert.AreEqual(1, rent.Days);
-            Assert.AreEqual(customer, rent.Customer);
+            Assert.AreEqual(customer, rent.Owner);
             Assert.AreEqual(movie.Items[0], rent.Item);
             Assert.IsFalse(movie.IsAvailableForRent);
             Assert.IsNull(customer.DoRent(new RentInfo(movie)));
@@ -343,7 +343,7 @@ namespace DevExpress.VideoRent.Tests {
             Assert.AreEqual("ru, us", copyPostal.CountriesAsString);
             Assert.IsNotNull(MovieCategory.GetDefaultCategory(copy));
             Assert.AreEqual(MovieCategory.GetDefaultCategory(copy), copyPostal.Category);
-            Customer copyAnton = copy.FindObject<Customer>(CriteriaOperator.Parse("FirstName = ? and LastName = ?", "Anton", "Abanin"));
+            Owner copyAnton = copy.FindObject<Owner>(CriteriaOperator.Parse("FirstName = ? and LastName = ?", "Anton", "Abanin"));
             Assert.AreEqual(3, copyAnton.CustomerId);
         }
         [TestMethod]

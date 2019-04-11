@@ -20,7 +20,6 @@ namespace DevExpress.VideoRent {
         string address;
         string phone;
         string comments;
-        Account account;
         CustomerDiscountLevel discountLevel;
 
         public Customer(Session session) : base(session) { }
@@ -41,11 +40,12 @@ namespace DevExpress.VideoRent {
             LastName = lastName;
         }
         public Customer(Session session, string firstName, string lastName) : this(session, firstName, string.Empty, lastName) { }
+        
         public override void AfterConstruction() {
             base.AfterConstruction();
             discountLevel = CustomerDiscountLevel.FirstTime;
-            account = new Account(Session, this);
-            
+            new Account(Session, this);
+            Membership = new Membership(this, MembershipType.Regular, MembershipStatus.Active);
         }
 #if SL
         [Indexed(Unique = true)]
@@ -101,27 +101,75 @@ namespace DevExpress.VideoRent {
             }
         }
 
+       
+
+        public void AddPlayer(Player aPlayer)
+        {
+            aPlayer.Parent = this;
+        }
+
         [Association("Customer-Accounts")]
         public XPCollection<Account> Accounts
         {
             get { return GetCollection<Account>("Accounts"); } 
         }
 
+        [Association("Customer-Players")]
+        public XPCollection<Player> Children
+        {
+            get { return GetCollection<Player>("Children"); } 
+        }
+
         [Association("Customer-Receipts")]
         public XPCollection<Receipt> Receipts { get { return GetCollection<Receipt>("Receipts"); } }
+
         public XPCollection<Rent> ActiveRents { get { return new XPCollection<Rent>(Session, CriteriaOperator.Parse("Customer = ? and Active = ?", this, true)); } }
+        
         public CustomerDiscountLevel DiscountLevel {
             get { return discountLevel; }
             set { SetPropertyValue<CustomerDiscountLevel>("DiscountLevel", ref discountLevel, value); }
         }
         public string DiscountLevelCaption { get { return EnumTitlesKeeper<CustomerDiscountLevel>.GetTitle(DiscountLevel); } }
+
         public override bool AllowDelete { get { return base.AllowDelete && Session.FindObject<Receipt>(CriteriaOperator.Parse("Customer = ?", this)) == null; } }
+        
         public bool OverdueTodayItemsExist() {
             foreach(Rent rent in ActiveRents)
                 if(rent.ActiveType != ActiveRentType.Active) return true;
             return false;
         }
+
+        /// <summary>
+        /// Gets the offset from last credit
+        /// </summary>
+        /// <returns></returns>
+        public DateTime LastPayDate()
+        {
+            return Accounts[0].DateOffsetFromLastCredit();
+        }
+
+        private Membership _membership = null;
+        [NonPersistent]
+        public Membership Membership
+        {
+            get
+            {
+                return _membership;
+            }
+            set
+            {
+                if (_membership == value) 
+                    return;
+                _membership = value;
+                if (IsLoading)
+                    return;
+                if (_membership != null)
+                    _membership.Owner = this;
+            }
+        }
+
         public decimal Discount { get { return (decimal)ReferenceData.CustomerDiscount.GetValue((int)DiscountLevel); } }
+        
         public override string FullName {
             get {
                 return GetFullName(FirstName, MiddleName, LastName);
@@ -146,8 +194,15 @@ namespace DevExpress.VideoRent {
             }
         }
 
+        public void ChargeMembershipFee(int amount, Account cashAccount)
+        {
+            if (Membership.MembershipStatus != MembershipStatus.Active) return;
+            Accounts[0].Charge(amount, cashAccount);
+        }
+        
         public void Deposit(int amount, Account cashAccount)
-        {         
+        {
+            if (Membership.MembershipStatus != MembershipStatus.Active) return;
             Accounts[0].DepositAmount(amount, cashAccount);
         }
 
@@ -158,6 +213,14 @@ namespace DevExpress.VideoRent {
         public bool IsDebter {
             get { return Session.FindObject<Rent>(CriteriaOperator.Parse("Customer = ? and Active = ? and ActiveType = ?", this, true, ActiveRentType.Overdue)) != null; }
         }
+
+
+        public bool IsMembershipDebter
+        {
+            get { return Accounts[0].Balance < 0; }
+        }
+        
+
         public Receipt DoRent(ICollection<RentInfo> rentsInfo) {
             Receipt receipt = null;
             foreach(RentInfo rentInfo in rentsInfo) {

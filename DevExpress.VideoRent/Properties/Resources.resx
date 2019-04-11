@@ -178,7 +178,7 @@
     <value>Occasional Renter</value>
   </data>
   <data name="RenterActive" xml:space="preserve">
-    <value>Active Renter</value>
+    <value>status Renter</value>
   </data>
   <data name="RenterProdigious" xml:space="preserve">
     <value>Prodigious Renter</value>
@@ -202,7 +202,7 @@
     <value>Late Fees</value>
   </data>
   <data name="Active" xml:space="preserve">
-    <value>Active</value>
+    <value>status</value>
   </data>
   <data name="Damaged" xml:space="preserve">
     <value>Damaged</value>
@@ -235,7 +235,7 @@
     <value>Shelf {0}</value>
   </data>
   <data name="ActiveRent" xml:space="preserve">
-    <value>Active</value>
+    <value>status</value>
   </data>
   <data name="None" xml:space="preserve">
     <value>None</value>

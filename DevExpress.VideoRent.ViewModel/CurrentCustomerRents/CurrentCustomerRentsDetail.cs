@@ -25,7 +25,7 @@ namespace DevExpress.VideoRent.ViewModel {
         }
         protected override IEnumerable<ModuleObjectEdit> ModuleObjectEdits {
             get {
-                List<ModuleObjectEdit> baseEdits = new List<ModuleObjectEdit>(base.ModuleObjectEdits);
+                var baseEdits = new List<ModuleObjectEdit>(base.ModuleObjectEdits);
                 if(RentsPeriodEdit != null)
                     baseEdits.Add(RentsPeriodEdit);
                 return baseEdits;
@@ -40,7 +40,7 @@ namespace DevExpress.VideoRent.ViewModel {
             RentsPeriodEdit.AfterDispose += OnRentsPeriodEditAfterDispose;
         }
         public void ReturnRents() {
-            Guid? overdueReceiptOid = CurrentCustomerRentsEdit.ReturnRents();
+            var overdueReceiptOid = CurrentCustomerRentsEdit.ReturnRents();
             Save();
             if(overdueReceiptOid != null)
                 ShowBill(SessionHelper.GetObjectByKey<Receipt>(overdueReceiptOid, CurrentCustomerRentsEdit.VRObjectsEditObject.VideoRentObjects.Session));

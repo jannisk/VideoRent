@@ -28,7 +28,7 @@ namespace DevExpress.VideoRent
 
         internal void Post()
         {
-            if (!canPost())
+            if (!CanPost())
                 throw new UnableToPostException();
 
             foreach (var aMoveLine in MoveLines)
@@ -38,7 +38,7 @@ namespace DevExpress.VideoRent
              _wasPosted = true;
        }
 
-        private Boolean canPost()
+        private Boolean CanPost()
         {
             return Balance() == 0;
         }

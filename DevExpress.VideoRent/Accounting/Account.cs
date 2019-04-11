@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DevExpress.Data.Filtering;
 using DevExpress.Internal;
+using DevExpress.VideoRent.Helpers;
 using DevExpress.Xpo;
 
 namespace DevExpress.VideoRent
@@ -71,7 +73,13 @@ namespace DevExpress.VideoRent
 
         internal virtual void AddEntry(MoveLine moveLine)
         {
-            Credit += moveLine.Amount;
+            if (moveLine.Amount < 0)
+                Debit += -moveLine.Amount;
+            else
+            {
+                Credit += moveLine.Amount;
+            }
+
         }
 
         public int Credit
@@ -153,6 +161,7 @@ namespace DevExpress.VideoRent
         [Association("Account-MoveLines")]
         public XPCollection<MoveLine> MoveLines { get { return GetCollection<MoveLine>("MoveLines"); } }
 
+
         internal void DepositAmount(int amount, Account cashAccount)
         {
                 var aJournal = new Journal(Session);
@@ -160,5 +169,25 @@ namespace DevExpress.VideoRent
                 aJournal.Add(-amount, cashAccount);
                 aJournal.Post();
         }
+
+        public void Charge(int amount, Account cashAccount)
+        {
+            var aJournal = new Journal(Session);
+            aJournal.Add(-amount, this);
+            aJournal.Add(amount, cashAccount);
+            aJournal.Post();
+        }
+
+        /// <summary>
+        /// Returns the date offset this account was credited.
+        /// </summary>
+        /// <returns></returns>
+        public DateTime DateOffsetFromLastCredit()
+        {
+            var currentOffset  = Session.FindObject<MoveLine>(CriteriaOperator.Parse("AccountId=? And AccountId.MoveLines.Max(DatePosted)<=?", Oid, VideoRentDateTime.Now)).DatePosted;
+            return currentOffset;
+        }
+
+        
     }
 }

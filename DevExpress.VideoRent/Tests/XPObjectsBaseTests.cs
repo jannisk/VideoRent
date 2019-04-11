@@ -95,16 +95,16 @@ namespace DevExpress.VideoRent.Tests
         protected Artist UweBoll { get { return GetArtist(Session, "Boll"); } }
         protected UnitOfWork Session { get { return session; } }
         protected UnitOfWork GetSession() { return Session; }
-        protected Customer Andrew { get { return GetCustomer(Session, "Andrew"); } }
-        protected Customer Alex { get { return GetCustomer(Session, "Alex"); } }
-        protected Customer Anton { get { return GetCustomer(Session, "Anton"); } }
+        protected Owner Andrew { get { return GetCustomer(Session, "Andrew"); } }
+        protected Owner Alex { get { return GetCustomer(Session, "Alex"); } }
+        protected Owner Anton { get { return GetCustomer(Session, "Anton"); } }
         protected Movie Avatar { get { return GetMovie(Session, "Avatar"); } }
         protected Movie Postal { get { return GetMovie(Session, "Postal"); } }
         protected Movie Cube { get { return GetMovie(Session, "Cube"); } }
         protected Movie Nirvana { get { return GetMovie(Session, "Nirvana"); } }
         protected Company FoxCompany { get { return GetCompany(Session, "Fox"); } }
-        protected Customer GetCustomer(Session session, string firstName) {
-            return session.FindObject<Customer>(CriteriaOperator.Parse("FirstName = ?", firstName));
+        protected Owner GetCustomer(Session session, string firstName) {
+            return session.FindObject<Owner>(CriteriaOperator.Parse("FirstName = ?", firstName));
         }
         protected Movie GetMovie(Session session, string title) {
             return session.FindObject<Movie>(CriteriaOperator.Parse("Title = ?", title));
@@ -168,8 +168,8 @@ namespace DevExpress.VideoRent.Tests
             CreateCustomer(session, "Anton", "Abanin");
         }
 
-        protected Customer CreateCustomer(UnitOfWork session, string firstName, string lastName) {
-            return new Customer(session, firstName, lastName);
+        protected Owner CreateCustomer(UnitOfWork session, string firstName, string lastName) {
+            return new Owner(session, firstName, lastName);
         }
         protected virtual void CreateMovies(UnitOfWork session) {
             CreateMovie(session, "Avatar", 1);
