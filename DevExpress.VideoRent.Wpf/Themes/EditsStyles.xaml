@@ -305,6 +305,25 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style TargetType="dxe:ComboBoxEdit" x:Key="CustomerMembershipTypeComboBoxEdit" BasedOn="{StaticResource SelectComboBoxEdit}">
+        <Setter Property="ValueMember" Value="Value" />
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Title, Converter={StaticResource StringFormatConverter}, ConverterParameter={helpers:ConstString ID=RenterDiscount}}" />
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="EditNonEditableTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <TextBlock Margin="3"
+                        Text="{Binding SelectedItem.Title, Converter={StaticResource StringFormatConverter}, ConverterParameter={helpers:ConstString ID=RenterDiscount}}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+   
     <Style TargetType="dxe:ComboBoxEdit" x:Key="ReceiptTypeComboBoxEdit" BasedOn="{StaticResource SelectComboBoxEdit}">
         <Setter Property="ValueMember" Value="Value" />
         <Setter Property="ItemTemplate">

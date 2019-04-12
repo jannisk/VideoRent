@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Media;
 using DevExpress.VideoRent.Helpers;
@@ -131,6 +132,22 @@ namespace DevExpress.VideoRent.ViewModel {
         public IList<EnumItem> List {
             get { return list; }
             private set { SetValue<IList<EnumItem>>("List", ref list, value); }
+        }
+    }
+
+    public class MembershipTypeEditData : BindingAndDisposable
+    {
+        private IList<EnumItem> _list;
+
+        public MembershipTypeEditData()
+        {
+            List = EnumTitlesKeeper<MembershipType>.GetItemsList<EnumItem>();
+        }
+
+        public IList<EnumItem> List
+        {
+            get { return _list; }
+            private set {SetValue("List", ref _list, value);}
         }
     }
     public class RentsPeriodEditData : BindingAndDisposable {

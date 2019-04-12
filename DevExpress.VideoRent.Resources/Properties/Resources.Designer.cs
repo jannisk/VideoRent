@@ -2478,6 +2478,33 @@ namespace DevExpress.VideoRent.Resources.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Registration.
+        /// </summary>
+        public static string Membership {
+            get {
+                return ResourceManager.GetString("Membership", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Membership Type.
+        /// </summary>
+        public static string MembershipType {
+            get {
+                return ResourceManager.GetString("MembershipType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type of Membership.
+        /// </summary>
+        public static string MembershipTypeLabel {
+            get {
+                return ResourceManager.GetString("MembershipTypeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MHT document (*.mht)|*.mht.
         /// </summary>
         public static string MHTOpenFileFilter {
@@ -4367,6 +4394,15 @@ namespace DevExpress.VideoRent.Resources.Properties {
         public static string StartDate {
             get {
                 return ResourceManager.GetString("StartDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start date.
+        /// </summary>
+        public static string StartDateLabel {
+            get {
+                return ResourceManager.GetString("StartDateLabel", resourceCulture);
             }
         }
         

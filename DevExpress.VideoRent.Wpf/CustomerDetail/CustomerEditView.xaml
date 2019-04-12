@@ -41,6 +41,7 @@
             <helpers:BindingInfo ElementName="EmailEdit" Property="{x:Static helpers:CommandHelper.Command0Property}" Value="{Binding CommandSendEmail}"/>
             <helpers:BindingInfo ElementName="DiscountLevelEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.DiscountLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="DiscountLevelEdit" Property="{x:Static dxe:LookUpEditBase.ItemsSourceProperty}" Value="{Binding DiscountLevelEditData.List}" />
+            <helpers:BindingInfo ElementName="MembershipTypeEdit" Property="{x:Static dxe:LookUpEditBase.ItemsSourceProperty}" Value="{Binding MembershipTypeEditData.List}" />
             <helpers:BindingInfo ElementName="DiscountEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Discount, Mode=OneWay}" />
             <helpers:BindingInfo ElementName="CommentsEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Comments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:ValidationInfo EditName0="FirstNameEdit" Rule="{StaticResource ValidationRuleIsNotBlank}" />
@@ -93,6 +94,14 @@
                         <dxlc:LayoutItem VerticalAlignment="Bottom">
                             <helpers:NoteControl Text="{helpers:ConstString ID=DiscountNote}" />
                         </dxlc:LayoutItem>
+                    </dxlc:LayoutGroup>
+                    <dxlc:LayoutGroup Header="{helpers:ConstString ID=Membership}" Orientation="Vertical">
+                    <dxlc:LayoutItem Label="{helpers:ConstString ID=MembershipTypeLabel}" VerticalAlignment="Top">
+                        <dxe:ComboBoxEdit x:Name="MembershipTypeEdit" Style="{StaticResource CustomerMembershipTypeComboBoxEdit}" IsReadOnly="True" IsEnabled="False" />
+                    </dxlc:LayoutItem>
+                    <dxlc:LayoutItem Label="{helpers:ConstString ID=StartDateLabel}">
+                        <dxe:DateEdit x:Name="StartDateEdit" />
+                    </dxlc:LayoutItem>
                     </dxlc:LayoutGroup>
                 </dxlc:LayoutGroup>
             </dxlc:LayoutGroup>

@@ -35,7 +35,7 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         }
         static bool IsSureToDelete(string message) {
             if(string.IsNullOrEmpty(message)) return true;
-            MessageBoxResult result = MessageBox.Show(message, null, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
+            MessageBoxResult result = MessageBox.Show(message, string.Empty, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
             return result == MessageBoxResult.Yes;
         }
         public static void ShowWebSite(string url) {
