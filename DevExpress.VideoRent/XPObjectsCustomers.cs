@@ -101,16 +101,16 @@ namespace DevExpress.VideoRent {
             }
         }
 
-       
 
+      
         public void AddPlayer(Player aPlayer)
         {
             aPlayer.Parent = this;
         }
 
-        [Association("Customer-Accounts")]
+        [Association("Customer-Accounts"), Aggregated]
         public XPCollection<Account> Accounts
-        {
+        { 
             get { return GetCollection<Account>("Accounts"); } 
         }
 
@@ -148,12 +148,36 @@ namespace DevExpress.VideoRent {
             return Accounts[0].DateOffsetFromLastCredit();
         }
 
+        public DateTime MembershipStartDate
+        {
+            get
+            {
+              
+                return Membership == null ? VideoRentDateTime.Now.Subtract(new TimeSpan(360)) : Membership.StartDate;
+            }
+        }
+
+        [NonPersistent]
+        public MembershipType Membershiptype
+        {
+            get
+            {
+                return Membership == null ? MembershipType.Contributional : Membership.MembershipType;
+            }
+            set { Membership.MembershipType = value; }
+
+        }
+
         private Membership _membership = null;
         [NonPersistent]
         public Membership Membership
         {
             get
             {
+                if (_membership == null)
+                {
+                    
+                }
                 return _membership;
             }
             set
@@ -168,6 +192,12 @@ namespace DevExpress.VideoRent {
             }
         }
 
+        protected override void OnLoaded()
+        {
+            base.OnLoaded();
+            if (Membership == null)
+                Membership = Session.FindObject<Membership>(CriteriaOperator.Parse("Owner = ?", this));
+        }
         public decimal Discount { get { return (decimal)ReferenceData.CustomerDiscount.GetValue((int)DiscountLevel); } }
         
         public override string FullName {

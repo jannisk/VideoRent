@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel;
 using DevExpress.VideoRent.ViewModel.ViewModelBase;
 
 namespace DevExpress.VideoRent.ViewModel {
     public class CustomersEdit : VRObjectsEdit<Customer> {
         PersonGenderEditData personGenderEditData;
         GridUIOptions gridUIOptions;
+        private int _currentAccountsCount;
 
         public CustomersEdit(CustomersEditObject editObject, ModuleObjectDetail detail) : base(editObject, detail) {
             PersonGenderEditData = new PersonGenderEditData();
@@ -19,6 +21,35 @@ namespace DevExpress.VideoRent.ViewModel {
             get { return gridUIOptions; }
             set { SetValue<GridUIOptions>("GridUIOptions", ref gridUIOptions, value); }
         }
+
+        //protected override void RaiseCurrentRecordChangedOverride(Customer oldValue, Customer newValue)
+        //{
+        //    base.RaiseCurrentRecordChangedOverride(oldValue, newValue);
+        //    if (oldValue != null)
+        //        oldValue.Accounts.ListChanged -= OnAccountsListChanged;
+        //    if (newValue != null)
+        //    {
+        //        newValue.Accounts.ListChanged += OnAccountsListChanged;
+        //        CurrentAccountsCount = newValue.Accounts.Count;
+        //    }
+        //    else
+        //    {
+        //        CurrentAccountsCount = 0;
+        //    }
+        //}
+
+        public int CurrentAccountsCount
+        {
+            get { return _currentAccountsCount; }
+            set { SetValue<int>("CurrentAccountsCount", ref _currentAccountsCount, value); }
+        }
+
+        private void OnAccountsListChanged(object sender, ListChangedEventArgs e)
+        {
+            CurrentAccountsCount = CurrentRecord == null ? 0 : CurrentRecord.Accounts.Count;
+        }
+
+
         public override bool DeleteCurrentRecord() {
             Guid? deletedCustomerOid = CurrentRecord == null ? null : (Guid?)CurrentRecord.Oid;
             bool deleted = base.DeleteCurrentRecord();

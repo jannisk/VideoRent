@@ -60,7 +60,7 @@ namespace DevExpress.VideoRent
         public MembershipType MembershipType
         {
             get { return _membershipType; }
-            protected set { SetPropertyValue("Type", ref _membershipType, value); }
+            protected internal set { SetPropertyValue("Type", ref _membershipType, value); }
 
         }
 

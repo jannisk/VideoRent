@@ -45,6 +45,7 @@ namespace DevExpress.VideoRent.ViewModel {
             get { return currentMoviePicturesCount; }
             set { SetValue<int>("CurrentMoviePicturesCount", ref currentMoviePicturesCount, value); }
         }
+       
         protected override void RaiseCurrentRecordChangedOverride(Movie oldValue, Movie newValue) {
             base.RaiseCurrentRecordChangedOverride(oldValue, newValue);
             if(oldValue != null)
