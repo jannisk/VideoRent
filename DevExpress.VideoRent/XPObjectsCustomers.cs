@@ -148,12 +148,18 @@ namespace DevExpress.VideoRent {
             return Accounts[0].DateOffsetFromLastCredit();
         }
 
+        [NonPersistent]
         public DateTime MembershipStartDate
         {
             get
             {
               
                 return Membership == null ? VideoRentDateTime.Now.Subtract(new TimeSpan(360)) : Membership.StartDate;
+            }
+            set
+            {
+
+                Membership.StartDate = value;
             }
         }
 

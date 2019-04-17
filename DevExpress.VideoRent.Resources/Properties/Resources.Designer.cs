@@ -2487,7 +2487,7 @@ namespace DevExpress.VideoRent.Resources.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Membership Type.
+        ///   Looks up a localized string similar to {0} Member.
         /// </summary>
         public static string MembershipType {
             get {

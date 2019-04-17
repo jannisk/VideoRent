@@ -383,10 +383,18 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
             return (BarItem)sharedBarItem.Tag;
         }
         void OnSharedBarItemItemClick(object sender, ItemClickEventArgs e) {
-            BarItem sharedBarItem = (BarItem)sender;
-            BarItem activeBarItem = PrepareToClickAndGetActiveItem(sharedBarItem);
-            if(activeBarItem != null)
-                activeBarItem.PerformClick();
+            try
+            {
+                BarItem sharedBarItem = (BarItem)sender;
+                BarItem activeBarItem = PrepareToClickAndGetActiveItem(sharedBarItem);
+                if (activeBarItem != null)
+                    activeBarItem.PerformClick();
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message, "VideoRent", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
         }
         BarItem PrepareToClickAndGetActiveItem(BarItem sharedBarItem) {
             BarItem activeBarItem = GetActiveBarItem(sharedBarItem);

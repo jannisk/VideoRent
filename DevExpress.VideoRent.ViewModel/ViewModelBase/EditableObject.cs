@@ -4,53 +4,64 @@ using System.Collections.Generic;
 using System.Reflection;
 using DevExpress.VideoRent.ViewModel.Helpers;
 
-namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
-    public class EditableObjectEventArgs : EventArgs {
+namespace DevExpress.VideoRent.ViewModel.ViewModelBase
+{
+    public class EditableObjectEventArgs : EventArgs
+    {
         EditableObject updatedObject;
 
-        public EditableObjectEventArgs(EditableObject updatedObject) {
+        public EditableObjectEventArgs(EditableObject updatedObject)
+        {
             this.updatedObject = updatedObject;
         }
         public EditableObject UpdatedObject { get { return updatedObject; } }
     }
     public delegate void EditableObjectEventHandler(object sender, EditableObjectEventArgs e);
-    public class EditableObjectSet {
+    public class EditableObjectSet
+    {
         public event EditableObjectEventHandler Updated;
-        public void RaiseUpdated(EditableObject updatedObject) {
-            if(Updated != null)
+        public void RaiseUpdated(EditableObject updatedObject)
+        {
+            if (Updated != null)
                 Updated(this, new EditableObjectEventArgs(updatedObject));
         }
 #if DebugTest
         public EditableObjectEventHandler GetUpdatedEvent() { return Updated; }
 #endif
     }
-    public abstract class EditableSubobject : BindingAndDisposable {
+    public abstract class EditableSubobject : BindingAndDisposable
+    {
         EditableObject parent;
 
-        public EditableSubobject(EditableObject parent) {
+        public EditableSubobject(EditableObject parent)
+        {
             Parent = parent;
         }
-        public EditableObject Parent {
+        public EditableObject Parent
+        {
             get { return parent; }
             private set { SetValue<EditableObject>("Parent", ref parent, value); }
         }
         public event EventHandler BeforeUpdate;
         public event EventHandler Updated;
-        public void Update() {
-            if(BeforeUpdate != null)
+        public void Update()
+        {
+            if (BeforeUpdate != null)
                 BeforeUpdate(this, EventArgs.Empty);
             UpdateOverride();
-            if(Updated != null)
+            if (Updated != null)
                 Updated(this, EventArgs.Empty);
         }
-        protected void RaiseChanged() {
-            if(Parent != null)
+        protected void RaiseChanged()
+        {
+            if (Parent != null)
                 Parent.RaiseChanged();
         }
         protected abstract void UpdateOverride();
-        protected override void DisposeManaged() {
+        protected override void DisposeManaged()
+        {
 #if DEBUG
-            if(!Parent.ReleaseSubobject(this))
+            if (!Parent.ReleaseSubobject(this))
                 throw new InvalidOperationException();
 #else
             Parent.ReleaseSubobject(this);
@@ -59,12 +70,14 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
             base.DisposeManaged();
         }
     }
-    public abstract class EditableObject : BindingAndDisposable {
-        
+    public abstract class EditableObject : BindingAndDisposable
+    {
+
         const int MAX_UPDATES_ROUNDS = 50;
         readonly EditableObjectSet _set;
 
-        public EditableObject(EditableObjectSet set) {
+        public EditableObject(EditableObjectSet set)
+        {
             _set = set;
         }
         public EditableObjectSet Set { get { return _set; } }
@@ -72,59 +85,76 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         public abstract bool Dirty { get; }
         public event EventHandler Changed;
         public event EventHandler Reloaded;
-        public void Reload() {
+        public void Reload()
+        {
             ReloadBegin();
 #if DEBUG
             var done = false;
 #endif
             var updated = new Dictionary<EditableSubobject, bool>();
-            for(var i = 0; i < MAX_UPDATES_ROUNDS; ++i) {
+            for (var i = 0; i < MAX_UPDATES_ROUNDS; ++i)
+            {
                 var needUpdate = new LinkedList<EditableSubobject>(Subobjects);
-                foreach(var subobject in new List<EditableSubobject>(needUpdate)) {
-                    if(updated.ContainsKey(subobject))
+                foreach (var subobject in new List<EditableSubobject>(needUpdate))
+                {
+                    if (updated.ContainsKey(subobject))
                         needUpdate.Remove(subobject);
                 }
-                if(needUpdate.Count == 0) {
+                if (needUpdate.Count == 0)
+                {
 #if DEBUG
                     done = true;
 #endif
                     break;
-                } else {
-                    foreach(var subobject in needUpdate) {
-                        if(!subobject.Disposed)
+                }
+                else
+                {
+                    foreach (var subobject in needUpdate)
+                    {
+                        if (!subobject.Disposed)
                             subobject.Update();
                         updated.Add(subobject, true);
                     }
                 }
             }
 #if DEBUG
-            if(!done)
+            if (!done)
                 throw new StackOverflowException();
 #endif
             ReloadEnd();
             RaiseReloaded();
         }
-        internal void Save() {
+
+        internal void Save()
+        {
+            if (SaveOverride() == null)
+            {
+                if (Set != null)
+                    Set.RaiseUpdated(this);
+                Reload();
+            }
+
+        }        
+
+        internal void SaveAndDispose()
+        {
             SaveOverride();
-            if(Set != null)
-                Set.RaiseUpdated(this);
-            Reload();
-        }
-        internal void SaveAndDispose() {
-            SaveOverride();
-            if(Set != null)
+            if (Set != null)
                 Set.RaiseUpdated(this);
             Dispose();
         }
-        internal virtual void RaiseChanged() {
-            if(Changed != null)
+
+        internal virtual void RaiseChanged()
+        {
+            if (Changed != null)
                 Changed(this, EventArgs.Empty);
         }
-        protected abstract void SaveOverride();
+        protected abstract Exception SaveOverride();
         protected abstract void ReloadBegin();
         protected abstract void ReloadEnd();
-        protected virtual void RaiseReloaded() {
-            if(Reloaded != null)
+        protected virtual void RaiseReloaded()
+        {
+            if (Reloaded != null)
                 Reloaded(this, EventArgs.Empty);
         }
         #region Subobjects
@@ -140,7 +170,8 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
     /// <summary>
     /// 
     /// </summary>
-    public abstract class ViewsManager {
+    public abstract class ViewsManager
+    {
         static ViewsManager()
         {
             Current = null;
@@ -153,14 +184,17 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
     /// Generic class to create viewable objects across the application.
     /// This class creates the views but does not show them
     /// </summary>
-    public abstract class ViewModelModule : BindingAndDisposable {
+    public abstract class ViewModelModule : BindingAndDisposable
+    {
         object _view;
 
-        public ViewModelModule() {
-            if(ViewsManager.Current != null)
+        public ViewModelModule()
+        {
+            if (ViewsManager.Current != null)
                 View = ViewsManager.Current.CreateView(this);
         }
-        public object View {
+        public object View
+        {
             get { return _view; }
             set { SetValue<object>("View", ref _view, value); }
         }
@@ -168,50 +202,61 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
     /// <summary>
     /// 
     /// </summary>
-    public abstract class ModuleObjectEdit : ViewModelModule {
+    public abstract class ModuleObjectEdit : ViewModelModule
+    {
         EditableSubobject editObject;
         ModuleObjectDetail detail;
         bool doValidateSignal;
         bool isValid;
 
-        public ModuleObjectEdit(EditableSubobject editObject, ModuleObjectDetail detail) {
+        public ModuleObjectEdit(EditableSubobject editObject, ModuleObjectDetail detail)
+        {
             Detail = detail;
             EditObject = editObject;
             IsValid = true;
         }
-        public EditableSubobject EditObject {
+        public EditableSubobject EditObject
+        {
             get { return editObject; }
             private set { SetValue<EditableSubobject>("EditObject", ref editObject, value, RaiseEditObjectChanged); }
         }
-        public ModuleObjectDetail Detail {
+        public ModuleObjectDetail Detail
+        {
             get { return detail; }
             private set { SetValue<ModuleObjectDetail>("Detail", ref detail, value); }
         }
-        public bool DoValidateSignal {
+        public bool DoValidateSignal
+        {
             get { return doValidateSignal; }
             private set { SetValue<bool>("DoValidateSignal", ref doValidateSignal, value); }
         }
-        public bool IsValid {
+        public bool IsValid
+        {
             get { return isValid; }
             set { SetValue<bool>("IsValid", ref isValid, value); }
         }
-        public bool DoValidate() {
+        public bool DoValidate()
+        {
             DoValidateSignal = true;
             DoValidateSignal = false;
             return IsValid;
         }
         protected virtual void OnEditObjectUpdated(object sender, EventArgs e) { }
         protected virtual void OnEditObjectBeforeUpdate(object sender, EventArgs e) { }
-        protected override void DisposeManaged() {
+        protected override void DisposeManaged()
+        {
             EditObject.Dispose();
             base.DisposeManaged();
         }
-        void RaiseEditObjectChanged(EditableSubobject oldValue, EditableSubobject newValue) {
-            if(oldValue != null) {
+        void RaiseEditObjectChanged(EditableSubobject oldValue, EditableSubobject newValue)
+        {
+            if (oldValue != null)
+            {
                 oldValue.BeforeUpdate -= OnEditObjectBeforeUpdate;
                 oldValue.Updated -= OnEditObjectUpdated;
             }
-            if(newValue != null) {
+            if (newValue != null)
+            {
                 newValue.BeforeUpdate += OnEditObjectBeforeUpdate;
                 newValue.Updated += OnEditObjectUpdated;
                 OnEditObjectUpdated(newValue, EventArgs.Empty);
@@ -219,123 +264,149 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         }
     }
     public enum YesNoCancel { Yes, No, Cancel }
-    public abstract class ModuleObjectDetailBase : ViewModelModule {
+    public abstract class ModuleObjectDetailBase : ViewModelModule
+    {
         private bool _focusSignal;
         private object _tag;
 
         public ModuleObjectDetailBase() { }
-        public ModuleObjectDetailBase(object tag) {
+        public ModuleObjectDetailBase(object tag)
+        {
             Tag = tag;
         }
-        public bool FocusSignal {
+        public bool FocusSignal
+        {
             get { return _focusSignal; }
             private set { SetValue<bool>("FocusSignal", ref _focusSignal, value); }
         }
-        public void Focus() {
+        public void Focus()
+        {
             FocusSignal = true;
             FocusSignal = false;
         }
-        public object Tag {
+        public object Tag
+        {
             get { return _tag; }
             protected set { SetValue<object>("Tag", ref _tag, value); }
         }
     }
 
 
-    public abstract class ModuleObjectDetail : ModuleObjectDetailBase {
+    public abstract class ModuleObjectDetail : ModuleObjectDetailBase
+    {
         bool dirtyRough = false;
         EditableObject editObject;
 
         public ModuleObjectDetail(EditableObject editObject, object tag)
-            : this(editObject) {
+            : this(editObject)
+        {
             Tag = tag;
         }
-        public ModuleObjectDetail(EditableObject editObject) {
+        public ModuleObjectDetail(EditableObject editObject)
+        {
             EditObject = editObject;
         }
-        public EditableObject EditObject {
+        public EditableObject EditObject
+        {
             get { return editObject; }
             private set { SetValue<EditableObject>("EditObject", ref editObject, value, RaiseEditObjectChanged); }
         }
-        public bool DirtyRough {
+        public bool DirtyRough
+        {
             get { return dirtyRough; }
             private set { SetValue<bool>("DirtyRough", ref dirtyRough, value, RaiseDirtyRoughChanged); }
         }
         #region Edits
         protected virtual IEnumerable<ModuleObjectEdit> ModuleObjectEdits { get { return new ModuleObjectEdit[] { }; } }
         #endregion
-        public bool DoValidate() {
+        public bool DoValidate()
+        {
             var ret = true;
-            foreach(var edit in ModuleObjectEdits) {
-                if(!edit.DoValidate())
+            foreach (var edit in ModuleObjectEdits)
+            {
+                if (!edit.DoValidate())
                     ret = false;
             }
             return ret;
         }
-        public bool Save() {
+        public bool Save()
+        {
             BeginOperation();
-            if(!DoValidate()) return false;
+            if (!DoValidate()) return false;
             RaiseBeforeSave();
             EditObject.Save();
             return true;
         }
-        public bool SaveAndDispose() {
+        public bool SaveAndDispose()
+        {
             BeginOperation();
-            if(!DoValidate()) return false;
+            if (!DoValidate()) return false;
             RaiseBeforeSave();
-            foreach(var edit in ModuleObjectEdits)
+            foreach (var edit in ModuleObjectEdits)
                 edit.Dispose();
             EditObject.SaveAndDispose();
             Dispose();
             return true;
         }
-        public bool Close() {
-            if(EditObject.Dirty) {
+        public bool Close()
+        {
+            if (EditObject.Dirty)
+            {
                 var askResult = AskSaveChanges();
-                if(askResult == YesNoCancel.Cancel) return false;
-                if(askResult == YesNoCancel.Yes) return SaveAndDispose();
+                if (askResult == YesNoCancel.Cancel) return false;
+                if (askResult == YesNoCancel.Yes) return SaveAndDispose();
             }
             Dispose();
             return true;
         }
-        public bool PrepareToClose() {
-            if(EditObject.Dirty) {
+        public bool PrepareToClose()
+        {
+            if (EditObject.Dirty)
+            {
                 var askResult = AskSaveChanges();
-                if(askResult == YesNoCancel.Cancel) return false;
-                if(askResult == YesNoCancel.Yes) return Save();
+                if (askResult == YesNoCancel.Cancel) return false;
+                if (askResult == YesNoCancel.Yes) return Save();
             }
             return true;
         }
-        public virtual object GetModuleTypeKey() {
+        public virtual object GetModuleTypeKey()
+        {
             return EditObject.GetType();
         }
         protected virtual void RaiseBeforeSave() { }
         protected abstract YesNoCancel AskSaveChanges();
         protected virtual void RaiseDirtyRoughChanged(bool oldValue, bool newValue) { }
-        protected virtual void OnEditObjectReloaded(object sender, EventArgs e) {
+        protected virtual void OnEditObjectReloaded(object sender, EventArgs e)
+        {
             DirtyRough = editObject.Dirty;
         }
-        protected override void DisposeManaged() {
-            foreach(var edit in ModuleObjectEdits)
+        protected override void DisposeManaged()
+        {
+            foreach (var edit in ModuleObjectEdits)
                 edit.Dispose();
             EditObject.Dispose();
             base.DisposeManaged();
         }
-        protected void BeginOperation() {
+        protected void BeginOperation()
+        {
             Mouse.WaitIdle();
         }
-        void RaiseEditObjectChanged(EditableObject oldValue, EditableObject newValue) {
-            if(oldValue != null) {
+        void RaiseEditObjectChanged(EditableObject oldValue, EditableObject newValue)
+        {
+            if (oldValue != null)
+            {
                 oldValue.Changed -= OnEditObjectChanged;
                 oldValue.Reloaded -= OnEditObjectReloaded;
             }
-            if(newValue != null) {
+            if (newValue != null)
+            {
                 newValue.Changed += OnEditObjectChanged;
                 newValue.Reloaded += OnEditObjectReloaded;
                 OnEditObjectReloaded(EditObject, EventArgs.Empty);
             }
         }
-        void OnEditObjectChanged(object sender, EventArgs e) {
+        void OnEditObjectChanged(object sender, EventArgs e)
+        {
             DirtyRough = true;
         }
         #region Commands
@@ -347,27 +418,33 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         void DoCommandClose(object p) { Close(); }
         #endregion
     }
-    public class ModuleObjectDetailEventArgs : EventArgs {
+    public class ModuleObjectDetailEventArgs : EventArgs
+    {
         ModuleObjectDetail moduleObjectDetail;
 
-        public ModuleObjectDetailEventArgs(ModuleObjectDetail moduleObjectDetail) {
+        public ModuleObjectDetailEventArgs(ModuleObjectDetail moduleObjectDetail)
+        {
             this.moduleObjectDetail = moduleObjectDetail;
         }
         public ModuleObjectDetail ModuleObjectDetail { get { return moduleObjectDetail; } }
     }
     public delegate void ModuleObjectDetailEventHandler(object sender, ModuleObjectDetailEventArgs e);
-    
-    public class ModulesManager {
+
+    public class ModulesManager
+    {
         static ModulesManager _current = null;
-        public static ModulesManager Current {
-            get {
-                if(_current == null)
+        public static ModulesManager Current
+        {
+            get
+            {
+                if (_current == null)
                     _current = new ModulesManager();
                 return _current;
             }
         }
 #if DebugTest
-        public static void Reset() {
+        public static void Reset()
+        {
             _current = null;
         }
 #endif
@@ -375,19 +452,23 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         readonly Dictionary<object, List<ModuleObjectDetailBase>> _modulesByType = new Dictionary<object, List<ModuleObjectDetailBase>>();
         readonly Dictionary<Type, Type> _moduleObjectDetailTypes = new Dictionary<Type, Type>();
 
-        public void RegisterModuleObjectDetailType(Type editObjectType, Type moduleObjectDetailType) {
-            if(!editObjectType.IsSubclassOf(typeof(EditableObject))) throw new ArgumentOutOfRangeException("editObjectType");
-            if(!moduleObjectDetailType.IsSubclassOf(typeof(ModuleObjectDetail))) throw new ArgumentOutOfRangeException("moduleObjectDetailType");
-            if(GetModuleObjectDetailContructor(moduleObjectDetailType, editObjectType) == null) throw new ArgumentOutOfRangeException("moduleObjectDetailType");
+        public void RegisterModuleObjectDetailType(Type editObjectType, Type moduleObjectDetailType)
+        {
+            if (!editObjectType.IsSubclassOf(typeof(EditableObject))) throw new ArgumentOutOfRangeException("editObjectType");
+            if (!moduleObjectDetailType.IsSubclassOf(typeof(ModuleObjectDetail))) throw new ArgumentOutOfRangeException("moduleObjectDetailType");
+            if (GetModuleObjectDetailContructor(moduleObjectDetailType, editObjectType) == null) throw new ArgumentOutOfRangeException("moduleObjectDetailType");
             _moduleObjectDetailTypes.Add(editObjectType, moduleObjectDetailType);
         }
-        public ModuleObjectDetailBase OpenModuleObjectDetail(EditableObject editObject, bool focus) {
+        public ModuleObjectDetailBase OpenModuleObjectDetail(EditableObject editObject, bool focus)
+        {
             return OpenModuleObjectDetail(editObject, focus, null);
         }
-        public ModuleObjectDetailBase OpenModuleObjectDetail(EditableObject editObject, bool focus, object tag) {
+        public ModuleObjectDetailBase OpenModuleObjectDetail(EditableObject editObject, bool focus, object tag)
+        {
             return OpenModuleObjectDetail(editObject.Key, _moduleObjectDetailTypes[editObject.GetType()], editObject, focus, tag);
         }
-        public ModuleObjectDetailBase OpenModuleObjectDetail(Type moduleObjectDetailType, object tag) {
+        public ModuleObjectDetailBase OpenModuleObjectDetail(Type moduleObjectDetailType, object tag)
+        {
             return OpenModuleObjectDetail(moduleObjectDetailType, moduleObjectDetailType, null, false, tag);
         }
 
@@ -400,30 +481,39 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         /// <param name="focus">if set to <c>true</c> [focus].</param>
         /// <param name="tag">The tag.</param>
         /// <returns></returns>
-        private ModuleObjectDetailBase OpenModuleObjectDetail(object key, Type moduleObjectDetailType, EditableObject editObject, bool focus, object tag) {
+        private ModuleObjectDetailBase OpenModuleObjectDetail(object key, Type moduleObjectDetailType, EditableObject editObject, bool focus, object tag)
+        {
             ModuleObjectDetailBase moduleObjectDetail;
-            if(_modulesByKey.TryGetValue(key, out moduleObjectDetail)) {
+            if (_modulesByKey.TryGetValue(key, out moduleObjectDetail))
+            {
                 moduleObjectDetail.Focus();
-            } else {
+            }
+            else
+            {
                 moduleObjectDetail = CreateNewModuleObjectDetail(moduleObjectDetailType, editObject, focus, tag);
             }
             return moduleObjectDetail;
         }
         public bool CloseAllModuleObjectDetails() { return CloseModuleObjectDetails(_modulesByKey.Values); }
         public bool CloseModuleObjectDetails(object editObjectTypeKey) { return CloseModuleObjectDetails(GetModulesForType(editObjectTypeKey)); }
-        public bool CloseModuleObjectDetails(IEnumerable<ModuleObjectDetailBase> modules) {
-            foreach(var moduleObjectDetail in modules) {
+        public bool CloseModuleObjectDetails(IEnumerable<ModuleObjectDetailBase> modules)
+        {
+            foreach (var moduleObjectDetail in modules)
+            {
                 moduleObjectDetail.Focus();
-                if(moduleObjectDetail is ModuleObjectDetail && !((ModuleObjectDetail)moduleObjectDetail).PrepareToClose()) return false;
+                if (moduleObjectDetail is ModuleObjectDetail && !((ModuleObjectDetail)moduleObjectDetail).PrepareToClose()) return false;
             }
-            foreach(var moduleObjectDetail in new List<ModuleObjectDetailBase>(modules)) {
+            foreach (var moduleObjectDetail in new List<ModuleObjectDetailBase>(modules))
+            {
                 moduleObjectDetail.Dispose();
             }
             return true;
         }
-        internal List<ModuleObjectDetailBase> GetModulesForType(object editObjectType) {
+        internal List<ModuleObjectDetailBase> GetModulesForType(object editObjectType)
+        {
             List<ModuleObjectDetailBase> modulesForType;
-            if(!_modulesByType.TryGetValue(editObjectType, out modulesForType)) {
+            if (!_modulesByType.TryGetValue(editObjectType, out modulesForType))
+            {
                 modulesForType = new List<ModuleObjectDetailBase>();
                 _modulesByType.Add(editObjectType, modulesForType);
             }
@@ -438,57 +528,75 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase {
         /// <param name="focus">if set to <c>true</c> [focus].</param>
         /// <param name="tag">The tag.</param>
         /// <returns></returns>
-        ModuleObjectDetailBase CreateNewModuleObjectDetail(Type moduleObjectDetailType, EditableObject editObject, bool focus, object tag) {
+        ModuleObjectDetailBase CreateNewModuleObjectDetail(Type moduleObjectDetailType, EditableObject editObject, bool focus, object tag)
+        {
             ModuleObjectDetailBase moduleObjectDetail;
-            if(editObject == null) {
+            if (editObject == null)
+            {
                 moduleObjectDetail = (ModuleObjectDetailBase)GetModuleObjectDetailContructorWithTagOnly(moduleObjectDetailType).Invoke(new object[] { tag });
-            } else {
-                if(tag == null)
+            }
+            else
+            {
+                if (tag == null)
                     moduleObjectDetail = (ModuleObjectDetail)GetModuleObjectDetailContructor(moduleObjectDetailType, editObject.GetType()).Invoke(new object[] { editObject });
                 else
                     moduleObjectDetail = (ModuleObjectDetail)GetModuleObjectDetailContructorWithTag(moduleObjectDetailType, editObject.GetType()).Invoke(new object[] { editObject, tag });
             }
             moduleObjectDetail.AfterDispose += OnModuleObjectDetailAfterDispose;
             AddModuleObjectDetail(moduleObjectDetail);
-            if(focus)
+            if (focus)
                 moduleObjectDetail.Focus();
             return moduleObjectDetail;
         }
-        ConstructorInfo GetModuleObjectDetailContructorWithTagOnly(Type moduleObjectDetailType) {
+        ConstructorInfo GetModuleObjectDetailContructorWithTagOnly(Type moduleObjectDetailType)
+        {
             return moduleObjectDetailType.GetConstructor(new Type[] { typeof(object) });
         }
-        ConstructorInfo GetModuleObjectDetailContructor(Type moduleObjectDetailType, Type editObjectType) {
+        ConstructorInfo GetModuleObjectDetailContructor(Type moduleObjectDetailType, Type editObjectType)
+        {
             return moduleObjectDetailType.GetConstructor(new Type[] { editObjectType });
         }
-        ConstructorInfo GetModuleObjectDetailContructorWithTag(Type moduleObjectDetailType, Type editObjectType) {
+        ConstructorInfo GetModuleObjectDetailContructorWithTag(Type moduleObjectDetailType, Type editObjectType)
+        {
             return moduleObjectDetailType.GetConstructor(new Type[] { editObjectType, typeof(object) });
         }
-        void AddModuleObjectDetail(ModuleObjectDetailBase moduleObjectDetailBase) {
-            if(moduleObjectDetailBase is ModuleObjectDetail) {
+        void AddModuleObjectDetail(ModuleObjectDetailBase moduleObjectDetailBase)
+        {
+            if (moduleObjectDetailBase is ModuleObjectDetail)
+            {
                 var moduleObjectDetail = (ModuleObjectDetail)moduleObjectDetailBase;
                 _modulesByKey.Add(moduleObjectDetail.EditObject.Key, moduleObjectDetailBase);
                 GetModulesForType(moduleObjectDetail.GetModuleTypeKey()).Add(moduleObjectDetail);
-            } else {
+            }
+            else
+            {
                 _modulesByKey.Add(moduleObjectDetailBase.GetType(), moduleObjectDetailBase);
             }
         }
-        void RemoveModuleObjectDetail(ModuleObjectDetailBase moduleObjectDetailBase) {
-            if(moduleObjectDetailBase is ModuleObjectDetail) {
+        void RemoveModuleObjectDetail(ModuleObjectDetailBase moduleObjectDetailBase)
+        {
+            if (moduleObjectDetailBase is ModuleObjectDetail)
+            {
                 var moduleObjectDetail = (ModuleObjectDetail)moduleObjectDetailBase;
                 _modulesByKey.Remove(moduleObjectDetail.EditObject.Key);
                 RemoveFromModulesByTypeIfNeeded(moduleObjectDetail.GetModuleTypeKey());
-            } else {
+            }
+            else
+            {
                 _modulesByKey.Remove(moduleObjectDetailBase.GetType());
             }
         }
-        void RemoveFromModulesByTypeIfNeeded(object moduleObjectDetailType) {
+        void RemoveFromModulesByTypeIfNeeded(object moduleObjectDetailType)
+        {
             var details = GetModulesForType(moduleObjectDetailType);
-            foreach(var item in details) {
-                if(!item.Disposed) return;
+            foreach (var item in details)
+            {
+                if (!item.Disposed) return;
             }
             _modulesByType.Remove(moduleObjectDetailType);
         }
-        void OnModuleObjectDetailAfterDispose(object sender, EventArgs e) {
+        void OnModuleObjectDetailAfterDispose(object sender, EventArgs e)
+        {
             var moduleObjectDetail = (ModuleObjectDetailBase)sender;
             RemoveModuleObjectDetail(moduleObjectDetail);
         }

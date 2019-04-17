@@ -1268,9 +1268,6 @@ Total Amount: &lt;b&gt;$ {2}&lt;/b&gt;</value>
   <data name="RentedOn" xml:space="preserve">
     <value>Rented On</value>
   </data>
-  <data name="RenterDiscount" xml:space="preserve">
-    <value>{0} Renter</value>
-  </data>
   <data name="RentId" xml:space="preserve">
     <value>Rent Id</value>
   </data>
@@ -1680,12 +1677,15 @@ Please select the database type and connection options below.</value>
     <value>Registration</value>
   </data>
   <data name="MembershipType" xml:space="preserve">
-    <value>Membership Type</value>
+    <value>{0} Member</value>
   </data>
   <data name="MembershipTypeLabel" xml:space="preserve">
     <value>Type of Membership</value>
   </data>
   <data name="StartDateLabel" xml:space="preserve">
     <value>Start date</value>
+  </data>
+  <data name="RenterDiscount" xml:space="preserve">
+    <value>{0} Renter</value>
   </data>
 </root>

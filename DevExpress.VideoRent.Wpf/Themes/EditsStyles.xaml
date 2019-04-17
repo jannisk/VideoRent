@@ -310,7 +310,7 @@
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Title, Converter={StaticResource StringFormatConverter}, ConverterParameter={helpers:ConstString ID=RenterDiscount}}" />
+                    <TextBlock Text="{Binding Title, Converter={StaticResource StringFormatConverter}, ConverterParameter={helpers:ConstString ID=MembershipType}}" />
                 </DataTemplate>
             </Setter.Value>
         </Setter>
@@ -318,7 +318,7 @@
             <Setter.Value>
                 <ControlTemplate>
                     <TextBlock Margin="3"
-                        Text="{Binding SelectedItem.Title, Converter={StaticResource StringFormatConverter}, ConverterParameter={helpers:ConstString ID=RenterDiscount}}" />
+                        Text="{Binding SelectedItem.Title, Converter={StaticResource StringFormatConverter}, ConverterParameter={helpers:ConstString ID=MembershipType}}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

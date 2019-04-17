@@ -94,8 +94,8 @@ namespace DevExpress.VideoRent.ViewModel {
         }
         public override bool Dirty { get { return Session != null && (HasObjectToSave || Session.GetObjectsToDelete().Count > 0); } }
         protected UnitOfWork Session { get; private set; }
-        protected override void SaveOverride() {
-            SessionHelper.CommitSession(Session, ExceptionProcesser.Current);
+        protected override Exception SaveOverride() {
+            return SessionHelper.CommitSession(Session, ExceptionProcesser.Current);
         }
         protected override void ReloadBegin() {
             oldSession = Session;
