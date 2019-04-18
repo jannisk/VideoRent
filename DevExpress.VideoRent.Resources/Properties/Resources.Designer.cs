@@ -178,6 +178,15 @@ namespace DevExpress.VideoRent.Resources.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer Accounts.
+        /// </summary>
+        public static string AccountsModule {
+            get {
+                return ResourceManager.GetString("AccountsModule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active.
         /// </summary>
         public static string Active {

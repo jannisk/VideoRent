@@ -11,11 +11,13 @@ namespace DevExpress.VideoRent.Wpf {
             Startup += OnStartup;
         }
         public event EventHandler BeforeMainWindowClosed;
+        
         void OnStartup(object sender, StartupEventArgs e) {
             var mainWindow = new MainAppWindow();
             mainWindow.BeforeClosed += OnMainWindowBeforeClosed;
             mainWindow.Show();
         }
+        
         void OnMainWindowBeforeClosed(object sender, EventArgs e) {
             if(BeforeMainWindowClosed != null)
                 BeforeMainWindowClosed(this, EventArgs.Empty);

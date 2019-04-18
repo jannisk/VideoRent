@@ -104,10 +104,12 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
             DemoModulesControl.Current.RemoveDemoModule(demoModule);
             DemoModulesControl.Current.SelectLastDemoModuleInCategory(Category);
         }
+
         void Show() {
             DemoModulesControl.Current.AddDemoModule(demoModule);
             if(Select) DemoModulesControl.Current.SelectDemoModule(demoModule);
         }
+
         void RaiseSelectSignalSlotChanged() {
             if(SelectSignalSlot || demoModule == null) return;
             DemoModulesControl.Current.SelectDemoModule(demoModule);

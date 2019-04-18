@@ -188,7 +188,10 @@ namespace DevExpress.VideoRent.Tests {
         }
         public override object Key { get { return oid; } }
         public override bool Dirty { get { return false; } }
-        protected override Exception SaveOverride() { }
+        protected override Exception SaveOverride()
+        {
+            return null;
+        }
         protected override void ReloadBegin() { }
         protected override void ReloadEnd() { }
     }

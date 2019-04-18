@@ -37,19 +37,19 @@ namespace DevExpress.VideoRent.Wpf {
             Activate();
         }
         void InitializeThemes() {
-            foreach(Theme theme in Theme.Themes) {
+            foreach(var theme in Theme.Themes) {
                 if(theme == Theme.TouchlineDark) continue;
-                BarCheckItem bci = new BarCheckItem() { GroupIndex = 1 };
-                SelectConverter converter = new SelectConverter() { Key0 = theme, Value0 = true, DefaultValue = false };
+                var bci = new BarCheckItem() { GroupIndex = 1 };
+                var converter = new SelectConverter() { Key0 = theme, Value0 = true, DefaultValue = false };
                 bci.SetBinding(BarCheckItem.IsCheckedProperty, new Binding("Theme") { Source = ThemeSelector<ApplyingThemeSplashScreenWindow>.Current, Converter = converter, Mode = BindingMode.TwoWay, UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged });
                 bci.Name = "BbiTheme" + theme.Name;
                 bci.Content = theme.FullName;
                 bci.LargeGlyph = bci.Glyph = CreateImageSource(AssemblyHelper.GetResourceUri(typeof(MainWindow).Assembly, "Images/" + theme.Name + ".png"));
                 BarManager.Items.Add(bci);
-                BarItemLink link1 = bci.CreateLink();
+                var link1 = bci.CreateLink();
                 link1.RibbonStyle = RibbonItemStyles.All;
                 ThemesPageGroup.ItemLinks.Add(link1);
-                BarItemLink link2 = bci.CreateLink();
+                var link2 = bci.CreateLink();
                 BsiChooseTheme.ItemLinks.Add(link2);
             }
         }
@@ -62,7 +62,7 @@ namespace DevExpress.VideoRent.Wpf {
             }
         }
         void OnBbiLayoutOptionsItemClick(object sender, ItemClickEventArgs e) {
-            LayoutOptionsWindow layoutOptionsWindow = new LayoutOptionsWindow();
+            var layoutOptionsWindow = new LayoutOptionsWindow();
             layoutOptionsWindow.Owner = this;
             layoutOptionsWindow.ShowDialog();
         }

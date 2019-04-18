@@ -1688,4 +1688,7 @@ Please select the database type and connection options below.</value>
   <data name="RenterDiscount" xml:space="preserve">
     <value>{0} Renter</value>
   </data>
+  <data name="AccountsModule" xml:space="preserve">
+    <value>Customer Accounts</value>
+  </data>
 </root>

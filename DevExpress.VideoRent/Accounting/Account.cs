@@ -43,7 +43,7 @@ namespace DevExpress.VideoRent
     public class Account : VideoRentBaseObject
     {
         protected double _balance;
-        int _code;
+        int _accountId;
         AccountTypeEnum _type;
         string _name;
         Customer _customer;
@@ -102,11 +102,12 @@ namespace DevExpress.VideoRent
                 SetPropertyValue<AccountTypeEnum>("Type", ref _type, value);
             }
         }
-
-        public int Code
+         
+        [Persistent, Indexed(Unique = true)]
+        public int AccountId
         {
-            get { return _code; }
-            set { SetPropertyValue<int>("Code", ref _code, value); }
+            get { return GetPropertyValue<int>("AccountId"); }
+            set { SetPropertyValue<int>("AccountId", value); }
         }
 
         public virtual double Balance
@@ -121,6 +122,14 @@ namespace DevExpress.VideoRent
         {
             get { return _customer; }
             set { SetPropertyValue<Customer>("Customer", ref _customer, value); }
+        }
+
+        protected override string GeneratedIdType { get { return "Account"; } }
+
+
+        public Account(Session session, int selfId)
+            : this(session) {
+            SelfId = selfId;
         }
 
         public Account(Session session) : base(session)

@@ -33,7 +33,7 @@ namespace DevExpress.VideoRent.Wpf {
         public static DemoModuleCategory CategoryCompanies;
         public static DemoModuleCategory CategoryCustomers;
         public static DemoModuleCategory CategoryCurrentCustomerRents;
-
+        public static DemoModuleCategory CustomerAccounts;
         /// <summary>
         /// Store all views in a local dictionary
         /// </summary>
@@ -88,19 +88,24 @@ namespace DevExpress.VideoRent.Wpf {
             GroupRental = new VideoRentModuleGroup(ConstStrings.Get("RentalGroup"), "Group_Rental");
             GroupCatalog = new VideoRentModuleGroup(ConstStrings.Get("CatalogGroup"), "Group_Catalog");
             GroupAdministration = new VideoRentModuleGroup(ConstStrings.Get("AdminGroup"), "Group_Administrator");
+            
             CategoryMovies = new VideoRentModuleCategory(GroupCatalog, ConstStrings.Get("MoviesModule"), "Movie");
             CategoryArtists = new VideoRentModuleCategory(GroupCatalog, ConstStrings.Get("ActorsModule"), "Actor");
             CategoryMovieCategories = new VideoRentModuleCategory(GroupCatalog, ConstStrings.Get("MovieCategories"), "Categories");
             CategoryCompanies = new VideoRentModuleCategory(GroupCatalog, ConstStrings.Get("CompaniesModule"), "Company");
+            
             CategoryCustomers = new VideoRentModuleCategory(GroupRental, ConstStrings.Get("CustomersModule"), "Person");
+            CustomerAccounts= new VideoRentModuleCategory(GroupRental, ConstStrings.Get("AccountsModule"), "Company");
             CategoryCurrentCustomerRents = GetPreparedCurrentCustomersRentCategory();
         }
+        
         static DemoModuleCategory GetPreparedCurrentCustomersRentCategory() {
             DemoModuleCategory category = new VideoRentModuleCategory(GroupRental, ConstStrings.Get("RentModule"), "Sale");
             BindingOperations.SetBinding(category, DemoModuleCategory.TitleProperty, new Binding("CurrentCustomer.FullName") { Source = CurrentCustomerProvider.Current, Converter = new StringFormatConverter(), ConverterParameter = ConstStrings.Get("RentModulePattern") });
             BindingOperations.SetBinding(category, ForwardingHelper.DataObjectProperty, new Binding("CurrentCustomer.Photo") { Source = CurrentCustomerProvider.Current });
             return category;
         }
+        
         public static void RegisterHelperViews() {
             ConstString.SetConstStrings(ConstStrings.Get);
             MessageBox.View = new MessageBoxView();
