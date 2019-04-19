@@ -187,6 +187,15 @@ namespace DevExpress.VideoRent.Resources.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account Transactions.
+        /// </summary>
+        public static string AccountTransactions {
+            get {
+                return ResourceManager.GetString("AccountTransactions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Active.
         /// </summary>
         public static string Active {

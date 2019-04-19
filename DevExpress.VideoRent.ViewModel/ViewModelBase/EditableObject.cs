@@ -430,6 +430,9 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase
     }
     public delegate void ModuleObjectDetailEventHandler(object sender, ModuleObjectDetailEventArgs e);
 
+    /// <summary>
+    /// Manages the modules of the application
+    /// </summary>
     public class ModulesManager
     {
         static ModulesManager _current = null;
@@ -448,8 +451,16 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase
             _current = null;
         }
 #endif
+        /// <summary>
+        /// Contains all object details indexed by their keys 
+        /// </summary>
         readonly Dictionary<object, ModuleObjectDetailBase> _modulesByKey = new Dictionary<object, ModuleObjectDetailBase>();
+        /// <summary>
+        /// Contains details and their editable object
+        /// </summary>
         readonly Dictionary<object, List<ModuleObjectDetailBase>> _modulesByType = new Dictionary<object, List<ModuleObjectDetailBase>>();
+
+
         readonly Dictionary<Type, Type> _moduleObjectDetailTypes = new Dictionary<Type, Type>();
 
         public void RegisterModuleObjectDetailType(Type editObjectType, Type moduleObjectDetailType)
@@ -521,7 +532,7 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase
         }
 
         /// <summary>
-        /// Creates a new module object detail.
+        /// Creates a new module detail object.
         /// </summary>
         /// <param name="moduleObjectDetailType">Type of the module object detail.</param>
         /// <param name="editObject">The edit object.</param>
@@ -560,6 +571,7 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase
         {
             return moduleObjectDetailType.GetConstructor(new Type[] { editObjectType, typeof(object) });
         }
+
         void AddModuleObjectDetail(ModuleObjectDetailBase moduleObjectDetailBase)
         {
             if (moduleObjectDetailBase is ModuleObjectDetail)
@@ -573,6 +585,7 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase
                 _modulesByKey.Add(moduleObjectDetailBase.GetType(), moduleObjectDetailBase);
             }
         }
+
         void RemoveModuleObjectDetail(ModuleObjectDetailBase moduleObjectDetailBase)
         {
             if (moduleObjectDetailBase is ModuleObjectDetail)

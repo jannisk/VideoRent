@@ -144,10 +144,12 @@
     <Compile Include="CompanyDetail\CompanyDetailObject.cs" />
     <Compile Include="CompanyDetail\CompanyEdit.cs" />
     <Compile Include="CompanyDetail\CompanyEditObject.cs" />
+    <Compile Include="CurrentCustomerRents\CurrentCustomerTransactionsDetail.cs" />
     <Compile Include="CurrentCustomerRents\CurrentCustomerRentsDetail.cs" />
     <Compile Include="CurrentCustomerRents\CurrentCustomerRentsDetailObject.cs" />
     <Compile Include="CurrentCustomerRents\CurrentCustomerRentsEdit.cs" />
     <Compile Include="CurrentCustomerRents\CurrentCustomerRentsEditObject.cs" />
+    <Compile Include="CurrentCustomerRents\CurrentCustomerTransactionsDetailObject.cs" />
     <Compile Include="CurrentCustomerRents\RentsPeriodEdit.cs" />
     <Compile Include="CurrentCustomerRents\RentsPeriodEditObject.cs" />
     <Compile Include="CurrentCustomerRents\RentsViewOptionsEdit.cs" />
