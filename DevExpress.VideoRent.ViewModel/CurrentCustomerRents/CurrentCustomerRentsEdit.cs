@@ -56,6 +56,8 @@ namespace DevExpress.VideoRent.ViewModel {
             get { return checkedAllActiveRentsSignal; }
             set { SetValue<bool>("CheckedAllActiveRentsSignal", ref checkedAllActiveRentsSignal, value); }
         }
+
+
         public bool CheckedRentsChangedSignal {
             get { return checkedRentsChangedSignal; }
             set { SetValue<bool>("CheckedRentsChangedSignal", ref checkedRentsChangedSignal, value); }
@@ -111,6 +113,8 @@ namespace DevExpress.VideoRent.ViewModel {
             CanReturnItems = false;
             return overdueReceipt == null ? null : (Guid?)overdueReceipt.Oid;
         }
+
+
         public void CheckAllActiveRents() {
             foreach(Rent item in CurrentCustomerActiveRents) {
                 if(item.ActiveType != ActiveRentType.Active)

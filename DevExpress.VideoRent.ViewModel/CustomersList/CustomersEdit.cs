@@ -22,22 +22,6 @@ namespace DevExpress.VideoRent.ViewModel {
             set { SetValue<GridUIOptions>("GridUIOptions", ref gridUIOptions, value); }
         }
 
-        //protected override void RaiseCurrentRecordChangedOverride(Customer oldValue, Customer newValue)
-        //{
-        //    base.RaiseCurrentRecordChangedOverride(oldValue, newValue);
-        //    if (oldValue != null)
-        //        oldValue.Accounts.ListChanged -= OnAccountsListChanged;
-        //    if (newValue != null)
-        //    {
-        //        newValue.Accounts.ListChanged += OnAccountsListChanged;
-        //        CurrentAccountsCount = newValue.Accounts.Count;
-        //    }
-        //    else
-        //    {
-        //        CurrentAccountsCount = 0;
-        //    }
-        //}
-
         public int CurrentAccountsCount
         {
             get { return _currentAccountsCount; }

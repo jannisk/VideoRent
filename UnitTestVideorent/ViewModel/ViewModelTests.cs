@@ -5,10 +5,9 @@ using System.Drawing;
 using System.IO;
 using DevExpress.VideoRent.Helpers;
 using DevExpress.VideoRent.Tests;
-using DevExpress.VideoRent.ViewModel;
 using DevExpress.VideoRent.ViewModel.ViewModelBase;
 using DevExpress.Xpo;
-using ConstStrings = DevExpress.VideoRent.Resources.ConstStrings;
+
 #if SL
 using DevExpress.Xpf.Drawing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,9 +15,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
 
-namespace DevExpress.VideoRent.Tests {
+namespace DevExpress.VideoRent.ViewModel.Tests {
     public class ViewModelTests : XPOObjectsBaseTests {
-        [TestInitialize]
         public override void Init() {
             base.Init();
             RegisterViews();
@@ -189,10 +187,7 @@ namespace DevExpress.VideoRent.Tests {
         }
         public override object Key { get { return oid; } }
         public override bool Dirty { get { return false; } }
-        protected override Exception SaveOverride()
-        {
-            return null;
-        }
+        protected override void SaveOverride() { }
         protected override void ReloadBegin() { }
         protected override void ReloadEnd() { }
     }
