@@ -39,12 +39,16 @@ namespace DevExpress.VideoRent.ViewModel {
             RentsPeriodEdit = new RentsPeriodEdit(VRObjectsListObject.RentsPeriodEditObject, this);
             RentsPeriodEdit.AfterDispose += OnRentsPeriodEditAfterDispose;
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public void ReturnRents() {
             var overdueReceiptOid = CurrentCustomerRentsEdit.ReturnRents();
             Save();
             if(overdueReceiptOid != null)
                 ShowBill(SessionHelper.GetObjectByKey<Receipt>(overdueReceiptOid, CurrentCustomerRentsEdit.VRObjectsEditObject.VideoRentObjects.Session));
         }
+      
         protected override ModuleObjectDetailBase OpenDetailOverride(Guid? vroOid, object parameter) {
             return ModulesManager.Current.OpenModuleObjectDetail(new CustomerDetailObject(CurrentCustomerRentsEdit.VRObjectsEditObject.VideoRentObjects.Session, CurrentCustomerRentsEdit.CurrentCustomer.Oid), true, parameter);
         }
@@ -70,6 +74,7 @@ namespace DevExpress.VideoRent.ViewModel {
         void DoOpenCurrentCustomerDetail(object p) { OpenDetail(CurrentCustomerRentsEdit.CurrentCustomer.Oid, p); }
         public Action<object> CommandReturnRents { get { return DoCommandReturnRents; } }
         void DoCommandReturnRents(object p) { ReturnRents(); }
+
         #endregion
     }
 }

@@ -150,6 +150,8 @@
     <Compile Include="CurrentCustomerRents\CurrentCustomerRentsEdit.cs" />
     <Compile Include="CurrentCustomerRents\CurrentCustomerRentsEditObject.cs" />
     <Compile Include="CurrentCustomerRents\CurrentCustomerTransactionsDetailObject.cs" />
+    <Compile Include="CurrentCustomerRents\CurrentCustomerTransactionsEdit.cs" />
+    <Compile Include="CurrentCustomerRents\CurrentCustomerTransactionsEditObject.cs" />
     <Compile Include="CurrentCustomerRents\RentsPeriodEdit.cs" />
     <Compile Include="CurrentCustomerRents\RentsPeriodEditObject.cs" />
     <Compile Include="CurrentCustomerRents\RentsViewOptionsEdit.cs" />
