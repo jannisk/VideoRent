@@ -192,6 +192,8 @@ namespace DevExpress.VideoRent.Tests {
     }
     [TestClass]
     public class CurrentCustomerRentsEditsTests : RentModulesTests {
+       
+        [TestInitialize]
         public override void Init() {
             base.Init();
             CurrentCustomerProvider.Current.CurrentCustomerOid = Andrew.Oid;
@@ -224,8 +226,33 @@ namespace DevExpress.VideoRent.Tests {
             }
         }
 
+
+    }
+
+    [TestClass]
+    public class CreateCurrentCustomerTransactionsEditsTests : RentModulesTests
+    {
+        [TestInitialize]
+        public override void Init()
+        {
+            base.Init();
+            CurrentCustomerProvider.Current.CurrentCustomerOid = Andrew.Oid;
+        }
+
         [TestMethod]
-        public void DoPayment()
+        public void CreateCurrentCustomerTransactionsDetail()
+        {
+            using (var detail = (CurrentCustomerTransactionsDetail)ModulesManager.Current.OpenModuleObjectDetail(new CurrentCustomerTransactionsDetailObject(Session), false))
+            {
+                var view = CurrentCustomerTransactionsDetailView.LastCreatedView;
+                Assert.IsNotNull(view);
+                Assert.IsNotNull(view.Module);
+                Assert.AreEqual(detail, view.Module);
+            }
+        }
+
+        [TestMethod]
+        public void ChangePeriod()
         {
             using (var detail = (CurrentCustomerTransactionsDetail)ModulesManager.Current.OpenModuleObjectDetail(new CurrentCustomerTransactionsDetailObject(Session), false))
             {

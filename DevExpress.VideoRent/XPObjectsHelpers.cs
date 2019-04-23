@@ -9,6 +9,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB.Exceptions;
 
 namespace DevExpress.VideoRent.Helpers {
+
     public class VideoRentDateTime {
         static DateTime debugNow;
         static bool realTime = true;
@@ -155,6 +156,61 @@ namespace DevExpress.VideoRent.Helpers {
         }
     }
 #endif
+
+    public sealed class CashAccountProvider
+    {
+        private static readonly CashAccountProvider _instance = new CashAccountProvider();
+        private Account _cashAccount;
+
+        private CashAccountProvider ()
+        {
+            
+        }
+
+        public static CashAccountProvider Instance
+        {
+            get { return _instance; }
+        }
+
+        public Account CashAccount(Session session)
+        {
+            return _cashAccount ??
+                   (_cashAccount = session.FindObject<Account>(CriteriaOperator.Parse("Name = ?", " Cash-Account")));
+        }
+    }
+
+
+    public class CashAccount : Account
+    {
+
+        public CashAccount(Session session)
+            : base(session)
+        {
+            Type = AccountTypeEnum.Cash;
+        }
+
+        public CashAccount(Session session, Account account) : base(session, account)
+        {
+            
+        }
+
+        public override Double Balance
+        {
+            get { return Debit - Credit; }
+            set { SetPropertyValue<double>("Balance", ref _balance, value); }
+        }
+
+        internal override void AddEntry(MoveLine moveLine)
+        {
+            if (moveLine.Amount < 0)
+                Debit += -moveLine.Amount;
+            else
+            {
+                Credit += moveLine.Amount;
+            }
+        }
+    }
+
     public class EnumItem {
         object value;
         string title;

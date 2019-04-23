@@ -64,15 +64,15 @@ namespace DevExpress.VideoRent.Tests
             Session.CommitChanges();
             Assert.IsTrue(cashAccount.Balance == 60);
             VideoRentDateTime.AddMonths(1);
-            Andrew.ChargeMembershipFee(30, cashAccount);
+            Andrew.ChargeMembershipFee(30);
             Session.CommitChanges();
             VideoRentDateTime.AddMonths(1);
             Andrew.Deposit(30, cashAccount);
             Session.CommitChanges();
-            Andrew.ChargeMembershipFee(30, cashAccount);
+            Andrew.ChargeMembershipFee(30);
             Session.CommitChanges();
             VideoRentDateTime.AddMonths(1);
-            Andrew.ChargeMembershipFee(30, cashAccount);
+            Andrew.ChargeMembershipFee(30);
             Session.CommitChanges();
             Assert.IsTrue(Andrew.IsMembershipDebter);
             Assert.IsTrue(GetMonths(VideoRentDateTime.Now - Andrew.LastPayDate()) == 2);

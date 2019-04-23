@@ -260,8 +260,8 @@
     <Compile Include="CompanyDetail\CompanyEditView.xaml.cs">
       <DependentUpon>CompanyEditView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CurrentCustomerRents\CurrentCustomerRentsEditView - Copy.xaml.cs">
-      <DependentUpon>CurrentCustomerRentsEditView - Copy.xaml</DependentUpon>
+    <Compile Include="CurrentCustomerRents\CurrentCustomerTransactionsEditView.xaml.cs">
+      <DependentUpon>CurrentCustomerTransactionsEditView.xaml</DependentUpon>
     </Compile>
     <Compile Include="CurrentCustomerRents\CurrentCustomerTransactionsDetailView.xaml.cs">
       <DependentUpon>CurrentCustomerTransactionsDetailView.xaml</DependentUpon>
@@ -452,7 +452,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CurrentCustomerRents\CurrentCustomerRentsEditView - Copy.xaml">
+    <Page Include="CurrentCustomerRents\CurrentCustomerTransactionsEditView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

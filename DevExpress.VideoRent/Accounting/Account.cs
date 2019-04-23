@@ -15,30 +15,7 @@ namespace DevExpress.VideoRent
         other, Receivable, Payable, Liquidity, Cash
     };
 
-    public class CashAccount:Account
-    {
-       
-        public CashAccount(Session session):base(session)
-        {
-            Type = AccountTypeEnum.Cash;
-        }
-
-        public override Double Balance
-        {
-            get { return Debit - Credit; }
-            set { SetPropertyValue<double>("Balance", ref _balance, value); }
-        }
-
-        internal override void AddEntry(MoveLine moveLine)
-        {
-            if (moveLine.Amount <  0)
-               Debit += -moveLine.Amount;
-            else
-            {
-                Credit += moveLine.Amount;
-            }
-        }
-    }
+   
 
     public class Account : VideoRentBaseObject
     {
@@ -82,6 +59,7 @@ namespace DevExpress.VideoRent
 
         }
 
+
         public int Credit
         {
             get { return _credit; }
@@ -112,8 +90,16 @@ namespace DevExpress.VideoRent
 
         public virtual double Balance
         {
-            get {  return Credit - Debit; }
+            get
+            {
+                return IsCashAccount ? Debit - Credit : Credit - Debit;
+            }
             set { SetPropertyValue<double>("Balance", ref _balance, value); }
+        }
+
+        private bool IsCashAccount
+        {
+            get { return (AccountTypeEnum.Cash == Type); }
         }
 
 
@@ -153,12 +139,22 @@ namespace DevExpress.VideoRent
         /// <param name="customer"></param>
         public Account(Session session, Customer customer) : this(session)
         {
-            this.Customer = customer;
+            Customer = customer;
             Credit = 0;
             Debit = 0;
             Balance = Credit - Debit;
             Name = customer.FirstName + "-" + customer.LastName;
             Type = AccountTypeEnum.Payable;
+        }
+
+        protected Account(Session session, Account account) : this(session)
+        {
+            Customer = account.Customer;
+            Credit = account.Credit;
+            Debit = account.Debit;
+            Balance = account.Balance;
+            Name = account.Name;
+            Type = account.Type;
         }
 
         [Association("Default_Debit_Account")]

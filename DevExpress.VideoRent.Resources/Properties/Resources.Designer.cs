@@ -890,6 +890,15 @@ namespace DevExpress.VideoRent.Resources.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Charge Payment.
+        /// </summary>
+        public static string Charge {
+            get {
+                return ResourceManager.GetString("Charge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chart Appearance.
         /// </summary>
         public static string ChartAppearance {

@@ -646,6 +646,8 @@ namespace DevExpress.VideoRent {
             get { return customer; }
             protected set { SetPropertyValue<Customer>("Customer", ref customer, value); }
         }
+
+       
 #endif
         [Indexed(Unique = false)]
         public DateTime Date {
@@ -698,6 +700,9 @@ namespace DevExpress.VideoRent {
 #endif
         [Association("Receipt-Rents")]
         public XPCollection<Rent> Rents { get { return GetCollection<Rent>("Rents"); } } //Type = Rent or Sale
+        [Association("Receipt-Payments")]
+        public XPCollection<Payment> Payments { get { return GetCollection<Payment>("Payments"); } }
+
         [Association("ReceiptOverdue-Rents")]
         public XPCollection<Rent> OverdueRents { get { return GetCollection<Rent>("OverdueRents"); } } //Type = Overdue
         public void CalcPayment() {

@@ -132,6 +132,7 @@
     <Compile Include="XPObjectsCatalog.cs" />
     <Compile Include="XPObjectsCustomers.cs" />
     <Compile Include="XPObjectsHelpers.cs" />
+    <Compile Include="Payment.cs" />
     <Compile Include="XPObjectsPlayer.cs" />
     <Compile Include="XPObjectsRent.cs" />
   </ItemGroup>

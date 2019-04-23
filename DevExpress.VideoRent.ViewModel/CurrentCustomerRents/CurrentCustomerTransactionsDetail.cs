@@ -32,7 +32,36 @@ namespace DevExpress.VideoRent.ViewModel
         }
 
 
-        public Action<object> CommandRentSell { get { return DoCommandRentSell; } }
-        void DoCommandRentSell(object p) { RentSell(); }
+        private void ChargePayments()
+        {
+            CurrentCustomerTransactionsEdit.ChargePayments();
+        }
+
+
+        #region Commands
+
+        public Action<object> CommandRentSell
+        {
+            get { return DoCommandRentSell; }
+        }
+
+        private void DoCommandRentSell(object p)
+        {
+            RentSell();
+        }
+
+        public Action<object> CommandChargePayment
+        {
+            get { return DoCommandChargePayment; }
+        }
+
+        private void DoCommandChargePayment(object p)
+        {
+            ChargePayments();
+        }
+
+        #endregion
+
+
     }
 }

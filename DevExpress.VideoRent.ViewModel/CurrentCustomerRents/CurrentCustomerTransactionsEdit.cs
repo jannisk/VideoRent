@@ -1,6 +1,7 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.VideoRent.ViewModel.ViewModelBase;
 using System;
+using DevExpress.Xpo;
 
 namespace DevExpress.VideoRent.ViewModel
 {
@@ -19,8 +20,32 @@ namespace DevExpress.VideoRent.ViewModel
      
         public CurrentCustomerTransactionsEdit(CurrentCustomerTransactionsEditObject editObject, ModuleObjectDetail detail):base(editObject, detail)
         {
-       
+            Period = 12;
+            CurrentCustomerProvider.Current.CurrentCustomerOidChanged += OnCurrentCustomerProviderCurrentCustomerOidChanged;
+            AllObjects<Customer>.Set.Updated += OnCustomersSetUpdated;
         }
+
+        private void OnCustomersSetUpdated(object sender, EditableObjectEventArgs e)
+        {
+            return;
+        }
+
+        private void OnCurrentCustomerProviderCurrentCustomerOidChanged(object sender, EventArgs e)
+        {
+            UpdateCurrentCustomer();
+        }
+
+        private void UpdateCurrentCustomer()
+        {
+            if (CurrentCustomerProvider.Current == null) return;
+            CurrentCustomer =
+                VRObjectsEditObject.VideoRentObjects.Session.FindObject<Customer>(CriteriaOperator.Parse("Oid = ?",
+                    CurrentCustomerProvider.Current.CurrentCustomerOid));
+            //UpdateActiveRents();
+            //ClearCheckedRents();
+            UpdateReceiptsFilter();
+        }
+
         void RaiseCurrentCustomerChanged(Customer oldValue, Customer newValue)
         {
             if (Disposed) return;
@@ -97,6 +122,16 @@ namespace DevExpress.VideoRent.ViewModel
         {
 
             throw new NotImplementedException();
+        }
+
+        public void ChargePayments()
+        {
+            if (CurrentCustomer.Accounts[0] != null)
+            {
+                MessageBox.Show("Account Information", ConstStrings.Get("Question"), MessageBoxButton.YesNo,
+                    MessageBoxImage.Asterisk);
+            }
+            CurrentCustomer.ChargeMembershipFee(30);
         }
     }
 }

@@ -66,8 +66,13 @@ namespace DevExpress.VideoRent.Tests {
             viewsManager.RegisterView(typeof(CustomerDetail), typeof(CustomerDetailView));
             viewsManager.RegisterView(typeof(CurrentCustomerRentsEdit), typeof(CurrentCustomerRentsEditView));
             viewsManager.RegisterView(typeof(CurrentCustomerRentsDetail), typeof(CurrentCustomerRentsDetailView));
+            viewsManager.RegisterView(typeof(CurrentCustomerTransactionsDetail), typeof(CurrentCustomerTransactionsDetailView));
+            viewsManager.RegisterView(typeof(CurrentCustomerTransactionsEdit), typeof(CurrentCustomerTransactionsEditView));
         }
     }
+
+  
+
     [TestClass]
     public class EditableObjectTests : ViewModelTests {
         string message;
@@ -372,6 +377,16 @@ namespace DevExpress.VideoRent.Tests {
         public CurrentCustomerRentsEditView(CurrentCustomerRentsEdit currentCustomerRentsEdit) : base(currentCustomerRentsEdit) { }
         public new CurrentCustomerRentsEdit Module { get { return (CurrentCustomerRentsEdit)base.Module; } }
     }
+
+    internal class CurrentCustomerTransactionsEditView:TestView
+    {
+        public CurrentCustomerTransactionsEditView(CurrentCustomerTransactionsEdit currentCustomerTransactionsEdit)
+            : base(currentCustomerTransactionsEdit)
+        {
+        }
+        public CurrentCustomerTransactionsEdit Module {get { return (CurrentCustomerTransactionsEdit) base.Module; }}
+    }
+
     public class CurrentCustomerRentsDetailView : TestView {
         public static CurrentCustomerRentsDetailView LastCreatedView = null;
         public CurrentCustomerRentsDetailView(CurrentCustomerRentsDetail customersList)
@@ -379,6 +394,20 @@ namespace DevExpress.VideoRent.Tests {
             LastCreatedView = this;
         }
         public new CurrentCustomerRentsDetail Module { get { return (CurrentCustomerRentsDetail)base.Module; } }
+    }
+
+    public class CurrentCustomerTransactionsDetailView : TestView
+    {
+        public static CurrentCustomerTransactionsDetailView LastCreatedView = null;
+        public CurrentCustomerTransactionsDetailView(CurrentCustomerTransactionsDetail module) : base(module)
+        {
+            LastCreatedView = this;
+        }
+        public new CurrentCustomerTransactionsDetail Module {get
+        {
+            return (CurrentCustomerTransactionsDetail) base.Module;
+        }
+     }
     }
 }
 

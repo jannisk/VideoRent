@@ -108,11 +108,13 @@ namespace DevExpress.VideoRent {
             aPlayer.Parent = this;
         }
 
-        [Association("Customer-Accounts"), Aggregated]
+        [Association("Customer-Accounts")]
         public XPCollection<Account> Accounts
         { 
             get { return GetCollection<Account>("Accounts"); } 
         }
+
+
 
         [Association("Customer-Players")]
         public XPCollection<Player> Children
@@ -122,6 +124,9 @@ namespace DevExpress.VideoRent {
 
         [Association("Customer-Receipts")]
         public XPCollection<Receipt> Receipts { get { return GetCollection<Receipt>("Receipts"); } }
+
+        [Association("Customer-Payments")]
+        public XPCollection<Payment> Payments { get { return GetCollection<Payment>("Payments"); } }
 
         public XPCollection<Rent> ActiveRents { get { return new XPCollection<Rent>(Session, CriteriaOperator.Parse("Customer = ? and Active = ?", this, true)); } }
         
@@ -175,6 +180,7 @@ namespace DevExpress.VideoRent {
         }
 
         private Membership _membership = null;
+
         [NonPersistent]
         public Membership Membership
         {
@@ -230,10 +236,11 @@ namespace DevExpress.VideoRent {
             }
         }
 
-        public void ChargeMembershipFee(int amount, Account cashAccount)
+        public void ChargeMembershipFee(int amount)
         {
             if (Membership.MembershipStatus != MembershipStatus.Active) return;
-            Accounts[0].Charge(amount, cashAccount);
+            Accounts[0].Charge(amount, CashAccountProvider.Instance.CashAccount(Session));
+            Session.CommitTransaction();
         }
         
         public void Deposit(int amount, Account cashAccount)

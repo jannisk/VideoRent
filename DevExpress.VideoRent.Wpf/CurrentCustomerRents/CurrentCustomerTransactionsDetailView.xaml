@@ -24,8 +24,7 @@
             <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static mb:ClassicShowType.SelectSignalSlotProperty}" Value="{Binding FocusSignal}" />
             <helpers:BindingInfo ElementName="BbiView" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding CommandChangeViewOptions}" />
             <helpers:BindingInfo ElementName="BbiReceiptPeriod" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding CommandChangePeriod}" />
-            <helpers:BindingInfo ElementName="BbiReturn" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding CommandReturnRents}" />
-            <helpers:BindingInfo ElementName="BbiReturn" Property="{x:Static ContentElement.IsEnabledProperty}" Value="{Binding ListEdit.CanReturnItems}" />
+            <helpers:BindingInfo ElementName="BbiCharge" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding CommandChargePayment}" />
             <helpers:BindingInfo ElementName="BbiCheckActive" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding ListEdit.CommandCheckAllActiveRents}" />
             <helpers:BindingInfo ElementName="BbiCheckActive" Property="{x:Static ContentElement.IsEnabledProperty}" Value="{Binding ListEdit.CanCheckActiveRents}" />
             <helpers:BindingInfo ElementName="BbiChangeCustomer" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding CommandChangeCustomer}" />
@@ -44,7 +43,7 @@
         <dxb:BarManager>
             <dxb:BarManager.Items>
                 <dxb:BarButtonItem x:Name="BbiRentSell" local:ImagesHelper.VideoRentImage="Order" Content="{helpers:ConstString ID=RentSell}" IsEnabled="True" />
-                <dxb:BarButtonItem x:Name="BbiReturn" local:ImagesHelper.VideoRentImage="Return" Content="{helpers:ConstString ID=Return}" />
+                <dxb:BarButtonItem x:Name="BbiCharge" local:ImagesHelper.VideoRentImage="Return" Content="{helpers:ConstString ID=Charge}" />
                 <dxb:BarButtonItem x:Name="BbiCheckActive" local:ImagesHelper.VideoRentImage="ActiveRents" Content="{helpers:ConstString ID=CheckActiveRentals}" />
                 <dxb:BarButtonItem x:Name="BbiChangeCustomer" local:ImagesHelper.VideoRentImage="UserKey" Content="{helpers:ConstString ID=ChangeCustomer}" />
                 <dxb:BarButtonItem x:Name="BbiReceiptPeriod" local:ImagesHelper.VideoRentImage="Period" Content="{helpers:ConstString ID=ReceiptPeriod}" />
@@ -58,7 +57,7 @@
                     <dxr:RibbonPage Caption="{helpers:ConstString ID=Home}">
                         <dxr:RibbonPageGroup Caption="{helpers:ConstString ID=RentalRecordManagement}">
                             <dxb:BarButtonItemLink BarItemName="BbiRentSell" RibbonStyle="Large" />
-                            <dxb:BarButtonItemLink BarItemName="BbiReturn" RibbonStyle="Large" />
+                            <dxb:BarButtonItemLink BarItemName="BbiCharge" RibbonStyle="Large" />
                             <dxb:BarButtonItemLink BarItemName="BbiCheckActive" RibbonStyle="Large" />
                             <dxb:BarItemLinkSeparator />
                             <dxb:BarButtonItemLink BarItemName="BbiChangeCustomer" RibbonStyle="Large" />

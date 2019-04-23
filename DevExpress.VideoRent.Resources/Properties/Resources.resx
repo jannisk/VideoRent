@@ -1694,4 +1694,7 @@ Please select the database type and connection options below.</value>
   <data name="AccountTransactions" xml:space="preserve">
     <value>Account Transactions</value>
   </data>
+  <data name="Charge" xml:space="preserve">
+    <value>Charge Payment</value>
+  </data>
 </root>
