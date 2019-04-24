@@ -5,7 +5,7 @@ using DevExpress.Data.Filtering;
 
 namespace DevExpress.VideoRent
 {
-    public class MoveLine:VideoRentBaseObject
+    public class Moveline:VideoRentBaseObject
     {
         Journal _journal;
 
@@ -15,25 +15,27 @@ namespace DevExpress.VideoRent
 
         private int _amount;
 
-        public MoveLine(Session session) : base(session)
+
+        protected override string GeneratedIdType { get { return "Moveline"; } }
+        public Moveline(Session session) : base(session)
         {
             DatePosted = VideoRentDateTime.Now;
         }
 
-        public MoveLine(Session session, Move amove, Journal journalEntry, Account account, int amount) : this(session)
+        public Moveline(Session session, Move amove, Journal journalEntry, Account account, int amount) : this(session)
         {
-            _move = amove;
+            MoveId = amove;
             Journal = journalEntry;
-            _accountId = account;
+            AccountId = account;
             _amount = amount;
 
         }
 
-        int _id;
-        public int Id
+        [Persistent, Indexed(Unique = true)]
+        public int MovelineId
         {
-            get { return _id; }
-            set { SetPropertyValue<int>("Id", ref _id, value); }
+            get { return GetPropertyValue<int>("MovelineId"); }
+            set { SetPropertyValue<int>("MovelineId", value); }
         }
 
         public int Amount
@@ -58,6 +60,7 @@ namespace DevExpress.VideoRent
         {
             AccountId.AddEntry(this);
         }
+
 
         public int Credit
         {

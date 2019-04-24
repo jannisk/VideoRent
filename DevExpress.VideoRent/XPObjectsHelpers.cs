@@ -175,7 +175,7 @@ namespace DevExpress.VideoRent.Helpers {
         public Account CashAccount(Session session)
         {
             return _cashAccount ??
-                   (_cashAccount = session.FindObject<Account>(CriteriaOperator.Parse("Name = ?", " Cash-Account")));
+                   (_cashAccount = session.FindObject<Account>(CriteriaOperator.Parse("Name = ?", "Cash-Account")));
         }
     }
 
@@ -200,13 +200,13 @@ namespace DevExpress.VideoRent.Helpers {
             set { SetPropertyValue<double>("Balance", ref _balance, value); }
         }
 
-        internal override void AddEntry(MoveLine moveLine)
+        internal override void AddEntry(Moveline moveline)
         {
-            if (moveLine.Amount < 0)
-                Debit += -moveLine.Amount;
+            if (moveline.Amount < 0)
+                Debit += -moveline.Amount;
             else
             {
-                Credit += moveLine.Amount;
+                Credit += moveline.Amount;
             }
         }
     }

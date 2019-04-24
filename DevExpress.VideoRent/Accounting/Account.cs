@@ -48,13 +48,13 @@ namespace DevExpress.VideoRent
             }
         }
 
-        internal virtual void AddEntry(MoveLine moveLine)
+        internal virtual void AddEntry(Moveline moveline)
         {
-            if (moveLine.Amount < 0)
-                Debit += -moveLine.Amount;
+            if (moveline.Amount < 0)
+                Debit += -moveline.Amount;
             else
             {
-                Credit += moveLine.Amount;
+                Credit += moveline.Amount;
             }
 
         }
@@ -164,7 +164,7 @@ namespace DevExpress.VideoRent
         public XPCollection<Journal> Journals1 { get { return GetCollection<Journal>("Journals1"); } }
 
         [Association("Account-MoveLines")]
-        public XPCollection<MoveLine> MoveLines { get { return GetCollection<MoveLine>("MoveLines"); } }
+        public XPCollection<Moveline> MoveLines { get { return GetCollection<Moveline>("MoveLines"); } }
 
 
         internal void DepositAmount(int amount, Account cashAccount)
@@ -189,7 +189,7 @@ namespace DevExpress.VideoRent
         /// <returns></returns>
         public DateTime DateOffsetFromLastCredit()
         {
-            var currentOffset  = Session.FindObject<MoveLine>(CriteriaOperator.Parse("AccountId=? And AccountId.MoveLines.Max(DatePosted)<=?", Oid, VideoRentDateTime.Now)).DatePosted;
+            var currentOffset  = Session.FindObject<Moveline>(CriteriaOperator.Parse("AccountId=? And AccountId.MoveLines.Max(DatePosted)<=?", Oid, VideoRentDateTime.Now)).DatePosted;
             return currentOffset;
         }
 

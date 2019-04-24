@@ -23,7 +23,7 @@ namespace DevExpress.VideoRent
         {
             if (_wasPosted) throw new Exception
                 ("cannot add entry to a transaction that's already posted");
-            new MoveLine(Session, null, this, account, amount);
+            new Moveline(Session, null, this, account, amount);
         }
 
         internal void Post()
@@ -88,8 +88,8 @@ namespace DevExpress.VideoRent
             set { SetPropertyValue<Account>("DefaultDebitAccount", ref _defaultDebitAccount, value); }
         }
 
-        [Association(@"MoveLineReferencesJournal", typeof(MoveLine))]
-        public XPCollection<MoveLine> MoveLines { get { return GetCollection<MoveLine>("MoveLines"); } }
+        [Association(@"MoveLineReferencesJournal", typeof(Moveline))]
+        public XPCollection<Moveline> MoveLines { get { return GetCollection<Moveline>("MoveLines"); } }
 
       
 
