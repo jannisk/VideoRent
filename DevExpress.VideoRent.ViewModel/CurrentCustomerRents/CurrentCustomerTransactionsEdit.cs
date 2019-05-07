@@ -5,7 +5,7 @@ using DevExpress.Xpo;
 
 namespace DevExpress.VideoRent.ViewModel
 {
-    public class CurrentCustomerTransactionsEdit : VRObjectsEdit<Journal>
+    public class CurrentCustomerTransactionsEdit : VRObjectsEdit<MoveLine>
     {
         DateTime startDate;
         DateTime endDate;
@@ -13,6 +13,7 @@ namespace DevExpress.VideoRent.ViewModel
         Customer _currentCustomer;
         string gridCaption;
         int period;
+        XPCollection<MoveLine> currentCustomerTransactions;
 
         private CurrentCustomerTransactionsDetail currentCustomerTransactionsDetail;
         private object currentCustomerTransactionsEditObject;
@@ -35,15 +36,27 @@ namespace DevExpress.VideoRent.ViewModel
             UpdateCurrentCustomer();
         }
 
+        public XPCollection<MoveLine> CurrentCustomerTransactions
+        {
+            get { return currentCustomerTransactions; }
+            set { SetValue<XPCollection<MoveLine>>("CurrentCustomerTransactions", ref currentCustomerTransactions, value); }
+        }
+
         private void UpdateCurrentCustomer()
         {
             if (CurrentCustomerProvider.Current == null) return;
             CurrentCustomer =
                 VRObjectsEditObject.VideoRentObjects.Session.FindObject<Customer>(CriteriaOperator.Parse("Oid = ?",
                     CurrentCustomerProvider.Current.CurrentCustomerOid));
-            //UpdateActiveRents();
+            UpdateTransactions();
             //ClearCheckedRents();
             UpdateReceiptsFilter();
+        }
+
+        private void UpdateTransactions()
+        {
+            CurrentCustomerTransactions = CurrentCustomer == null ? null : CurrentCustomer.Transactions;
+           // CanCheckActiveRents = CurrentCustomer != null && CurrentCustomerActiveRents.Count > 0;
         }
 
         void RaiseCurrentCustomerChanged(Customer oldValue, Customer newValue)

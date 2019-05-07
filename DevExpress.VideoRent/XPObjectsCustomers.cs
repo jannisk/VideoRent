@@ -22,6 +22,7 @@ namespace DevExpress.VideoRent {
         string comments;
         CustomerDiscountLevel discountLevel;
 
+
         public Customer(Session session) : base(session) { }
         public Customer(Session session, int selfId)
             : this(session) {
@@ -101,7 +102,10 @@ namespace DevExpress.VideoRent {
             }
         }
 
-
+        public string AccountName
+        {
+            get { return Accounts[0].Name; }
+        }
       
         public void AddPlayer(Player aPlayer)
         {
@@ -129,7 +133,9 @@ namespace DevExpress.VideoRent {
         public XPCollection<Payment> Payments { get { return GetCollection<Payment>("Payments"); } }
 
         public XPCollection<Rent> ActiveRents { get { return new XPCollection<Rent>(Session, CriteriaOperator.Parse("Customer = ? and Active = ?", this, true)); } }
-        
+
+        public XPCollection<MoveLine> Transactions { get { return new XPCollection<MoveLine>(Session, CriteriaOperator.Parse("AccountId = ? ", this.Accounts[0].Oid)); } }
+
         public CustomerDiscountLevel DiscountLevel {
             get { return discountLevel; }
             set { SetPropertyValue<CustomerDiscountLevel>("DiscountLevel", ref discountLevel, value); }
@@ -180,6 +186,7 @@ namespace DevExpress.VideoRent {
         }
 
         private Membership _membership = null;
+
 
         [NonPersistent]
         public Membership Membership
@@ -262,7 +269,7 @@ namespace DevExpress.VideoRent {
         {
             get { return Accounts[0].Balance < 0; }
         }
-        
+
 
         public Receipt DoRent(ICollection<RentInfo> rentsInfo) {
             Receipt receipt = null;

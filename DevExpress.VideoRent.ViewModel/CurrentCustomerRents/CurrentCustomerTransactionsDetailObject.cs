@@ -7,7 +7,7 @@ using DevExpress.Xpo;
 
 namespace DevExpress.VideoRent.ViewModel
 {
-    public class CurrentCustomerTransactionsDetailObject : VRObjectsListObject<Journal>
+    public class CurrentCustomerTransactionsDetailObject : VRObjectsListObject<MoveLine>
           
     {
         private RentsPeriodEditObject rentsPeriodEditObject;

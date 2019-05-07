@@ -2,8 +2,8 @@
 
 namespace DevExpress.VideoRent.ViewModel
 {
-    public interface ICurrentCustomerTransactionsEditObjectParent : IVRObjectsEditObjectParent<Journal> { }
-    public class CurrentCustomerTransactionsEditObject : VRObjectsEditObject<Journal>
+    public interface ICurrentCustomerTransactionsEditObjectParent : IVRObjectsEditObjectParent<MoveLine> { }
+    public class CurrentCustomerTransactionsEditObject : VRObjectsEditObject<MoveLine>
     {
         public CurrentCustomerTransactionsEditObject(EditableObject parent) : base(parent)
         {

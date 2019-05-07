@@ -57,8 +57,8 @@ namespace DevExpress.VideoRent
             set { SetPropertyValue<DateTime>("DatePosted", ref _datePosted, value); }
         }
 
-        [Association(@"MoveLineReferencesMove", typeof(Moveline))]
-        public XPCollection<Moveline> MoveLines { get { return GetCollection<Moveline>("MoveLines"); } }
+        [Association(@"MoveLineReferencesMove", typeof(MoveLine))]
+        public XPCollection<MoveLine> MoveLines { get { return GetCollection<MoveLine>("MoveLines"); } }
 
         protected override void OnSavingOverride()
         {

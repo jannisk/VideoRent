@@ -1697,4 +1697,13 @@ Please select the database type and connection options below.</value>
   <data name="Charge" xml:space="preserve">
     <value>Charge Payment</value>
   </data>
+  <data name="AccountName" xml:space="preserve">
+    <value>AccountName</value>
+  </data>
+  <data name="Amount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="MovelineId" xml:space="preserve">
+    <value>MovelineId</value>
+  </data>
 </root>

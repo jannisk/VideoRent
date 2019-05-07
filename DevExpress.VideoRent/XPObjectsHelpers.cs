@@ -200,13 +200,13 @@ namespace DevExpress.VideoRent.Helpers {
             set { SetPropertyValue<double>("Balance", ref _balance, value); }
         }
 
-        internal override void AddEntry(Moveline moveline)
+        internal override void AddEntry(MoveLine moveLine)
         {
-            if (moveline.Amount < 0)
-                Debit += -moveline.Amount;
+            if (moveLine.Amount < 0)
+                Debit += -moveLine.Amount;
             else
             {
-                Credit += moveline.Amount;
+                Credit += moveLine.Amount;
             }
         }
     }

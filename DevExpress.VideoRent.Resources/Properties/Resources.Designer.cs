@@ -178,6 +178,15 @@ namespace DevExpress.VideoRent.Resources.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AccountName.
+        /// </summary>
+        public static string AccountName {
+            get {
+                return ResourceManager.GetString("AccountName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer Accounts.
         /// </summary>
         public static string AccountsModule {
@@ -589,6 +598,15 @@ namespace DevExpress.VideoRent.Resources.Properties {
         public static string AlternateView {
             get {
                 return ResourceManager.GetString("AlternateView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amount.
+        /// </summary>
+        public static string Amount {
+            get {
+                return ResourceManager.GetString("Amount", resourceCulture);
             }
         }
         
@@ -2582,6 +2600,15 @@ namespace DevExpress.VideoRent.Resources.Properties {
         public static string MostRentedMovies {
             get {
                 return ResourceManager.GetString("MostRentedMovies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MovelineId.
+        /// </summary>
+        public static string MovelineId {
+            get {
+                return ResourceManager.GetString("MovelineId", resourceCulture);
             }
         }
         

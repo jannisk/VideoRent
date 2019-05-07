@@ -5,24 +5,21 @@ using DevExpress.Data.Filtering;
 
 namespace DevExpress.VideoRent
 {
-    public class Moveline:VideoRentBaseObject
+    public class MoveLine:VideoRentBaseObject
     {
-        Journal _journal;
 
-        private int _debit;
+        Journal _journal;
 
         private int _credit;
 
         private int _amount;
 
-
-        protected override string GeneratedIdType { get { return "Moveline"; } }
-        public Moveline(Session session) : base(session)
+        public MoveLine(Session session) : base(session)
         {
             DatePosted = VideoRentDateTime.Now;
         }
 
-        public Moveline(Session session, Move amove, Journal journalEntry, Account account, int amount) : this(session)
+        public MoveLine(Session session, Move amove, Journal journalEntry, Account account, int amount) : this(session)
         {
             MoveId = amove;
             Journal = journalEntry;
@@ -31,11 +28,14 @@ namespace DevExpress.VideoRent
 
         }
 
+        protected override string GeneratedIdType { get { return "MoveLine"; } }
+
+
         [Persistent, Indexed(Unique = true)]
-        public int MovelineId
+        public int MoveLineId
         {
-            get { return GetPropertyValue<int>("MovelineId"); }
-            set { SetPropertyValue<int>("MovelineId", value); }
+            get { return GetPropertyValue<int>("MoveLineId"); }
+            set { SetPropertyValue<int>("MoveLineId", value); }
         }
 
         public int Amount
@@ -47,14 +47,14 @@ namespace DevExpress.VideoRent
             }
         }
 
-        public int Debit
-        {
-            get { return _debit; }
-            set
-            {
-                SetPropertyValue<int>("Debit", ref _debit, value);
-            }
-        }
+        //public int Debit
+        //{
+        //    get { return _debit; }
+        //    set
+        //    {
+        //        SetPropertyValue<int>("Debit", ref _debit, value);
+        //    }
+        //}
 
         internal void Post()
         {
@@ -108,6 +108,8 @@ namespace DevExpress.VideoRent
             get { return _journal; }
             set { SetPropertyValue<Journal>("Journal", ref _journal, value); }
         }
+
+
 
     }
 

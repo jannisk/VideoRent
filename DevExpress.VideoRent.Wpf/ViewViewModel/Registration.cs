@@ -76,7 +76,7 @@ namespace DevExpress.VideoRent.Wpf {
             viewsManager.RegisterView(typeof(CurrentCustomerRentsDetail), typeof(CurrentCustomerRentsDetailView));
             viewsManager.RegisterView(typeof(CurrentCustomerRentsEdit), typeof(CurrentCustomerRentsEditView));
             viewsManager.RegisterView(typeof(CurrentCustomerTransactionsDetail), typeof(CurrentCustomerTransactionsDetailView));
-            viewsManager.RegisterView(typeof(CurrentCustomerTransactionsEdit), typeof(CurrentCustomerRentsEditView));
+            viewsManager.RegisterView(typeof(CurrentCustomerTransactionsEdit), typeof(CurrentCustomerTransactionsEditView));
             viewsManager.RegisterView(typeof(RentsViewOptionsEdit), typeof(RentsViewOptionsEditView));
             viewsManager.RegisterView(typeof(RentsPeriodEdit), typeof(RentsPeriodEditView));
             viewsManager.RegisterView(typeof(FindCustomerDetail), typeof(FindCustomerDetailView));

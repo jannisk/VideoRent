@@ -52,6 +52,9 @@
                     <TextBlock Margin="5,0,0,0" Text="{Binding Discount, Converter={StaticResource StringFormatConverter}, ConverterParameter=(Discount\=\{0:P\})}" />
                 </StackPanel>
             </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="{helpers:ConstString ID=AccountName}" Margin="10,0">
+                <TextBlock Text="{Binding AccountName}" TextWrapping="Wrap" />
+            </dxlc:LayoutItem>
         </dxlc:LayoutControl>
     </DataTemplate>
    

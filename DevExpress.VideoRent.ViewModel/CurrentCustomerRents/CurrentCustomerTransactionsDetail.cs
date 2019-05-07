@@ -7,7 +7,7 @@ using DevExpress.VideoRent.ViewModel.ViewModelBase;
 
 namespace DevExpress.VideoRent.ViewModel
 {
-    public class CurrentCustomerTransactionsDetail : VRObjectsList<Journal>
+    public class CurrentCustomerTransactionsDetail : VRObjectsList<MoveLine>
     {
         private RentsPeriodEditObject _rentsPeriodEditObject;
         private UnitOfWork session;
