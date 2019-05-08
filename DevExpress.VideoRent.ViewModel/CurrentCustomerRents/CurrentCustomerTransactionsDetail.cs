@@ -58,6 +58,7 @@ namespace DevExpress.VideoRent.ViewModel
         private void DoCommandChargePayment(object p)
         {
             ChargePayments();
+            Save();
         }
 
         #endregion

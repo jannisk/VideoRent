@@ -175,7 +175,12 @@ namespace DevExpress.VideoRent.Helpers {
         public Account CashAccount(Session session)
         {
             return _cashAccount ??
-                   (_cashAccount = session.FindObject<Account>(CriteriaOperator.Parse("Name = ?", "Cash-Account")));
+                   (_cashAccount = session.FindObject<Account>(CriteriaOperator.Parse("Type = ?", AccountTypeEnum.Cash)));
+        }
+
+        public void Reset()
+        {
+            _cashAccount = null;
         }
     }
 

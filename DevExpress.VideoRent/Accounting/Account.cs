@@ -57,6 +57,20 @@ namespace DevExpress.VideoRent
                 Credit += moveLine.Amount;
             }
 
+            //if (!IsCashAccount)
+            //{
+               
+            //}
+            //else
+            //{
+            //    if (moveLine.Amount < 0)
+            //        Credit += -moveLine.Amount;
+            //    else
+            //    {
+            //        Debit += moveLine.Amount;
+            //    }
+            //}
+
         }
 
 
@@ -92,12 +106,12 @@ namespace DevExpress.VideoRent
         {
             get
             {
-                return IsCashAccount ? Debit - Credit : Credit - Debit;
+                return Credit - Debit;
             }
             set { SetPropertyValue<double>("Balance", ref _balance, value); }
         }
 
-        private bool IsCashAccount
+        public bool IsCashAccount
         {
             get { return (AccountTypeEnum.Cash == Type); }
         }

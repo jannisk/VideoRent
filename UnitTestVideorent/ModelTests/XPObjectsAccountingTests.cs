@@ -11,14 +11,14 @@ namespace DevExpress.VideoRent.Tests
         [TestMethod]
         public void CreateCustomerAndCheckBalance()
         {
-            var cashAccount = new CashAccount(Session);
+            var cashAccount = new Account(Session) {Type = AccountTypeEnum.Cash};
             Session.CommitChanges();
             Andrew.Deposit(300, cashAccount);
             Andrew.Deposit(100, cashAccount);
             Andrew.Deposit(150, cashAccount);
             Session.CommitChanges();
 
-            Assert.IsTrue(cashAccount.Balance == 550);
+            Assert.IsTrue(cashAccount.Balance == -550);
         }
 
         [TestMethod]
@@ -44,25 +44,25 @@ namespace DevExpress.VideoRent.Tests
         [TestMethod]
         public void CheckAccountBalance()
         {
-            var cashAccount = new CashAccount(Session) {Debit = 300};
+            var cashAccount = new Account(Session) { Debit = 300, Type = AccountTypeEnum.Cash };
             Session.CommitChanges();
             Andrew.Deposit(30, cashAccount);
             Session.CommitChanges();
             Alex.Deposit(30, cashAccount);
             Session.CommitChanges();
-            Assert.IsTrue(cashAccount.Balance == 360);
+            Assert.IsTrue(cashAccount.Balance == -360);
         }
 
         [TestMethod]
         public void ChargeAccounts()
         {
-            var cashAccount = new CashAccount(Session);
+            var cashAccount = new Account(Session) { Type = AccountTypeEnum.Cash };
             Session.CommitChanges();
             Andrew.Deposit(30, cashAccount);
             Session.CommitChanges();
             Alex.Deposit(30, cashAccount);
             Session.CommitChanges();
-            Assert.IsTrue(cashAccount.Balance == 60);
+            Assert.IsTrue(cashAccount.Balance == -60);
             VideoRentDateTime.AddMonths(1);
             Andrew.ChargeMembershipFee(30);
             Session.CommitChanges();
@@ -75,7 +75,7 @@ namespace DevExpress.VideoRent.Tests
             Andrew.ChargeMembershipFee(30);
             Session.CommitChanges();
             Assert.IsTrue(Andrew.IsMembershipDebter);
-            Assert.IsTrue(GetMonths(VideoRentDateTime.Now - Andrew.LastPayDate()) == 2);
+            Assert.IsTrue(GetMonths(VideoRentDateTime.Now - Andrew.LastPayDate()) == 3);
             Assert.IsFalse(Alex.IsMembershipDebter);
             Assert.IsTrue(cashAccount.Balance == 0);
             Assert.IsTrue(Andrew.Accounts[0].Balance == -30);
@@ -110,7 +110,7 @@ namespace DevExpress.VideoRent.Tests
         [TestMethod]
         public void CheckDayOffset()
         {
-            var cashAccount = new CashAccount(Session) { Debit = 300 };
+            var cashAccount = new Account(Session) { Debit = 300, Type = AccountTypeEnum.Cash };
             Session.CommitChanges();
             Andrew.Deposit(30, cashAccount);
             Session.CommitChanges();

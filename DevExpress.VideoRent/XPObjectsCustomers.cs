@@ -134,7 +134,20 @@ namespace DevExpress.VideoRent {
 
         public XPCollection<Rent> ActiveRents { get { return new XPCollection<Rent>(Session, CriteriaOperator.Parse("Customer = ? and Active = ?", this, true)); } }
 
-        public XPCollection<MoveLine> Transactions { get { return new XPCollection<MoveLine>(Session, CriteriaOperator.Parse("AccountId = ? ", this.Accounts[0].Oid)); } }
+        public XPCollection<MoveLine> CustomerPayments {
+            get
+            {
+                return new XPCollection<MoveLine>(Session, CriteriaOperator.Parse("AccountId = ? and  Amount > 0", this.Accounts[0].Oid));
+            } 
+        }
+
+        public XPCollection<MoveLine> CustomerCharges
+        {
+            get
+            {
+                return new XPCollection<MoveLine>(Session, CriteriaOperator.Parse("AccountId = ? and  Amount < 0", this.Accounts[0].Oid));
+            }
+        }
 
         public CustomerDiscountLevel DiscountLevel {
             get { return discountLevel; }
@@ -247,7 +260,7 @@ namespace DevExpress.VideoRent {
         {
             if (Membership.MembershipStatus != MembershipStatus.Active) return;
             Accounts[0].Charge(amount, CashAccountProvider.Instance.CashAccount(Session));
-            Session.CommitTransaction();
+            //Session.CommitTransaction();
         }
         
         public void Deposit(int amount, Account cashAccount)
@@ -365,5 +378,10 @@ namespace DevExpress.VideoRent {
             DiscountLevel = level;
         }
 #endif
+
+        public void UpdateCash()
+        {
+            CashAccountProvider.Instance.Reset();
+        }
     }
 }

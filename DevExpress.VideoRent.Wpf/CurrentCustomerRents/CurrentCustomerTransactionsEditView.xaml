@@ -85,7 +85,7 @@
             <helpers:BindingInfo ElementName="resource:ElementLayoutDataStore" Property="{x:Static local:ElementLayoutDataStore.DisposeSignalSlotProperty}" Value="{Binding DisposeSignal}" />
             <helpers:BindingInfo ElementName="ReceiptsGroup" Property="{x:Static dxlc:LayoutGroup.HeaderProperty}" Value="{Binding GridCaption}" />
             <helpers:BindingInfo ElementName="ReceiptsGroup" Property="{x:Static dxlc:LayoutGroup.HeaderTemplateProperty}" Value="{Binding ShowViewCaption, Converter={StaticResource ReceiptsGroupHeaderTemplateConverter}}" />
-            <helpers:BindingInfo ElementName="ReceiptsGrid" Property="{x:Static dxg:GridControl.ItemsSourceProperty}" Value="{Binding CurrentCustomer.Transactions}" />
+            <helpers:BindingInfo ElementName="ReceiptsGrid" Property="{x:Static dxg:GridControl.ItemsSourceProperty}" Value="{Binding CurrentCustomer.CustomerPayments}" />
             <helpers:BindingInfo ElementName="ReceiptsGridView" Property="{x:Static dxg:GridViewBase.FocusedRowProperty}" Value="{Binding CurrentRecord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="ReceiptsGridView" Property="{x:Static dxg:TableView.ShowIndicatorProperty}" Value="{Binding GridUIOptions.ShowIndicator}" />
             <helpers:BindingInfo ElementName="ReceiptsGridView" Property="{x:Static dxg:TableView.ShowVerticalLinesProperty}" Value="{Binding GridUIOptions.ShowVerticalLines}" />
@@ -96,8 +96,8 @@
             <helpers:BindingInfo ElementName="PurchasesGrid" Property="{x:Static UIElement.VisibilityProperty}" Value="{Binding CurrentRecord.Type, Converter={StaticResource PurchasesGridVisibilityConverter}, TargetNullValue=Collapsed, FallbackValue=Collapsed}" />
             <helpers:BindingInfo ElementName="LateFeesGrid" Property="{x:Static dxg:GridControl.ItemsSourceProperty}" Value="{Binding CurrentRecord.OverdueRents}" />
             <helpers:BindingInfo ElementName="LateFeesGrid" Property="{x:Static UIElement.VisibilityProperty}" Value="{Binding CurrentRecord.Type, Converter={StaticResource LateFeesGridVisibilityConverter}, TargetNullValue=Collapsed, FallbackValue=Collapsed}" />
-            <helpers:BindingInfo ElementName="ActiveRentalsGroup" Property="{x:Static dxlc:LayoutGroup.HeaderTemplateProperty}" Value="{Binding CurrentCustomerActiveTransactions.Count, Converter={StaticResource ActiveRentalsGroupHeaderTemplateConverter}}" />
-            <helpers:BindingInfo ElementName="ActiveRentalsGrid" Property="{x:Static dxg:GridControl.ItemsSourceProperty}" Value="{Binding CurrentCustomerActiveTransactions}" />
+            <helpers:BindingInfo ElementName="ActiveChargesGroup" Property="{x:Static dxlc:LayoutGroup.HeaderTemplateProperty}" Value="{Binding CurrentCustomerCharges.Count, Converter={StaticResource ActiveRentalsGroupHeaderTemplateConverter}}" />
+            <helpers:BindingInfo ElementName="ActiveChargesGrid" Property="{x:Static dxg:GridControl.ItemsSourceProperty}" Value="{Binding CurrentCustomerCharges}" />
             <helpers:BindingInfo ElementName="ActiveRentalsGrid" Property="{x:Static helpers:GridControlSignalHelper.RefreshDataSignalSlotProperty}" Value="{Binding CheckedRentsChangedSignal}" />
             <helpers:BindingInfo ElementName="SelectActiveRentalUnbound" Property="{x:Static helpers:CustomEventCommandHelper.ValueReadingProperty}" Value="{Binding CommandReadRecordChecked}" />
             <helpers:BindingInfo ElementName="SelectActiveRentalUnbound" Property="{x:Static helpers:CustomEventCommandHelper.ValueWritingProperty}" Value="{Binding CommandWriteRecordChecked}" />
@@ -147,6 +147,22 @@
                 </dxlc:LayoutItem>
                 <dxlc:LayoutItem dxlc:LayoutControl.AllowVerticalSizing="True" Height="140">
                 </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+            <dxlc:LayoutGroup x:Name="ActiveChargesGroup" Header="{helpers:ConstString ID=ActiveCharges}">
+                <dxg:GridControl x:Name="ActiveChargesGrid" DockPanel.Dock="Top" ShowBorder="False">
+                    <dxg:GridControl.View>
+                        <dxg:TableView AllowEditing="True" ShowGroupedColumns="False" ShowGroupPanel="False" NavigationStyle="Cell" AutoWidth="True" helpers:ImmediateCellValueSavingHelper.FieldName="SelectActiveRental" />
+                    </dxg:GridControl.View>
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn x:Name="ChargesGridIdColumn" FieldName="MoveLineId" Header="{helpers:ConstString ID=MovelineId}" Width="86" />
+                        <dxg:GridColumn x:Name="ChargeDateColumn" FieldName="DatePosted" Header="{helpers:ConstString ID=Date}" ColumnFilterMode="DisplayText" AutoFilterCondition="Contains" />
+                        <dxg:GridColumn x:Name="ChargeAmountColumn" FieldName="Amount" Header="{helpers:ConstString ID=Amount}" Width="69">
+                            <dxg:GridColumn.EditSettings>
+                                <dxe:SpinEditSettings helpers:StyleConverter.Style="{StaticResource PriceSpinEdit}" />
+                            </dxg:GridColumn.EditSettings>
+                        </dxg:GridColumn>
+                    </dxg:GridControl.Columns>
+                </dxg:GridControl>
             </dxlc:LayoutGroup>
         </dxlc:LayoutGroup>
     </dxlc:LayoutControl>

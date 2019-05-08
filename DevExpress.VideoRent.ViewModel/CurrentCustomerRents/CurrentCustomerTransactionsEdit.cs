@@ -1,4 +1,5 @@
 ﻿using DevExpress.Data.Filtering;
+using DevExpress.VideoRent.Helpers;
 using DevExpress.VideoRent.ViewModel.ViewModelBase;
 using System;
 using DevExpress.Xpo;
@@ -13,12 +14,13 @@ namespace DevExpress.VideoRent.ViewModel
         Customer _currentCustomer;
         string gridCaption;
         int period;
-        XPCollection<MoveLine> currentCustomerTransactions;
+        XPCollection<MoveLine> _currentCustomerPayments;
+        private XPCollection<MoveLine> _currentCustomerCharges;
 
         private CurrentCustomerTransactionsDetail currentCustomerTransactionsDetail;
         private object currentCustomerTransactionsEditObject;
 
-     
+
         public CurrentCustomerTransactionsEdit(CurrentCustomerTransactionsEditObject editObject, ModuleObjectDetail detail):base(editObject, detail)
         {
             Period = 12;
@@ -28,7 +30,8 @@ namespace DevExpress.VideoRent.ViewModel
 
         private void OnCustomersSetUpdated(object sender, EditableObjectEventArgs e)
         {
-            return;
+            if (CurrentCustomer != null)
+                CurrentCustomer.Reload();
         }
 
         private void OnCurrentCustomerProviderCurrentCustomerOidChanged(object sender, EventArgs e)
@@ -36,10 +39,17 @@ namespace DevExpress.VideoRent.ViewModel
             UpdateCurrentCustomer();
         }
 
-        public XPCollection<MoveLine> CurrentCustomerTransactions
+        public XPCollection<MoveLine> CurrentCustomerPayments
         {
-            get { return currentCustomerTransactions; }
-            set { SetValue<XPCollection<MoveLine>>("CurrentCustomerTransactions", ref currentCustomerTransactions, value); }
+            get { return _currentCustomerPayments; }
+            set { SetValue<XPCollection<MoveLine>>("CurrentCustomerPayments", ref _currentCustomerPayments, value); }
+        }
+
+
+        public XPCollection<MoveLine> CurrentCustomerCharges
+        {
+            get { return _currentCustomerCharges; }
+            set { SetValue<XPCollection<MoveLine>>("CurrentCustomerCharges", ref _currentCustomerCharges, value); }
         }
 
         private void UpdateCurrentCustomer()
@@ -48,15 +58,24 @@ namespace DevExpress.VideoRent.ViewModel
             CurrentCustomer =
                 VRObjectsEditObject.VideoRentObjects.Session.FindObject<Customer>(CriteriaOperator.Parse("Oid = ?",
                     CurrentCustomerProvider.Current.CurrentCustomerOid));
-            UpdateTransactions();
+            UpdatePayments();
+            UpdateCharges();
             //ClearCheckedRents();
             UpdateReceiptsFilter();
         }
 
-        private void UpdateTransactions()
+        private void UpdatePayments()
         {
-            CurrentCustomerTransactions = CurrentCustomer == null ? null : CurrentCustomer.Transactions;
-           // CanCheckActiveRents = CurrentCustomer != null && CurrentCustomerActiveRents.Count > 0;
+            CurrentCustomerPayments = CurrentCustomer == null ? null : CurrentCustomer.CustomerPayments;
+
+            if (CurrentCustomer != null)
+                CurrentCustomer.UpdateCash();
+            // CanCheckActiveRents = CurrentCustomer != null && CurrentCustomerActiveRents.Count > 0;
+        }
+
+        private void UpdateCharges()
+        {
+            CurrentCustomerCharges = CurrentCustomer == null ? null : CurrentCustomer.CustomerCharges;
         }
 
         void RaiseCurrentCustomerChanged(Customer oldValue, Customer newValue)
@@ -118,6 +137,13 @@ namespace DevExpress.VideoRent.ViewModel
         {
             get { return gridCaption; }
             set { SetValue<string>("GridCaption", ref gridCaption, value); }
+        }
+
+        protected override void OnEditObjectUpdated(object sender, EventArgs e)
+        {
+            base.OnEditObjectUpdated(sender, e);
+            UpdateCurrentCustomer();
+            UpdateGridCaption();
         }
 
         void UpdateGridCaption()

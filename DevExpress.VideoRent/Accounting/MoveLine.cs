@@ -10,9 +10,10 @@ namespace DevExpress.VideoRent
 
         Journal _journal;
 
-        private int _credit;
+        private decimal _credit;
 
         private int _amount;
+
 
         public MoveLine(Session session) : base(session)
         {
@@ -24,7 +25,7 @@ namespace DevExpress.VideoRent
             MoveId = amove;
             Journal = journalEntry;
             AccountId = account;
-            _amount = amount;
+            Amount = amount;
 
         }
 
@@ -47,12 +48,12 @@ namespace DevExpress.VideoRent
             }
         }
 
-        //public int Debit
+        //public decimal Debit
         //{
         //    get { return _debit; }
         //    set
         //    {
-        //        SetPropertyValue<int>("Debit", ref _debit, value);
+        //        SetPropertyValue<decimal>("Debit", ref _debit, value);
         //    }
         //}
 
@@ -62,12 +63,12 @@ namespace DevExpress.VideoRent
         }
 
 
-        public int Credit
+        public decimal Credit
         {
             get { return _credit; }
             set
             {
-                SetPropertyValue<int>("Credit", ref _credit, value);
+                SetPropertyValue<decimal>("Credit", ref _credit, value);
             }
         }
 
@@ -96,6 +97,9 @@ namespace DevExpress.VideoRent
         }
 
         bool _reconciled;
+        
+     
+
         public bool Reconciled
         {
             get { return _reconciled; }
