@@ -141,7 +141,7 @@ namespace DevExpress.VideoRent {
             } 
         }
 
-        public XPCollection<MoveLine> CustomerCharges
+        public XPCollection<MoveLine> CustomerDebits
         {
             get
             {
@@ -256,17 +256,17 @@ namespace DevExpress.VideoRent {
             }
         }
 
-        public void ChargeMembershipFee(int amount)
+        public void DebitMembershipFee(int amount)
         {
             if (Membership.MembershipStatus != MembershipStatus.Active) return;
             Accounts[0].Charge(amount, CashAccountProvider.Instance.CashAccount(Session));
             //Session.CommitTransaction();
         }
         
-        public void Deposit(int amount, Account cashAccount)
+        public void DepositAmount(int amount)
         {
             if (Membership.MembershipStatus != MembershipStatus.Active) return;
-            Accounts[0].DepositAmount(amount, cashAccount);
+            Accounts[0].DepositAmount(amount, CashAccountProvider.Instance.CashAccount(Session));
         }
 
         public void Withdraw(int amount)

@@ -90,17 +90,8 @@
             <helpers:BindingInfo ElementName="ReceiptsGridView" Property="{x:Static dxg:TableView.ShowIndicatorProperty}" Value="{Binding GridUIOptions.ShowIndicator}" />
             <helpers:BindingInfo ElementName="ReceiptsGridView" Property="{x:Static dxg:TableView.ShowVerticalLinesProperty}" Value="{Binding GridUIOptions.ShowVerticalLines}" />
             <helpers:BindingInfo ElementName="ReceiptsGridView" Property="{x:Static dxg:TableView.ShowAutoFilterRowProperty}" Value="{Binding GridUIOptions.ShowTheAutoFilterRow}" />
-            <helpers:BindingInfo ElementName="RentalsGrid" Property="{x:Static dxg:GridControl.ItemsSourceProperty}" Value="{Binding CurrentRecord.Rents}" />
-            <helpers:BindingInfo ElementName="RentalsGrid" Property="{x:Static UIElement.VisibilityProperty}" Value="{Binding CurrentRecord.Type, Converter={StaticResource RentalsGridVisibilityConverter}, TargetNullValue=Collapsed, FallbackValue=Collapsed}" />
-            <helpers:BindingInfo ElementName="PurchasesGrid" Property="{x:Static dxg:GridControl.ItemsSourceProperty}" Value="{Binding CurrentRecord.Rents}" />
-            <helpers:BindingInfo ElementName="PurchasesGrid" Property="{x:Static UIElement.VisibilityProperty}" Value="{Binding CurrentRecord.Type, Converter={StaticResource PurchasesGridVisibilityConverter}, TargetNullValue=Collapsed, FallbackValue=Collapsed}" />
-            <helpers:BindingInfo ElementName="LateFeesGrid" Property="{x:Static dxg:GridControl.ItemsSourceProperty}" Value="{Binding CurrentRecord.OverdueRents}" />
-            <helpers:BindingInfo ElementName="LateFeesGrid" Property="{x:Static UIElement.VisibilityProperty}" Value="{Binding CurrentRecord.Type, Converter={StaticResource LateFeesGridVisibilityConverter}, TargetNullValue=Collapsed, FallbackValue=Collapsed}" />
-            <helpers:BindingInfo ElementName="ActiveChargesGroup" Property="{x:Static dxlc:LayoutGroup.HeaderTemplateProperty}" Value="{Binding CurrentCustomerCharges.Count, Converter={StaticResource ActiveRentalsGroupHeaderTemplateConverter}}" />
-            <helpers:BindingInfo ElementName="ActiveChargesGrid" Property="{x:Static dxg:GridControl.ItemsSourceProperty}" Value="{Binding CurrentCustomerCharges}" />
-            <helpers:BindingInfo ElementName="ActiveRentalsGrid" Property="{x:Static helpers:GridControlSignalHelper.RefreshDataSignalSlotProperty}" Value="{Binding CheckedRentsChangedSignal}" />
-            <helpers:BindingInfo ElementName="SelectActiveRentalUnbound" Property="{x:Static helpers:CustomEventCommandHelper.ValueReadingProperty}" Value="{Binding CommandReadRecordChecked}" />
-            <helpers:BindingInfo ElementName="SelectActiveRentalUnbound" Property="{x:Static helpers:CustomEventCommandHelper.ValueWritingProperty}" Value="{Binding CommandWriteRecordChecked}" />
+            <helpers:BindingInfo ElementName="DebitsGroup" Property="{x:Static dxlc:LayoutGroup.HeaderTemplateProperty}" Value="{Binding CurrentCustomerCharges.Count, Converter={StaticResource ActiveRentalsGroupHeaderTemplateConverter}}" />
+            <helpers:BindingInfo ElementName="DebitsGrid" Property="{x:Static dxg:GridControl.ItemsSourceProperty}" Value="{Binding CurrentCustomerDebits}" />
             <helpers:BindingInfo ElementName="TabsGroup" Property="{x:Static helpers:TabbedGroupSignalHelper.SelectIndexSignalSlotProperty}" Value="{Binding CheckedAllActiveRentsSignal}" />
             <helpers:BindingInfo ElementName="MainLayoutControl" Property="{x:Static helpers:LayoutControlSignalHelper.FlipLayoutSignalSlotProperty}" Value="{Binding FlipLayoutSignal}" />
             <helpers:BindingInfo ElementName="CustomerInfoPresenter" Property="{x:Static ContentControl.ContentProperty}" Value="{Binding CurrentCustomer}" />
@@ -108,9 +99,6 @@
             <helpers:ValueInfo ElementName="CustomerInfoPresenter" Property="{x:Static helpers:CustomEventCommandHelper.MouseDoubleClickParameterProperty}" Value="{x:Static local:WpfViewsManager.CategoryCurrentCustomerRents}" />
             <helpers:ElementLayoutInfo ElementName="MainLayoutControl" StoreFolder="LayoutControl:CurrentCustomerRentsEdit-MainLayoutControl" Store="{StaticResource ElementLayoutDataStore}" />
             <helpers:ElementLayoutInfo ElementName="ReceiptsGrid" StoreFolder="GridControl:CurrentCustomerRentsEdit-ReceiptsGrid" Store="{StaticResource ElementLayoutDataStore}" />
-            <helpers:ElementLayoutInfo ElementName="RentalsGrid" StoreFolder="GridControl:CurrentCustomerRentsEdit-RentalsGrid" Store="{StaticResource ElementLayoutDataStore}" />
-            <helpers:ElementLayoutInfo ElementName="PurchasesGrid" StoreFolder="GridControl:CurrentCustomerRentsEdit-PurchasesGrid" Store="{StaticResource ElementLayoutDataStore}" />
-            <helpers:ElementLayoutInfo ElementName="LateFeesGrid" StoreFolder="GridControl:CurrentCustomerRentsEdit-LateFeesGrid" Store="{StaticResource ElementLayoutDataStore}" />
             <helpers:ElementLayoutInfo ElementName="ActiveRentalsGrid" StoreFolder="GridControl:CurrentCustomerRentsEdit-ActiveRentalsGrid" Store="{StaticResource ElementLayoutDataStore}" />
         </helpers:BindingsInfoCollection>
     </helpers:DataBindingsHelper.Bindings>
@@ -145,23 +133,28 @@
                         </dxg:GridControl.GroupSummary>
                     </dxg:GridControl>
                 </dxlc:LayoutItem>
-                <dxlc:LayoutItem dxlc:LayoutControl.AllowVerticalSizing="True" Height="140">
-                </dxlc:LayoutItem>
             </dxlc:LayoutGroup>
-            <dxlc:LayoutGroup x:Name="ActiveChargesGroup" Header="{helpers:ConstString ID=ActiveCharges}">
-                <dxg:GridControl x:Name="ActiveChargesGrid" DockPanel.Dock="Top" ShowBorder="False">
+            <dxlc:LayoutGroup x:Name="DebitsGroup" Header="{helpers:ConstString ID=DebitsGroup}">
+                <dxg:GridControl x:Name="DebitsGrid" DockPanel.Dock="Top" ShowBorder="False">
                     <dxg:GridControl.View>
-                        <dxg:TableView AllowEditing="True" ShowGroupedColumns="False" ShowGroupPanel="False" NavigationStyle="Cell" AutoWidth="True" helpers:ImmediateCellValueSavingHelper.FieldName="SelectActiveRental" />
+                        <dxg:TableView AllowEditing="True" ShowGroupedColumns="True" ShowTotalSummary="True"  NavigationStyle="Cell" AutoWidth="True" helpers:ImmediateCellValueSavingHelper.FieldName="SelectActiveRental" />
                     </dxg:GridControl.View>
                     <dxg:GridControl.Columns>
-                        <dxg:GridColumn x:Name="ChargesGridIdColumn" FieldName="MoveLineId" Header="{helpers:ConstString ID=MovelineId}" Width="86" />
-                        <dxg:GridColumn x:Name="ChargeDateColumn" FieldName="DatePosted" Header="{helpers:ConstString ID=Date}" ColumnFilterMode="DisplayText" AutoFilterCondition="Contains" />
-                        <dxg:GridColumn x:Name="ChargeAmountColumn" FieldName="Amount" Header="{helpers:ConstString ID=Amount}" Width="69">
+                        <dxg:GridColumn x:Name="DebitGridIdColumn" FieldName="MoveLineId" Header="{helpers:ConstString ID=MovelineId}" Width="86" />
+                        <dxg:GridColumn x:Name="DebitDateColumn" FieldName="DatePosted" Header="{helpers:ConstString ID=Date}" ColumnFilterMode="DisplayText" AutoFilterCondition="Contains" />
+                        <dxg:GridColumn x:Name="DebitAmountColumn" FieldName="Amount" Header="{helpers:ConstString ID=Amount}" Width="69">
                             <dxg:GridColumn.EditSettings>
                                 <dxe:SpinEditSettings helpers:StyleConverter.Style="{StaticResource PriceSpinEdit}" />
                             </dxg:GridColumn.EditSettings>
                         </dxg:GridColumn>
                     </dxg:GridControl.Columns>
+                    <dxg:GridControl.GroupSummary>
+                        <dxg:GridSummaryItem FieldName="Amount" SummaryType="Sum" DisplayFormat="{}Amount = {0:c}" />
+                    </dxg:GridControl.GroupSummary>
+                    <dxg:GridControl.TotalSummary>
+                        <dxg:GridSummaryItem FieldName="MoveLineId" SummaryType="Count" />
+                        <dxg:GridSummaryItem FieldName="Amount" SummaryType="Sum" DisplayFormat="C" />
+                    </dxg:GridControl.TotalSummary>
                 </dxg:GridControl>
             </dxlc:LayoutGroup>
         </dxlc:LayoutGroup>

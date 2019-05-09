@@ -1452,6 +1452,15 @@ namespace DevExpress.VideoRent.Resources.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Debits.
+        /// </summary>
+        public static string DebitsGroup {
+            get {
+                return ResourceManager.GetString("DebitsGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default.
         /// </summary>
         public static string Default {

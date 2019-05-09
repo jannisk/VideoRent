@@ -32,9 +32,9 @@ namespace DevExpress.VideoRent.ViewModel
         }
 
 
-        private void ChargePayments()
+        private void DebitAmount()
         {
-            CurrentCustomerTransactionsEdit.ChargePayments();
+            CurrentCustomerTransactionsEdit.DebitAmount();
         }
 
 
@@ -50,14 +50,14 @@ namespace DevExpress.VideoRent.ViewModel
             RentSell();
         }
 
-        public Action<object> CommandChargePayment
+        public Action<object> CommandDebitCustomer
         {
-            get { return DoCommandChargePayment; }
+            get { return DoCommandDebitAmount; }
         }
 
-        private void DoCommandChargePayment(object p)
+        private void DoCommandDebitAmount(object p)
         {
-            ChargePayments();
+            DebitAmount();
             Save();
         }
 

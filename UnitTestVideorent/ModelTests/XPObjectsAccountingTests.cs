@@ -13,9 +13,9 @@ namespace DevExpress.VideoRent.Tests
         {
             var cashAccount = new Account(Session) {Type = AccountTypeEnum.Cash};
             Session.CommitChanges();
-            Andrew.Deposit(300, cashAccount);
-            Andrew.Deposit(100, cashAccount);
-            Andrew.Deposit(150, cashAccount);
+            Andrew.DepositAmount(300);
+            Andrew.DepositAmount(100);
+            Andrew.DepositAmount(150);
             Session.CommitChanges();
 
             Assert.IsTrue(cashAccount.Balance == -550);
@@ -46,9 +46,9 @@ namespace DevExpress.VideoRent.Tests
         {
             var cashAccount = new Account(Session) { Debit = 300, Type = AccountTypeEnum.Cash };
             Session.CommitChanges();
-            Andrew.Deposit(30, cashAccount);
+            Andrew.DepositAmount(30);
             Session.CommitChanges();
-            Alex.Deposit(30, cashAccount);
+            Alex.DepositAmount(30);
             Session.CommitChanges();
             Assert.IsTrue(cashAccount.Balance == -360);
         }
@@ -58,21 +58,21 @@ namespace DevExpress.VideoRent.Tests
         {
             var cashAccount = new Account(Session) { Type = AccountTypeEnum.Cash };
             Session.CommitChanges();
-            Andrew.Deposit(30, cashAccount);
+            Andrew.DepositAmount(30);
             Session.CommitChanges();
-            Alex.Deposit(30, cashAccount);
+            Alex.DepositAmount(30);
             Session.CommitChanges();
             Assert.IsTrue(cashAccount.Balance == -60);
             VideoRentDateTime.AddMonths(1);
-            Andrew.ChargeMembershipFee(30);
+            Andrew.DebitMembershipFee(30);
             Session.CommitChanges();
             VideoRentDateTime.AddMonths(1);
-            Andrew.Deposit(30, cashAccount);
+            Andrew.DepositAmount(30);
             Session.CommitChanges();
-            Andrew.ChargeMembershipFee(30);
+            Andrew.DebitMembershipFee(30);
             Session.CommitChanges();
             VideoRentDateTime.AddMonths(1);
-            Andrew.ChargeMembershipFee(30);
+            Andrew.DebitMembershipFee(30);
             Session.CommitChanges();
             Assert.IsTrue(Andrew.IsMembershipDebter);
             Assert.IsTrue(GetMonths(VideoRentDateTime.Now - Andrew.LastPayDate()) == 3);
@@ -88,7 +88,7 @@ namespace DevExpress.VideoRent.Tests
             VideoRentDateTime.AddMonths(1);
             Session.CommitChanges();
             var cashAccount = new CashAccount(Session);            
-            acustomer.Deposit(15, cashAccount);
+            acustomer.DepositAmount(15);
             Session.CommitChanges();
             Assert.IsTrue(acustomer.Accounts[0].Balance == 15);
             VideoRentDateTime.AddMonths(1);
@@ -112,13 +112,13 @@ namespace DevExpress.VideoRent.Tests
         {
             var cashAccount = new Account(Session) { Debit = 300, Type = AccountTypeEnum.Cash };
             Session.CommitChanges();
-            Andrew.Deposit(30, cashAccount);
+            Andrew.DepositAmount(30);
             Session.CommitChanges();
             VideoRentDateTime.AddDays(2);
-            Alex.Deposit(30, cashAccount);
+            Alex.DepositAmount(30);
             Session.CommitChanges();
             VideoRentDateTime.AddDays(2);
-            Andrew.Deposit(30, cashAccount);
+            Andrew.DepositAmount(30);
             Session.CommitChanges();
             Assert.IsTrue((VideoRentDateTime.Now - Andrew.LastPayDate()).Days==4);
             Assert.IsTrue((VideoRentDateTime.Now - Alex.LastPayDate()).Days == 2);

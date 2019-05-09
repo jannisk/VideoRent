@@ -15,7 +15,7 @@ namespace DevExpress.VideoRent.ViewModel
         string gridCaption;
         int period;
         XPCollection<MoveLine> _currentCustomerPayments;
-        private XPCollection<MoveLine> _currentCustomerCharges;
+        private XPCollection<MoveLine> _currentCustomerDebits;
 
         private CurrentCustomerTransactionsDetail currentCustomerTransactionsDetail;
         private object currentCustomerTransactionsEditObject;
@@ -46,10 +46,10 @@ namespace DevExpress.VideoRent.ViewModel
         }
 
 
-        public XPCollection<MoveLine> CurrentCustomerCharges
+        public XPCollection<MoveLine> CurrentCustomerDebits
         {
-            get { return _currentCustomerCharges; }
-            set { SetValue<XPCollection<MoveLine>>("CurrentCustomerCharges", ref _currentCustomerCharges, value); }
+            get { return _currentCustomerDebits; }
+            set { SetValue<XPCollection<MoveLine>>("CurrentCustomerDebits", ref _currentCustomerDebits, value); }
         }
 
         private void UpdateCurrentCustomer()
@@ -59,7 +59,7 @@ namespace DevExpress.VideoRent.ViewModel
                 VRObjectsEditObject.VideoRentObjects.Session.FindObject<Customer>(CriteriaOperator.Parse("Oid = ?",
                     CurrentCustomerProvider.Current.CurrentCustomerOid));
             UpdatePayments();
-            UpdateCharges();
+            UpdateDebits();
             //ClearCheckedRents();
             UpdateReceiptsFilter();
         }
@@ -73,9 +73,9 @@ namespace DevExpress.VideoRent.ViewModel
             // CanCheckActiveRents = CurrentCustomer != null && CurrentCustomerActiveRents.Count > 0;
         }
 
-        private void UpdateCharges()
+        private void UpdateDebits()
         {
-            CurrentCustomerCharges = CurrentCustomer == null ? null : CurrentCustomer.CustomerCharges;
+            CurrentCustomerDebits = CurrentCustomer == null ? null : CurrentCustomer.CustomerDebits;
         }
 
         void RaiseCurrentCustomerChanged(Customer oldValue, Customer newValue)
@@ -160,17 +160,17 @@ namespace DevExpress.VideoRent.ViewModel
         internal void RentSell()
         {
 
-            throw new NotImplementedException();
+            CurrentCustomer.DepositAmount(30);
         }
 
-        public void ChargePayments()
+        public void DebitAmount()
         {
             if (CurrentCustomer.Accounts[0] != null)
             {
                 MessageBox.Show("Account Information", ConstStrings.Get("Question"), MessageBoxButton.YesNo,
                     MessageBoxImage.Asterisk);
             }
-            CurrentCustomer.ChargeMembershipFee(30);
+            CurrentCustomer.DebitMembershipFee(30);
         }
     }
 }
