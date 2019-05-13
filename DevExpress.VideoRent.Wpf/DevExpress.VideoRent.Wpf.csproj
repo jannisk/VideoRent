@@ -278,6 +278,9 @@
     <Compile Include="CurrentCustomerRents\RentsViewOptionsEditView.xaml.cs">
       <DependentUpon>RentsViewOptionsEditView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CurrentCustomerTransactions\PaymentInputView.xaml.cs">
+      <DependentUpon>PaymentInputView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomerDetail\CustomerDetailView.xaml.cs">
       <DependentUpon>CustomerDetailView.xaml</DependentUpon>
     </Compile>
@@ -475,6 +478,10 @@
     <Page Include="CurrentCustomerRents\RentsViewOptionsEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CurrentCustomerTransactions\PaymentInputView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="CustomerDetail\CustomerDetailView.xaml">
       <SubType>Designer</SubType>

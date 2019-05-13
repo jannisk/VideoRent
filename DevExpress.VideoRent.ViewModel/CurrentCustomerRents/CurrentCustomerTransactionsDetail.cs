@@ -9,7 +9,7 @@ namespace DevExpress.VideoRent.ViewModel
 {
     public class CurrentCustomerTransactionsDetail : VRObjectsList<MoveLine>
     {
-        private RentsPeriodEditObject _rentsPeriodEditObject;
+        private PaymentInputEdit _paymentInputEdit;
         private UnitOfWork session;
 
         public CurrentCustomerTransactionsDetail(CurrentCustomerTransactionsDetailObject editObject) : base(editObject)
@@ -23,14 +23,27 @@ namespace DevExpress.VideoRent.ViewModel
 
         public RentsViewOptionsEdit RentsViewOptionsEdit { get { return (RentsViewOptionsEdit)ViewOptionsEdit; } }
 
+        public PaymentInputEdit PaymentInputEdit
+        {
+            get { return _paymentInputEdit; }
+            private set { SetValue<PaymentInputEdit>("PaymentInputEdit", ref _paymentInputEdit, value); }
+        }
+
         /// <summary>
         /// 
         /// </summary>
         private void RentSell()
         {
-            CurrentCustomerTransactionsEdit.RentSell();
+            PaymentInputEdit = new PaymentInputEdit(VRObjectsListObject.PaymentInputEditObject, this);
+            PaymentInputEdit.AfterDispose += OnPaymentInputAfterDispose; 
         }
 
+        private void OnPaymentInputAfterDispose(object sender, EventArgs e)
+        {
+            PaymentInputEdit = null;
+            //CurrentCustomerTransactionsEdit.RentSell();
+            ///throw new NotImplementedException();
+        }
 
         private void DebitAmount()
         {
@@ -40,12 +53,12 @@ namespace DevExpress.VideoRent.ViewModel
 
         #region Commands
 
-        public Action<object> CommandRentSell
+        public Action<object> CommandPayment
         {
-            get { return DoCommandRentSell; }
+            get { return DoCommandPayment; }
         }
 
-        private void DoCommandRentSell(object p)
+        private void DoCommandPayment(object p)
         {
             RentSell();
             Save();

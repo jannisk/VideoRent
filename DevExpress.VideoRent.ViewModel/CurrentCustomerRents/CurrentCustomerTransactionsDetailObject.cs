@@ -7,10 +7,11 @@ using DevExpress.Xpo;
 
 namespace DevExpress.VideoRent.ViewModel
 {
-    public class CurrentCustomerTransactionsDetailObject : VRObjectsListObject<MoveLine>
-          
+    public class CurrentCustomerTransactionsDetailObject : VRObjectsListObject<MoveLine>         
     {
         private RentsPeriodEditObject rentsPeriodEditObject;
+
+        private PaymentInputEditObject _paymentInputEditObject;
 
         internal CurrentCustomerTransactionsEditObject CurrentCustomerTransactionsEditObject { get { return (CurrentCustomerTransactionsEditObject)ListEditObject; } }
 
@@ -41,6 +42,17 @@ namespace DevExpress.VideoRent.ViewModel
             }
         }
 
+        internal PaymentInputEditObject PaymentInputEditObject
+        {
+            get
+            {
+                if (_paymentInputEditObject == null)
+                    _paymentInputEditObject = new PaymentInputEditObject(this);
+                return _paymentInputEditObject;
+            }
+        }
+
+
         internal override IEnumerable<EditableSubobject> Subobjects
         {
             get
@@ -48,6 +60,8 @@ namespace DevExpress.VideoRent.ViewModel
                 List<EditableSubobject> list = new List<EditableSubobject>(base.Subobjects);
                 if (RentsPeriodEditObject != null)
                     list.Add(RentsPeriodEditObject);
+                if (PaymentInputEditObject != null)
+                    list.Add(PaymentInputEditObject);
                 return list;
             }
         }
@@ -60,6 +74,17 @@ namespace DevExpress.VideoRent.ViewModel
                 rentsPeriodEditObject = null;
                 return true;
             }
+            if (editableSubobject == rentsPeriodEditObject)
+            {
+                rentsPeriodEditObject = null;
+                return true;
+            }
+            if (editableSubobject == PaymentInputEditObject)
+            {
+                _paymentInputEditObject = null;
+                return true;
+            }
+
             return false;
         }
 

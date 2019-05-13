@@ -161,6 +161,29 @@ namespace DevExpress.VideoRent.ViewModel {
             private set { SetValue<IList<PeriodItem>>("List", ref list, value); }
         }
     }
+
+    public class PaymentAmountEditData:BindingAndDisposable
+    {
+        private int amount;
+        public PaymentAmountEditData()
+        {
+            Amount = 30;
+        }
+
+        public int Amount
+        {
+            get
+            {
+                return amount;
+            }
+
+            private set
+            {
+                amount = value;
+            }
+        }
+    }
+
     public class ReceiptTypeItem {
         public ReceiptType Value { get; set; }
         public string Name { get; set; }
