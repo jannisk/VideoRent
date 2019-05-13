@@ -48,6 +48,7 @@ namespace DevExpress.VideoRent.ViewModel
         private void DoCommandRentSell(object p)
         {
             RentSell();
+            Save();
         }
 
         public Action<object> CommandDebitCustomer
