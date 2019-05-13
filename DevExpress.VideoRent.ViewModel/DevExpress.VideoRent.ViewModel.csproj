@@ -156,6 +156,8 @@
     <Compile Include="CurrentCustomerRents\RentsPeriodEditObject.cs" />
     <Compile Include="CurrentCustomerRents\RentsViewOptionsEdit.cs" />
     <Compile Include="CurrentCustomerRents\RentsViewOptionsEditObject.cs" />
+    <Compile Include="CurrentCustomerTransactions\PaymentInputEdit.cs" />
+    <Compile Include="CurrentCustomerTransactions\PaymentInputEditObject.cs" />
     <Compile Include="CustomerDetail\CustomerDetail.cs" />
     <Compile Include="CustomerDetail\CustomerDetailObject.cs" />
     <Compile Include="CustomerDetail\CustomerEdit.cs" />
@@ -257,6 +259,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

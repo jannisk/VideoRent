@@ -19,7 +19,7 @@ namespace DevExpress.VideoRent.ViewModel
 
         private CurrentCustomerTransactionsDetail currentCustomerTransactionsDetail;
         private object currentCustomerTransactionsEditObject;
-
+        private int _amount;
 
         public CurrentCustomerTransactionsEdit(CurrentCustomerTransactionsEditObject editObject, ModuleObjectDetail detail):base(editObject, detail)
         {
@@ -106,7 +106,13 @@ namespace DevExpress.VideoRent.ViewModel
             set { SetValue<int>("Period", ref period, value, RaisePeriodChanged); }
         }
 
-    void RaiseDatesChanged(DateTime oldValue, DateTime newValue)
+        public int Amount
+        {
+            get { return _amount; }
+            set { SetValue<int>("Amount", ref _amount, value); }
+        }
+
+        void RaiseDatesChanged(DateTime oldValue, DateTime newValue)
     {
         if (periodChangeLock) return;
         UpdatePeriod();
@@ -160,7 +166,7 @@ namespace DevExpress.VideoRent.ViewModel
         internal void RentSell()
         {
 
-            CurrentCustomer.DepositAmount(30);
+            CurrentCustomer.DepositAmount(Amount);
         }
 
         public void DebitAmount()

@@ -1,0 +1,62 @@
+﻿<mb:CustomShowUserControl x:Class="DevExpress.VideoRent.Wpf.PaymentInputView"
+    xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
+    xmlns:mb="clr-namespace:DevExpress.VideoRent.Wpf.ModulesBase"
+    xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+
+    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+    xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:DevExpress.VideoRent.Wpf"
+    xmlns:viewmodel="clr-namespace:DevExpress.VideoRent.ViewModel;assembly=DevExpress.VideoRent.ViewModel"
+    xmlns:helpers="clr-namespace:DevExpress.VideoRent.Wpf.Helpers"
+
+    ShowMethodType="{DynamicResource ShowType}" MinWidth="300" helpers:ElementHelper.FixMinHeight="True">
+
+    <mb:CustomShowUserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/DevExpress.VideoRent.Wpf;component/Themes/EditsStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <helpers:DataSource x:Key="DataSource" />
+            <local:ElementLayoutDataStore x:Key="ElementLayoutDataStore" />
+            <mb:PopupShowType x:Key="ShowType" Title="{helpers:ConstString ID=SpecifyPaymentAmount}" />
+            <helpers:ValidationRuleIsNotBlank x:Key="ValidationRuleIsNotBlank" Message="{helpers:ConstString ID=RuleIsNotBlankWarning}" />
+        </ResourceDictionary>
+    </mb:CustomShowUserControl.Resources>
+    <helpers:DataBindingsHelper.Bindings>
+        <helpers:BindingsInfoCollection DataContext="{Binding DataObject, Source={StaticResource DataSource}}">
+            <helpers:BindingInfo ElementName="resource:ElementLayoutDataStore" Property="{x:Static local:ElementLayoutDataStore.DisposeSignalSlotProperty}" Value="{Binding DisposeSignal}" />
+            <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static mb:ShowType.CloseSignalSlotProperty}" Value="{Binding DisposeSignal}" />
+            <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static helpers:CustomEventCommandHelper.ClosingProperty}" Value="{Binding CommandDispose}" />
+            <helpers:BindingInfo ElementName="InputAmount" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding Detail.CurrentCustomerTransactionsEdit.Amount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            <helpers:BindingInfo ElementName="PayDateEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding Detail.CurrentCustomerTransactionsEdit.StartDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            <helpers:BindingInfo ElementName="AddButton" Property="{x:Static helpers:CustomEventCommandHelper.ClickProperty}" Value="{Binding CommandSaveAndDispose}" />
+            <helpers:BindingInfo ElementName="CancelButton" Property="{x:Static helpers:CustomEventCommandHelper.ClickProperty}" Value="{Binding CommandDispose}" />
+            <helpers:ValidationInfo EditName0="InputAmountEdit" Rule="{StaticResource ValidationRuleIsNotBlank}" />
+            
+            <helpers:ElementLayoutInfo ElementName="MainLayoutControl" StoreFolder="LayoutControl:PaymentInputEdit-MainLayoutControl" Store="{StaticResource ElementLayoutDataStore}" />
+        </helpers:BindingsInfoCollection>
+    </helpers:DataBindingsHelper.Bindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <dxlc:LayoutControl x:Name="MainLayoutControl">
+            <dxlc:LayoutGroup Orientation="Vertical">
+                <dxlc:LayoutItem Label="{helpers:ConstString ID=InputAmountLabel}">
+                    <dxe:SpinEdit x:Name="InputAmountEdit" Style="{StaticResource PriceSpinEdit}" />
+                </dxlc:LayoutItem>
+                <dxlc:LayoutItem Label="{helpers:ConstString ID=PayDateLabel}">
+                    <dxe:DateEdit x:Name="PayDateEdit"/>
+                </dxlc:LayoutItem>
+            </dxlc:LayoutGroup>
+        </dxlc:LayoutControl>
+        <dx:UniformStackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="12,0,12,12">
+            <Button x:Name="AddButton" Content="{helpers:ConstString ID=Pay}" MinWidth="120" />
+            <Button x:Name="CancelButton" Content="{helpers:ConstString ID=Cancel}" MinWidth="120" />
+        </dx:UniformStackPanel>
+    </Grid>
+</mb:CustomShowUserControl>

@@ -24,7 +24,7 @@
             <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static mb:ClassicShowType.SelectSignalSlotProperty}" Value="{Binding FocusSignal}" />
             <helpers:BindingInfo ElementName="BbiView" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding CommandChangeViewOptions}" />
             <helpers:BindingInfo ElementName="BbiReceiptPeriod" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding CommandChangePeriod}" />
-            <helpers:BindingInfo ElementName="BbiRentSell" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding CommandRentSell}" />
+            <helpers:BindingInfo ElementName="BbiRentSell" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding CommandPayment}" />
             <helpers:BindingInfo ElementName="BbiCharge" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding CommandDebitCustomer}" />
             <helpers:BindingInfo ElementName="BbiCheckActive" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding ListEdit.CommandCheckAllActiveRents}" />
             <helpers:BindingInfo ElementName="BbiCheckActive" Property="{x:Static ContentElement.IsEnabledProperty}" Value="{Binding ListEdit.CanCheckActiveRents}" />

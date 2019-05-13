@@ -23,6 +23,9 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
             }
         }
     }
+
+   
+
     public class ValidationRuleIsUnique : ValidationRuleBase, IValidationRule {
         #region Dependency Properties
         public static readonly DependencyProperty ValuesProperty;
