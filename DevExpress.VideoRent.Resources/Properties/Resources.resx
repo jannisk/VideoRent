@@ -1709,4 +1709,22 @@ Please select the database type and connection options below.</value>
   <data name="DebitsGroup" xml:space="preserve">
     <value>Debits</value>
   </data>
+  <data name="InputAmount" xml:space="preserve">
+    <value>Amount</value>
+  </data>
+  <data name="Pay" xml:space="preserve">
+    <value>Pay</value>
+  </data>
+  <data name="PayDate" xml:space="preserve">
+    <value>Pay Date</value>
+  </data>
+  <data name="RuleGreaterOrEqualFifteen" xml:space="preserve">
+    <value>Amount Cannot be Less that 15$</value>
+  </data>
+  <data name="SpecifyPaymentAmount" xml:space="preserve">
+    <value>Specify Payment </value>
+  </data>
+  <data name="AccountBalance" xml:space="preserve">
+    <value>Account Balance</value>
+  </data>
 </root>

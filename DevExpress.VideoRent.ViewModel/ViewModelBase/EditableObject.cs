@@ -33,6 +33,9 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase
     {
         EditableObject parent;
 
+        public event EventHandler BeforeUpdate;
+        public event EventHandler Updated;
+
         public EditableSubobject(EditableObject parent)
         {
             Parent = parent;
@@ -42,8 +45,7 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase
             get { return parent; }
             private set { SetValue<EditableObject>("Parent", ref parent, value); }
         }
-        public event EventHandler BeforeUpdate;
-        public event EventHandler Updated;
+   
         public void Update()
         {
             if (BeforeUpdate != null)
@@ -58,6 +60,7 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase
                 Parent.RaiseChanged();
         }
         protected abstract void UpdateOverride();
+
         protected override void DisposeManaged()
         {
 #if DEBUG

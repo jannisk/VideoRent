@@ -150,6 +150,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
     public interface IValidationRule {
         void Validate(object sender, ValidationEventArgs e);
     }
+    
     public class ValidationInfo : BindingInfoBase {
         const int EditsMaxCount = 4;
         BaseEdit[] edits = new BaseEdit[EditsMaxCount];
@@ -168,6 +169,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         public string EditName2 { get { return ElementNames[2]; } set { ElementNames[2] = value; } }
         public string EditName3 { get { return ElementNames[3]; } set { ElementNames[3] = value; } }
         public IValidationRule Rule { get; set; }
+      
         public bool DoValidate() {
             CleanEdits();
             var isValid = false;
@@ -189,6 +191,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
             UpdateEdits();
             return this.isValid;
         }
+        
         protected override void Activate(int elementNameIndex, DependencyObject element) {
             var edit = element as BaseEdit;
             this.edits[elementNameIndex] = edit;
@@ -196,6 +199,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
             edit.InvalidValueBehavior = InvalidValueBehavior.AllowLeaveEditor;
             edit.Validate += OnEditValidate;
         }
+        
         void CleanEdits() {
             this.editsCleaning = true;
             foreach(var edit in this.edits) {
@@ -204,6 +208,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
             }
             this.editsCleaning = false;
         }
+        
         void UpdateEdits() {
             this.editsUpdating = true;
             foreach(var edit in this.edits) {
@@ -212,11 +217,13 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
             }
             this.editsUpdating = false;
         }
+        
         void SetError(bool isValid, object errorContent, ErrorType errorType) {
             this.errorContent = errorContent;
             this.errorType = errorType;
             this.isValid = isValid;
         }
+        
         void WriteError(ref ValidationEventArgs e) {
             if(!this.isValid) {
                 e.ErrorContent = this.errorContent;
@@ -224,6 +231,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
                 e.IsValid = false;
             }
         }
+
         void OnEditValidate(object sender, ValidationEventArgs e) {
             if(this.editsCleaning) return;
             var validateEdit = (BaseEdit)sender;

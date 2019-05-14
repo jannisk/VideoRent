@@ -139,7 +139,7 @@ namespace DevExpress.VideoRent.ViewModel {
             set { SetPropertyValue<string>("MovieCategoriesEditChartMarkerKindName", ref movieCategoriesEditChartMarkerKindName, value); }
         }
         public Guid RetrieveDefaultCustomerOid() {
-            Customer defaultCustomer = Session.FindObject<Customer>(CriteriaOperator.Parse("[FirstName] = 'Essie'"));
+            Customer defaultCustomer = Session.FindObject<Customer>(CriteriaOperator.Parse("[LastName] = 'Γιαλαμάς'"));
             if(defaultCustomer == null)
                 defaultCustomer = Session.FindObject<Customer>(null);
             return defaultCustomer == null ? Guid.Empty : defaultCustomer.Oid;

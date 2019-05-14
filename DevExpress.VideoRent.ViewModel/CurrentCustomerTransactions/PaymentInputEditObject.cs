@@ -11,7 +11,8 @@ namespace DevExpress.VideoRent.ViewModel
 
         protected override void UpdateOverride()
         {
-            
+           
         }
+
     }
 }

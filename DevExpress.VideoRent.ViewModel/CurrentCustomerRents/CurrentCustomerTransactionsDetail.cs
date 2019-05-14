@@ -50,6 +50,11 @@ namespace DevExpress.VideoRent.ViewModel
             CurrentCustomerTransactionsEdit.DebitAmount();
         }
 
+        public void CreditAmount()
+        {
+            CurrentCustomerTransactionsEdit.RentSell();
+            Save();
+        }
 
         #region Commands
 
@@ -61,7 +66,7 @@ namespace DevExpress.VideoRent.ViewModel
         private void DoCommandPayment(object p)
         {
             RentSell();
-            Save();
+           // Save();
         }
 
         public Action<object> CommandDebitCustomer
@@ -77,6 +82,11 @@ namespace DevExpress.VideoRent.ViewModel
 
         #endregion
 
+     
+    }
 
+    public interface ICustomerAddPaymentParent
+    {
+        void CreditAmount();
     }
 }

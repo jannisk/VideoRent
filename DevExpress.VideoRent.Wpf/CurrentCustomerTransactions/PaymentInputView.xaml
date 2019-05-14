@@ -22,7 +22,7 @@
             <helpers:DataSource x:Key="DataSource" />
             <local:ElementLayoutDataStore x:Key="ElementLayoutDataStore" />
             <mb:PopupShowType x:Key="ShowType" Title="{helpers:ConstString ID=SpecifyPaymentAmount}" />
-            <helpers:ValidationRuleIsNotBlank x:Key="ValidationRuleIsNotBlank" Message="{helpers:ConstString ID=RuleIsNotBlankWarning}" />
+            <helpers:ValidationRuleIsNotNegative x:Key="ValidationRuleIsNotNegative" Message="{helpers:ConstString ID=RuleGreaterOrEqualFifteen}" />
         </ResourceDictionary>
     </mb:CustomShowUserControl.Resources>
     <helpers:DataBindingsHelper.Bindings>
@@ -30,15 +30,15 @@
             <helpers:BindingInfo ElementName="resource:ElementLayoutDataStore" Property="{x:Static local:ElementLayoutDataStore.DisposeSignalSlotProperty}" Value="{Binding DisposeSignal}" />
             <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static mb:ShowType.CloseSignalSlotProperty}" Value="{Binding DisposeSignal}" />
             <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static helpers:CustomEventCommandHelper.ClosingProperty}" Value="{Binding CommandDispose}" />
-            <helpers:BindingInfo ElementName="InputAmount" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding Detail.CurrentCustomerTransactionsEdit.Amount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+            <helpers:BindingInfo ElementName="InputAmountEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding Detail.CurrentCustomerTransactionsEdit.Amount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
             <helpers:BindingInfo ElementName="PayDateEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding Detail.CurrentCustomerTransactionsEdit.StartDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
             <helpers:BindingInfo ElementName="AddButton" Property="{x:Static helpers:CustomEventCommandHelper.ClickProperty}" Value="{Binding CommandSaveAndDispose}" />
             <helpers:BindingInfo ElementName="CancelButton" Property="{x:Static helpers:CustomEventCommandHelper.ClickProperty}" Value="{Binding CommandDispose}" />
-            <helpers:ValidationInfo EditName0="InputAmountEdit" Rule="{StaticResource ValidationRuleIsNotBlank}" />
+            <helpers:ValidationInfo EditName0="InputAmountEdit" Rule="{StaticResource ValidationRuleIsNotNegative}" />
             
             <helpers:ElementLayoutInfo ElementName="MainLayoutControl" StoreFolder="LayoutControl:PaymentInputEdit-MainLayoutControl" Store="{StaticResource ElementLayoutDataStore}" />
         </helpers:BindingsInfoCollection>
-    </helpers:DataBindingsHelper.Bindings>
+    </helpers:DataBindingsHelper.Bindings> 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

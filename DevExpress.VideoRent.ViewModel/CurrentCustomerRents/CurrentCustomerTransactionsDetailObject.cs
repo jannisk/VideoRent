@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using DevExpress.VideoRent.ViewModel.ViewModelBase;
 using DevExpress.Xpo;
+using DevExpress.XtraReports.UI;
 
 namespace DevExpress.VideoRent.ViewModel
 {
-    public class CurrentCustomerTransactionsDetailObject : VRObjectsListObject<MoveLine>         
+    public class CurrentCustomerTransactionsDetailObject : VRObjectsListObject<MoveLine>      
     {
         private RentsPeriodEditObject rentsPeriodEditObject;
 
@@ -20,6 +21,7 @@ namespace DevExpress.VideoRent.ViewModel
 
         public CurrentCustomerTransactionsDetailObject(Session session) : base(session)
         {
+            
         }
 
         protected override EditableSubobject CreateViewOptionsEditObject()
@@ -57,7 +59,7 @@ namespace DevExpress.VideoRent.ViewModel
         {
             get
             {
-                List<EditableSubobject> list = new List<EditableSubobject>(base.Subobjects);
+                var list = new List<EditableSubobject>(base.Subobjects);
                 if (RentsPeriodEditObject != null)
                     list.Add(RentsPeriodEditObject);
                 if (PaymentInputEditObject != null)
@@ -87,6 +89,5 @@ namespace DevExpress.VideoRent.ViewModel
 
             return false;
         }
-
     }
 }

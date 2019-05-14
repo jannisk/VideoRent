@@ -112,6 +112,12 @@ namespace DevExpress.VideoRent {
             aPlayer.Parent = this;
         }
 
+        [NonPersistent]
+        public int DefaultMemberAmount
+        {
+            get { return 30; }
+        }
+
         [Association("Customer-Accounts")]
         public XPCollection<Account> Accounts
         { 

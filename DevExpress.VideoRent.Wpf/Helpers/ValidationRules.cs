@@ -2,6 +2,7 @@
 using System.Windows;
 using DevExpress.VideoRent.Resources;
 using DevExpress.Xpf.Editors;
+using DevExpress.Xpf.Editors.Helpers;
 using DevExpress.Xpf.Editors.Validation;
 using DevExpress.XtraEditors.DXErrorProvider;
 using System.Collections.Generic;
@@ -9,12 +10,14 @@ using System.Windows.Threading;
 using System.Collections;
 
 namespace DevExpress.VideoRent.Wpf.Helpers {
+
     public class ValidationRuleBase : FrameworkElement {
         public ValidationRuleBase() {
             Message = string.Empty;
         }
         public string Message { get; set; }
     }
+
     public class ValidationRuleIsNotBlank : ValidationRuleBase, IValidationRule {
         public void Validate(object sender, ValidationEventArgs e) {
             string title = e.Value as string;
@@ -24,7 +27,19 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         }
     }
 
-   
+
+    public class ValidationRuleIsNotNegative : ValidationRuleBase, IValidationRule
+    {
+        public void Validate(object sender, ValidationEventArgs e)
+        {
+            var title = e.Value as string;
+            if (e.Value.TryConvertToDecimal() < 15 || title != null && title.Length == 0)
+            {
+                e.SetError(Message, ErrorType.Critical);
+            }
+        }
+    }
+
 
     public class ValidationRuleIsUnique : ValidationRuleBase, IValidationRule {
         #region Dependency Properties

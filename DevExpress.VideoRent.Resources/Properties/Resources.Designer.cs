@@ -178,6 +178,15 @@ namespace DevExpress.VideoRent.Resources.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account Balance.
+        /// </summary>
+        public static string AccountBalance {
+            get {
+                return ResourceManager.GetString("AccountBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AccountName.
         /// </summary>
         public static string AccountName {
@@ -2199,6 +2208,15 @@ namespace DevExpress.VideoRent.Resources.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount.
+        /// </summary>
+        public static string InputAmount {
+            get {
+                return ResourceManager.GetString("InputAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to [Paragraph]Totals: [Bold]{0}[/Bold].[/Paragraph].
         /// </summary>
         public static string ItemsCountCaptionFlowDocument {
@@ -3059,6 +3077,24 @@ namespace DevExpress.VideoRent.Resources.Properties {
         public static string Path {
             get {
                 return ResourceManager.GetString("Path", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pay.
+        /// </summary>
+        public static string Pay {
+            get {
+                return ResourceManager.GetString("Pay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pay Date.
+        /// </summary>
+        public static string PayDate {
+            get {
+                return ResourceManager.GetString("PayDate", resourceCulture);
             }
         }
         
@@ -4002,6 +4038,15 @@ namespace DevExpress.VideoRent.Resources.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount Cannot be Less that 15$.
+        /// </summary>
+        public static string RuleGreaterOrEqualFifteen {
+            get {
+                return ResourceManager.GetString("RuleGreaterOrEqualFifteen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This value cannot be negative.
         /// </summary>
         public static string RuleGreaterOrEqualZeroWarning {
@@ -4439,6 +4484,15 @@ namespace DevExpress.VideoRent.Resources.Properties {
         public static string SpecifyDateIntervals {
             get {
                 return ResourceManager.GetString("SpecifyDateIntervals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify Payment .
+        /// </summary>
+        public static string SpecifyPaymentAmount {
+            get {
+                return ResourceManager.GetString("SpecifyPaymentAmount", resourceCulture);
             }
         }
         

@@ -46,14 +46,17 @@
             <dxlc:LayoutItem Label="{helpers:ConstString ID=AddressLabel}" Margin="10,0">
                 <TextBlock Text="{Binding Address}" TextWrapping="Wrap" />
             </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="{helpers:ConstString ID=AccountNameLabel}" Margin="10,0">
+                <TextBlock Text="{Binding AccountName}" TextWrapping="Wrap" />
+            </dxlc:LayoutItem>
+            <dxlc:LayoutItem Label="{helpers:ConstString ID=AccountBalanceLabel}" Margin="10,0">
+                <TextBlock Text="{Binding AccountBalance}" TextWrapping="Wrap"  />
+            </dxlc:LayoutItem>
             <dxlc:LayoutItem Margin="10,0">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontWeight="SemiBold" Text="{Binding DiscountLevel, Converter={StaticResource StringFormatConverter}, ConverterParameter={helpers:ConstString ID=RenterDiscount}}" />
                     <TextBlock Margin="5,0,0,0" Text="{Binding Discount, Converter={StaticResource StringFormatConverter}, ConverterParameter=(Discount\=\{0:P\})}" />
                 </StackPanel>
-            </dxlc:LayoutItem>
-            <dxlc:LayoutItem Label="{helpers:ConstString ID=AccountName}" Margin="10,0">
-                <TextBlock Text="{Binding AccountName}" TextWrapping="Wrap" />
             </dxlc:LayoutItem>
         </dxlc:LayoutControl>
     </DataTemplate>

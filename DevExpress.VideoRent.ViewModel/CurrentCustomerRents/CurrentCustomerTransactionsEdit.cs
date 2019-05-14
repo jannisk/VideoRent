@@ -21,9 +21,11 @@ namespace DevExpress.VideoRent.ViewModel
         private object currentCustomerTransactionsEditObject;
         private int _amount;
 
-        public CurrentCustomerTransactionsEdit(CurrentCustomerTransactionsEditObject editObject, ModuleObjectDetail detail):base(editObject, detail)
+        public CurrentCustomerTransactionsEdit(CurrentCustomerTransactionsEditObject editObject, ModuleObjectDetail detail)
+            : base(editObject, detail)
         {
             Period = 12;
+            Amount = CurrentCustomer.DefaultMemberAmount;
             CurrentCustomerProvider.Current.CurrentCustomerOidChanged += OnCurrentCustomerProviderCurrentCustomerOidChanged;
             AllObjects<Customer>.Set.Updated += OnCustomersSetUpdated;
         }
@@ -112,11 +114,19 @@ namespace DevExpress.VideoRent.ViewModel
             set { SetValue<int>("Amount", ref _amount, value); }
         }
 
+        public double AccountBalance
+        {
+            get
+            {
+                if (CurrentCustomer != null && CurrentCustomer.Accounts != null) return CurrentCustomer.Accounts[0].Balance;
+                return 0;
+            }
+        }
         void RaiseDatesChanged(DateTime oldValue, DateTime newValue)
-    {
-        if (periodChangeLock) return;
-        UpdatePeriod();
-    }
+        {
+            if (periodChangeLock) return;
+            UpdatePeriod();
+        }
 
         void RaisePeriodChanged(int oldValue, int newValue)
         {
@@ -176,7 +186,7 @@ namespace DevExpress.VideoRent.ViewModel
                 MessageBox.Show("Account Information", ConstStrings.Get("Question"), MessageBoxButton.YesNo,
                     MessageBoxImage.Asterisk);
             }
-            CurrentCustomer.DebitMembershipFee(30);
+            CurrentCustomer.DebitMembershipFee(_currentCustomer.DefaultMemberAmount);
         }
     }
 }
