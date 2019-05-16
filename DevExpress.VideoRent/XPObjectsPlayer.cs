@@ -14,12 +14,12 @@ namespace DevExpress.VideoRent
             set { SetPropertyValue<string>("MiddleName", ref _middleName, value); }
         }
 
-        private string _email;
-        public string Email
-        {
-            get { return _email; }
-            set { SetPropertyValue<string>("Email", ref _email, value); }
-        }
+        //private string _email;
+        //public string Email
+        //{
+        //    get { return _email; }
+        //    set { SetPropertyValue<string>("Email", ref _email, value); }
+        //}
 
         private string _comments;
         [Size(SizeAttribute.Unlimited)]

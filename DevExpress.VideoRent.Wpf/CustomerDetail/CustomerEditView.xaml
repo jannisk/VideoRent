@@ -12,7 +12,8 @@
     xmlns:dxsch="http://schemas.devexpress.com/winfx/2008/xaml/scheduler"
     xmlns:local="clr-namespace:DevExpress.VideoRent.Wpf"
     xmlns:rhelpers="clr-namespace:DevExpress.VideoRent.Resources.Helpers;assembly=DevExpress.VideoRent.Resources"
-    xmlns:helpers="clr-namespace:DevExpress.VideoRent.Wpf.Helpers">
+    xmlns:helpers="clr-namespace:DevExpress.VideoRent.Wpf.Helpers"
+    xmlns:resources="clr-namespace:DevExpress.VideoRent.Resources;assembly=DevExpress.VideoRent.Resources">
     
     <UserControl.Resources>
         <ResourceDictionary>
@@ -22,7 +23,11 @@
             <rhelpers:DrawingImageToImageSourceConverter x:Key="DrawingImageToImageSourceConverter" />
             <helpers:DataSource x:Key="DataSource" />
             <local:ElementLayoutDataStore x:Key="ElementLayoutDataStore"/>
+            <resources:ImagesSourceHelper x:Key="ImagesHelper" />
             <helpers:ValidationRuleIsNotBlank x:Key="ValidationRuleIsNotBlank" Message="{helpers:ConstString ID=RuleIsNotBlankWarning}" />
+            <helpers:ImageCollectionImageSource x:Key="AddButtonImageSource" ImageCollection="{Binding Source={StaticResource ImagesHelper}, Path=BarImages}" ImageIndex="0" />
+            <helpers:ImageCollectionImageSource x:Key="DeleteButtonImageSource" ImageCollection="{Binding Source={StaticResource ImagesHelper}, Path=BarImages}" ImageIndex="2" />
+            <helpers:ImageCollectionImageSource x:Key="AllowEditingButtonImageSource" ImageCollection="{Binding Source={StaticResource ImagesHelper}, Path=BarImages}" ImageIndex="5" />
         </ResourceDictionary>
     </UserControl.Resources>
     <helpers:DataBindingsHelper.Bindings>
@@ -39,6 +44,11 @@
             <helpers:BindingInfo ElementName="AddressEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="EmailEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="EmailEdit" Property="{x:Static helpers:CommandHelper.Command0Property}" Value="{Binding CommandSendEmail}"/>
+            <!--<helpers:BindingInfo ElementName="MembersAssociationsGrid" Property="{x:Static helpers:CustomEventCommandHelper.AddItemClickProperty}" Value="{Binding Detail.CommandAddMovie}" />
+            <helpers:BindingInfo ElementName="MembersAssociationsGrid" Property="{x:Static helpers:CustomEventCommandHelper.DeleteItemClickProperty}" Value="{Binding CommandDeleteCurrentMovie}" />-->
+            <!--<helpers:BindingInfo ElementName="MembersAssociationsGrid" Property="{x:Static helpers:AddDeleteBar.AllowDeleteProperty}" Value="{Binding CurrentMovie.AllowDelete}" />-->
+            <helpers:BindingInfo ElementName="MembersGrid" Property="{x:Static dxg:GridControl.ItemsSourceProperty}" Value="{Binding EditObject.VideoRentObject.Children}" />
+            <helpers:BindingInfo ElementName="MembersGridView" Property="{x:Static dxg:GridViewBase.FocusedRowProperty}" Value="{Binding CurrentMovie, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="DiscountLevelEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.DiscountLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="DiscountLevelEdit" Property="{x:Static dxe:LookUpEditBase.ItemsSourceProperty}" Value="{Binding DiscountLevelEditData.List}" />
             <helpers:BindingInfo ElementName="DiscountEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Discount, Mode=OneWay}" />
@@ -83,12 +93,12 @@
                                         <dxg:TableView x:Name="MembersGridView" />
                                     </dxg:GridControl.View>
                                     <dxg:GridControl.Columns>
-                                        <dxg:GridColumn x:Name="MovieColumn" FieldName="Movie!" Header="{helpers:ConstString ID=Movie}">
+                                        <dxg:GridColumn x:Name="MemberMiddleNameColumn" FieldName="PMiddleName" Header="{helpers:ConstString ID=Movie}">
                                             <dxg:GridColumn.EditSettings>
                                                 <dxg:LookUpEditSettings x:Name="MoviesGridMovieEditSettings"  helpers:StyleConverter.Style="{StaticResource MovieLookUpEdit}" />
                                             </dxg:GridColumn.EditSettings>
                                         </dxg:GridColumn>
-                                        <dxg:GridColumn x:Name="DescriptionColumn" FieldName="Description" Header="{helpers:ConstString ID=Description}">
+                                        <dxg:GridColumn x:Name="CommentsColumn" FieldName="Comments" Header="{helpers:ConstString ID=Description}">
                                             <dxg:GridColumn.EditSettings>
                                                 <dxe:MemoEditSettings helpers:StyleConverter.Style="{StaticResource MemoEdit}" />
                                             </dxg:GridColumn.EditSettings>

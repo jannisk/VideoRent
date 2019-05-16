@@ -10,7 +10,9 @@ namespace DevExpress.VideoRent.ViewModel {
         MovieCompany currentMovie;
 
         public CompanyEdit(CompanyEditObject editObject, ModuleObjectDetail detail) : base(editObject, detail) { }
+        
         public new CompanyEditObject VRObjectEditObject { get { return (CompanyEditObject)EditObject; } }
+        
         public CompanyTypeEditData CompanyTypeEditData {
             get { return companyTypeEditData; }
             private set { SetValue<CompanyTypeEditData>("CompanyTypeEditData", ref companyTypeEditData, value, true); }

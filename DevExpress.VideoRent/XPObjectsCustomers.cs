@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using DevExpress.Data.Filtering;
 using DevExpress.VideoRent.Helpers;
@@ -136,9 +137,27 @@ namespace DevExpress.VideoRent {
 
 
         [Association("Customer-Players")]
-        public XPCollection<Player> Children
+        public XPCollection<Player> Children1
         {
-            get { return GetCollection<Player>("Children"); } 
+            get { return GetCollection<Player>("Children1"); } 
+        }
+
+        Customer _parent;
+        [Association("ParentSubordinates")]
+        public Customer Parent
+        {
+            get { return _parent; }
+            set { SetPropertyValue("Parent", ref _parent, value); }
+        }
+
+        [Association("ParentSubordinates")]
+        public XPCollection<Customer>  Children
+        {
+            get
+            {
+                var xpCollection = new XPCollection<Customer>(Session, CriteriaOperator.Parse("Parent = ?", this.Oid));
+                return xpCollection;
+            }
         }
 
         [Association("Customer-Receipts")]
