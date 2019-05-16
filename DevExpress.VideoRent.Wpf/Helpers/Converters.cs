@@ -354,4 +354,26 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
             throw new NotSupportedException();
         }
     }
+
+    public class BalanceToBrushConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            // Retrieve the format string and use it to format the value.
+            var balance = value as double?;
+            if (balance >= 0 )
+            {
+                return new SolidColorBrush(Colors.Green);
+            }
+            else
+            {
+                return new SolidColorBrush(Colors.Red);
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

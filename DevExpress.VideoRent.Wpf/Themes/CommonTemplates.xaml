@@ -6,6 +6,7 @@
                     
     <helpers:NullContentToVisibilityConverter x:Key="NullContentToVisibilityConverter" />
     <helpers:StringFormatConverter x:Key="StringFormatConverter" />
+    <helpers:BalanceToBrushConverter x:Key="BalanceToBrushConverter" />
     <DataTemplate x:Key="TextToolTipTemplate">
         <TextBlock Text="{Binding}" MaxWidth="250" MaxHeight="400" TextWrapping="Wrap" TextTrimming="WordEllipsis" />
     </DataTemplate>
@@ -50,7 +51,7 @@
                 <TextBlock Text="{Binding AccountName}" TextWrapping="Wrap" />
             </dxlc:LayoutItem>
             <dxlc:LayoutItem Label="{helpers:ConstString ID=AccountBalanceLabel}" Margin="10,0">
-                <TextBlock Text="{Binding AccountBalance}" TextWrapping="Wrap"  />
+                <TextBlock  FontWeight="SemiBold" Text="{Binding AccountBalance}" Margin="3,0,0,0"  Foreground="{Binding AccountBalance, Converter={StaticResource BalanceToBrushConverter}}" TextWrapping="Wrap"  />
             </dxlc:LayoutItem>
             <dxlc:LayoutItem Margin="10,0">
                 <StackPanel Orientation="Horizontal">
@@ -62,4 +63,4 @@
     </DataTemplate>
    
 </ResourceDictionary>
- 
+  

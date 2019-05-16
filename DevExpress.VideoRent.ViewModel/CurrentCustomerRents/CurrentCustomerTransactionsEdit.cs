@@ -114,14 +114,6 @@ namespace DevExpress.VideoRent.ViewModel
             set { SetValue<int>("Amount", ref _amount, value); }
         }
 
-        public double AccountBalance
-        {
-            get
-            {
-                if (CurrentCustomer != null && CurrentCustomer.Accounts != null) return CurrentCustomer.Accounts[0].Balance;
-                return 0;
-            }
-        }
         void RaiseDatesChanged(DateTime oldValue, DateTime newValue)
         {
             if (periodChangeLock) return;

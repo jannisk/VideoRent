@@ -102,6 +102,15 @@ namespace DevExpress.VideoRent {
             }
         }
 
+        public double AccountBalance
+        {
+            get
+            {
+                if (Accounts != null && Accounts.Count > 0 ) return Accounts[0].Balance;
+                return 0;
+            }
+        }
+
         public string AccountName
         {
             get { return Accounts[0].Name; }

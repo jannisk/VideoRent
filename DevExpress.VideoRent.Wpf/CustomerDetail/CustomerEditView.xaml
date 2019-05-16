@@ -75,16 +75,37 @@
                     </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>
                 <dxlc:LayoutGroup View="Tabs">
-                    <dxlc:LayoutGroup Header="{helpers:ConstString ID=Address}" Orientation="Vertical">
+                    <dxlc:LayoutGroup Header="{helpers:ConstString ID=DependendMembers}" Orientation="Vertical">
+                        <helpers:AssociationsGrid x:Name="MembersAssociationsGrid" AddItemContent="{helpers:ConstString ID=Add}" DeleteItemContent="{helpers:ConstString ID=Delete}" AllowEditingItemContent="{helpers:ConstString ID=AllowEditing}" AddItemGlyph="{Binding Source={StaticResource AddButtonImageSource}, Path=ImageSource}" DeleteItemGlyph="{Binding Source={StaticResource DeleteButtonImageSource}, Path=ImageSource}" AllowEditingItemGlyph="{Binding Source={StaticResource AllowEditingButtonImageSource}, Path=ImageSource}">
+                            <helpers:AssociationsGrid.MainContent>
+                                <dxg:GridControl x:Name="MembersGrid" ShowBorder="False">
+                                    <dxg:GridControl.View>
+                                        <dxg:TableView x:Name="MembersGridView" />
+                                    </dxg:GridControl.View>
+                                    <dxg:GridControl.Columns>
+                                        <dxg:GridColumn x:Name="MovieColumn" FieldName="Movie!" Header="{helpers:ConstString ID=Movie}">
+                                            <dxg:GridColumn.EditSettings>
+                                                <dxg:LookUpEditSettings x:Name="MoviesGridMovieEditSettings"  helpers:StyleConverter.Style="{StaticResource MovieLookUpEdit}" />
+                                            </dxg:GridColumn.EditSettings>
+                                        </dxg:GridColumn>
+                                        <dxg:GridColumn x:Name="DescriptionColumn" FieldName="Description" Header="{helpers:ConstString ID=Description}">
+                                            <dxg:GridColumn.EditSettings>
+                                                <dxe:MemoEditSettings helpers:StyleConverter.Style="{StaticResource MemoEdit}" />
+                                            </dxg:GridColumn.EditSettings>
+                                        </dxg:GridColumn>
+                                    </dxg:GridControl.Columns>
+                                </dxg:GridControl>
+                            </helpers:AssociationsGrid.MainContent>
+                        </helpers:AssociationsGrid>
+                    </dxlc:LayoutGroup>
+                        <dxlc:LayoutGroup Header="{helpers:ConstString ID=Address}" Orientation="Vertical">
                         <dxlc:LayoutItem VerticalAlignment="Top" Label="{helpers:ConstString ID=PhoneLabel}" LabelHorizontalAlignment="Right">
                             <dxe:TextEdit x:Name="PhoneEdit" Style="{StaticResource PhoneTextEdit}" />
                         </dxlc:LayoutItem>
                         <dxlc:LayoutItem Label="{helpers:ConstString ID=AddressLabel}" VerticalAlignment="Stretch" LabelHorizontalAlignment="Right">
                             <dxe:TextEdit x:Name="AddressEdit" Style="{StaticResource MultilineShortTextEdit}" />
                         </dxlc:LayoutItem>
-                        <dxlc:LayoutItem VerticalAlignment="Bottom" Label="{helpers:ConstString ID=EmailLabel}" LabelHorizontalAlignment="Right">
-                            <dxe:ButtonEdit x:Name="EmailEdit" Style="{StaticResource EmailButtonEdit}" />
-                        </dxlc:LayoutItem>
+                        <dxlc:LayoutItem VerticalAlignment="Bottom" Label="{helpers:ConstString ID=EmailLabel}" LabelHorizontalAlignment="Right"/>
                     </dxlc:LayoutGroup>
                     <dxlc:LayoutGroup Header="{helpers:ConstString ID=Discount}" Orientation="Vertical">
                         <dxlc:LayoutItem Label="{helpers:ConstString ID=DiscountLevelLabel}" VerticalAlignment="Top">

@@ -35,7 +35,7 @@ namespace DevExpress.VideoRent {
                 Server = "localhost";
                 DBName = "videorent";
                 Login = "root";
-                Password = "manager";
+                Password = "Sonak178";
                 var connectionString = "SERVER=" + Server + ";" + "DATABASE=" +
                 DBName + ";" + "UID=" + Login + ";" + "PASSWORD=" + Password + ";" + "Charset=" + "utf8";
                 return connectionString;
