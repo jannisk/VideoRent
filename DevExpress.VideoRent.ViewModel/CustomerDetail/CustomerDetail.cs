@@ -7,6 +7,7 @@ namespace DevExpress.VideoRent.ViewModel {
     public class CustomerDetail : VRObjectDetail<Customer> {
         CustomerEdit customerEdit;
         bool allowSetAsCurrentCustomer = true;
+        private CustomerAddMemberEdit _customerAddMemberEdit;
 
         public CustomerDetail(CustomerDetailObject editObject) : this(editObject, null) { }
         public CustomerDetail(CustomerDetailObject editObject, object tag)
@@ -56,6 +57,32 @@ namespace DevExpress.VideoRent.ViewModel {
         #region Commands
         public Action<object> CommandSetAsCurrentCustomer { get { return DoCommandSetAsCurrentCustomer; } }
         void DoCommandSetAsCurrentCustomer(object p) { SetAsCurrentCustomer(); }
+
+        public Action<object> CommandAddMember { get { return DoCommandAddMember; } }
+
+        public CustomerAddMemberEdit CustomerAddMemberEdit
+        {
+            get { return _customerAddMemberEdit; }
+
+            private set { SetValue<CustomerAddMemberEdit>("CustomerAddMemberEdit", ref _customerAddMemberEdit, value); }
+        }
+
+        private void DoCommandAddMember(object obj)
+        {
+            AddMember();
+        }
+
+        private void AddMember()
+        {
+            CustomerAddMemberEdit = new CustomerAddMemberEdit(VRObjectDetailEditObject.AddCustomerMemberObject, this);
+            CustomerAddMemberEdit.AfterDispose += OnCustomerAddMemberEditAfterDispose;
+        }
+
+        private void OnCustomerAddMemberEditAfterDispose(object sender, EventArgs e)
+        {
+            CustomerAddMemberEdit = null;
+        }
+
         #endregion
     }
 }

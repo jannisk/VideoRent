@@ -4,8 +4,10 @@ using DevExpress.VideoRent.ViewModel.ViewModelBase;
 using DevExpress.Xpo;
 
 namespace DevExpress.VideoRent.ViewModel {
-    public class CustomerDetailObject : VRObjectDetailObject<Customer>, ICustomerEditObjectParent {
+    public class CustomerDetailObject : VRObjectDetailObject<Customer>, ICustomerEditObjectParent, ICustomerAddMemberEditObjectParent
+    {
         CustomerEditObject _customerEditObject;
+        private CustomerAddMemberDetailObject _addCustomerEditObject;
 
         public CustomerDetailObject(Session session, Guid? customerOid) : base(session, customerOid) { }
         protected override Customer CreateNewObjectOverride() {
@@ -19,6 +21,16 @@ namespace DevExpress.VideoRent.ViewModel {
                 return _customerEditObject;
             }
         }
+        internal CustomerAddMemberDetailObject AddCustomerMemberObject
+        {
+            get
+            {
+                if (_addCustomerEditObject == null)
+                    _addCustomerEditObject = new CustomerAddMemberDetailObject(this, VideoRentObjectOid);
+                return _addCustomerEditObject;
+            }
+        }
+
         internal override IEnumerable<EditableSubobject> Subobjects {
             get {
                 var list = new List<EditableSubobject>(base.Subobjects);

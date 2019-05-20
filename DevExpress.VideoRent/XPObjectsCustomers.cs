@@ -42,7 +42,12 @@ namespace DevExpress.VideoRent {
             LastName = lastName;
         }
         public Customer(Session session, string firstName, string lastName) : this(session, firstName, string.Empty, lastName) { }
-        
+
+        public Customer(Customer customer):this(customer.Session)
+        {
+            this.Parent = customer;
+        }
+
         public override void AfterConstruction() {
             base.AfterConstruction();
             discountLevel = CustomerDiscountLevel.FirstTime;
@@ -150,13 +155,14 @@ namespace DevExpress.VideoRent {
             set { SetPropertyValue("Parent", ref _parent, value); }
         }
 
-        [Association("ParentSubordinates")]
+        [NonPersistent, Association("ParentSubordinates")]
         public XPCollection<Customer>  Children
         {
             get
             {
-                var xpCollection = new XPCollection<Customer>(Session, CriteriaOperator.Parse("Parent = ?", this.Oid));
-                return xpCollection;
+               var children = GetCollection<Customer>("Children");
+                children.Criteria =  CriteriaOperator.Parse("Parent = ?", Oid);
+                return children;
             }
         }
 
@@ -190,7 +196,9 @@ namespace DevExpress.VideoRent {
         public string DiscountLevelCaption { get { return EnumTitlesKeeper<CustomerDiscountLevel>.GetTitle(DiscountLevel); } }
 
         public override bool AllowDelete { get { return base.AllowDelete && Session.FindObject<Receipt>(CriteriaOperator.Parse("Customer = ?", this)) == null; } }
-        
+
+        public  bool AllowDeleteMember { get { return true; } }
+
         public bool OverdueTodayItemsExist() {
             foreach(Rent rent in ActiveRents)
                 if(rent.ActiveType != ActiveRentType.Active) return true;
@@ -233,7 +241,7 @@ namespace DevExpress.VideoRent {
         }
 
         private Membership _membership = null;
-
+        private Customer customer;
 
         [NonPersistent]
         public Membership Membership

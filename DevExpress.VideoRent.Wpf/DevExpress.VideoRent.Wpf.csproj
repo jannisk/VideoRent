@@ -287,6 +287,9 @@
     <Compile Include="CustomerDetail\CustomerEditView.xaml.cs">
       <DependentUpon>CustomerEditView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomerDetail\CustomerAddMemberDetailView.xaml.cs">
+      <DependentUpon>CustomerAddMemberDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomersList\CustomersEditView.xaml.cs">
       <DependentUpon>CustomersEditView.xaml</DependentUpon>
     </Compile>
@@ -490,6 +493,10 @@
     <Page Include="CustomerDetail\CustomerEditView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomerDetail\CustomerAddMemberDetailView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="CustomersList\CustomersEditView.xaml">
       <Generator>MSBuild:Compile</Generator>

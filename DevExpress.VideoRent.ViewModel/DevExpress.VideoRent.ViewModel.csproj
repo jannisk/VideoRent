@@ -115,6 +115,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerAddMember\CustomerAddMemberDetailObject.cs" />
     <Compile Include="Announcer\Announcer.cs" />
     <Compile Include="ArtistDetail\ArtistAddMovieEdit.cs" />
     <Compile Include="ArtistDetail\ArtistAddMovieEditObject.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="CurrentCustomerRents\RentsViewOptionsEditObject.cs" />
     <Compile Include="CurrentCustomerTransactions\PaymentInputEdit.cs" />
     <Compile Include="CurrentCustomerTransactions\PaymentInputEditObject.cs" />
+    <Compile Include="CustomerAddMember\CustomerAddMemberEdit.cs" />
     <Compile Include="CustomerDetail\CustomerDetail.cs" />
     <Compile Include="CustomerDetail\CustomerDetailObject.cs" />
     <Compile Include="CustomerDetail\CustomerEdit.cs" />
