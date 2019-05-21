@@ -20,7 +20,7 @@
             <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static helpers:CustomEventCommandHelper.ClosingProperty}" Value="{Binding CommandClose}" />
             <helpers:BindingInfo ElementName="OKButton" Property="{x:Static helpers:CustomEventCommandHelper.ClickProperty}" Value="{Binding CommandSaveAndDispose}" />
             <helpers:BindingInfo ElementName="OKButton" Property="{x:Static ContentElement.IsEnabledProperty}" Value="{Binding ListEdit.CurrentRecord, Converter={StaticResource NullContentToBoolConverter}}" />
-            <helpers:BindingInfo ElementName="CancelButton" Property="{x:Static helpers:CustomEventCommandHelper.ClickProperty}" Value="{Binding CommandClose}" />
+            <helpers:BindingInfo ElementName="CancelButton" Property="{x:Static helpers:CustomEventCommandHelper.ClickProperty}" Value="{Binding CommandDispose}" />
             <helpers:BindingInfo ElementName="AddMemberEditViewPresenter" Property="{x:Static ContentControl.ContentProperty}" Value="{Binding ListEdit.View}" />
         </helpers:BindingsInfoCollection>
     </helpers:DataBindingsHelper.Bindings>

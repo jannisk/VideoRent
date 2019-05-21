@@ -8,7 +8,7 @@ namespace DevExpress.VideoRent.ViewModel {
         public CompanyAddMovieEdit(CompanyAddMovieEditObject editObject, ModuleObjectDetail detail) : base(editObject, detail) { }
         public MovieEditData MovieEditData {
             get { return movieEditData; }
-            private set { SetValue<MovieEditData>("MovieEditData", ref movieEditData, value, true); }
+            private set { SetValue<MovieEditData>("_customerAddMemberEditData", ref movieEditData, value, true); }
         }
         protected override void OnEditObjectUpdated(object sender, EventArgs e) {
             base.OnEditObjectUpdated(sender, e);

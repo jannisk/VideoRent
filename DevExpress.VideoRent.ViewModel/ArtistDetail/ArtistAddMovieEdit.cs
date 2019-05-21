@@ -9,7 +9,7 @@ namespace DevExpress.VideoRent.ViewModel {
         public ArtistAddMovieEdit(ArtistAddMovieEditObject editObject, ModuleObjectDetail detail) : base(editObject, detail) { }
         public MovieEditData MovieEditData {
             get { return movieEditData; }
-            private set { SetValue<MovieEditData>("MovieEditData", ref movieEditData, value, true); }
+            private set { SetValue<MovieEditData>("_customerAddMemberEditData", ref movieEditData, value, true); }
         }
         public MovieArtistLineEditData MovieArtistLineEditData {
             get { return movieArtistLineEditData; }

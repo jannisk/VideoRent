@@ -19,7 +19,7 @@ namespace DevExpress.VideoRent.ViewModel {
         }
         public MovieEditData MovieEditData {
             get { return movieEditData; }
-            private set { SetValue<MovieEditData>("MovieEditData", ref movieEditData, value, true); }
+            private set { SetValue<MovieEditData>("_customerAddMemberEditData", ref movieEditData, value, true); }
         }
         public CountryEditData CountryEditData {
             get { return countryEditData; }

@@ -45,6 +45,12 @@ namespace DevExpress.VideoRent.ViewModel {
                 _customerEditObject = null;
                 return true;
             }
+
+            if (editableSubobject == _addCustomerEditObject)
+            {
+                _addCustomerEditObject = null;
+                return true;
+            }
             return false;
         }
         #endregion
