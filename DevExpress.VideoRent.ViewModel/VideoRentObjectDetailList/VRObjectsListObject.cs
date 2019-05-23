@@ -5,6 +5,11 @@ using DevExpress.VideoRent.ViewModel.ViewModelBase;
 using DevExpress.Xpo;
 
 namespace DevExpress.VideoRent.ViewModel {
+    /// <summary>
+    /// Class to handle basic database operations to modules that display
+    /// database objects such as Customers, Movies etc
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class VRObjectsListObject<T> : VRObjectBaseObject<T>, IVRObjectsEditObjectParent<T> where T : VideoRentBaseObject {
         EditableSubobject listEditObject;
         EditableSubobject viewOptionsEditObject;

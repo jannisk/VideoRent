@@ -20,7 +20,7 @@ namespace DevExpress.VideoRent.ViewModel
         protected override void OnEditObjectUpdated(object sender, EventArgs e)
         {
             base.OnEditObjectUpdated(sender, e);
-            CustomerAddMemberEditData = new CustomerAddMemberEditData(AddVRObjectEditObject.VideoRentObject.Session);
+            CustomerAddMemberEditData =  new CustomerAddMemberEditData(AddVRObjectEditObject.VideoRentObject.Session);
         }
 
         protected override void DisposeManaged()
@@ -34,7 +34,7 @@ namespace DevExpress.VideoRent.ViewModel
     {
         public CustomerAddMemberEditData(Session session)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

@@ -31,7 +31,8 @@ namespace DevExpress.VideoRent.ViewModel {
         }
     }
     /// <summary>
-    /// 
+    /// This object provides the basic mechanisms to manage and display database records
+    /// of any given type
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class VRObjectsList<T> : VRObjectsListBase<T> where T : VideoRentBaseObject {

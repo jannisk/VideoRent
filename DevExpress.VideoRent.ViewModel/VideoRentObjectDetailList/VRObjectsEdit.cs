@@ -10,6 +10,10 @@ using System.Drawing;
 #endif
 
 namespace DevExpress.VideoRent.ViewModel {
+    /// <summary>
+    /// Provides management functions for the records displayed in a module detail
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class VRObjectsEdit<T> : ModuleObjectEdit where T : VideoRentBaseObject {
         T currentRecord;
         bool allowDelete;
