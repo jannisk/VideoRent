@@ -5,7 +5,7 @@ namespace DevExpress.VideoRent.ViewModel {
     public class CompanyAddMovieEdit : AddVRObjectEdit<MovieCompany> {
         MovieEditData movieEditData;
 
-        public CompanyAddMovieEdit(CompanyAddMovieEditObject editObject, ModuleObjectDetail detail) : base(editObject, detail) { }
+        public CompanyAddMovieEdit(CompanyAddMovieEditObject editObject, ModuleObjectDetail detail) : base(editObject, detail) {  }
         public MovieEditData MovieEditData {
             get { return movieEditData; }
             private set { SetValue<MovieEditData>("_customerAddMemberEditData", ref movieEditData, value, true); }

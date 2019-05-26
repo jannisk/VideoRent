@@ -116,7 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomerAddMember\CustomerAddMemberDetail.cs" />
-    <Compile Include="CustomerAddMember\CustomerAddMemberDetailObject.cs" />
+    <Compile Include="CustomerAddMember\CustomerAddMemberEditObject.cs" />
     <Compile Include="Announcer\Announcer.cs" />
     <Compile Include="ArtistDetail\ArtistAddMovieEdit.cs" />
     <Compile Include="ArtistDetail\ArtistAddMovieEditObject.cs" />

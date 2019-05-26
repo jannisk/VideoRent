@@ -8,8 +8,9 @@ namespace DevExpress.VideoRent.ViewModel
     {
         CustomerAddMemberEditData _customerAddMemberEditData;
 
-        public CustomerAddMemberEdit(CustomerAddMemberDetailObject editObject, ModuleObjectDetail detail) : base(editObject, detail)
+        public CustomerAddMemberEdit(CustomerAddMemberEditObject editObject, ModuleObjectDetail detail) : base(editObject, detail)
         {
+            
         }
         public CustomerAddMemberEditData CustomerAddMemberEditData
         {
@@ -20,7 +21,8 @@ namespace DevExpress.VideoRent.ViewModel
         protected override void OnEditObjectUpdated(object sender, EventArgs e)
         {
             base.OnEditObjectUpdated(sender, e);
-            CustomerAddMemberEditData =  new CustomerAddMemberEditData(AddVRObjectEditObject.VideoRentObject.Session);
+            
+             CustomerAddMemberEditData =  new CustomerAddMemberEditData(AddVRObjectEditObject.VideoRentObject.Session);
         }
 
         protected override void DisposeManaged()

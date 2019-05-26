@@ -74,7 +74,7 @@ namespace DevExpress.VideoRent.ViewModel {
 
         private void AddMember()
         {
-            //ModulesManager.Current.OpenModuleObjectDetail(new CustomerAddMemberDetailObject(VRObjectDetailEditObject,
+            //ModulesManager.Current.OpenModuleObjectDetail(new CustomerAddMemberEditObject(VRObjectDetailEditObject,
             //    (Guid) CurrentCustomerProvider.Current.CurrentCustomerOid));
 
             CustomerAddMemberEdit = new CustomerAddMemberEdit(VRObjectDetailEditObject.AddCustomerMemberObject, this);
