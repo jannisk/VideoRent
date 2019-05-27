@@ -1,7 +1,9 @@
-﻿using System.Windows.Controls;
+﻿using DevExpress.VideoRent.Wpf.ModulesBase;
+using System.Windows.Controls;
 
 namespace DevExpress.VideoRent.Wpf {
-    public partial class CustomerAddMemberEditView : UserControl {
+    public partial class CustomerAddMemberEditView : CustomShowUserControl
+    {
         public CustomerAddMemberEditView()
         {
             InitializeComponent();

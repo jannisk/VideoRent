@@ -13,6 +13,7 @@ using System.Text;
 using System.Collections;
 using System.Runtime.InteropServices;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace DevExpress.VideoRent.Wpf.Helpers {
     public class InvertThicknessConverter : IValueConverter {
@@ -26,6 +27,23 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
             throw new NotSupportedException();
         }
     }
+    public class DebugDataBindingConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType,
+            object parameter, CultureInfo culture)
+        {
+            Debugger.Break();
+            return value;
+        }
+
+        public object ConvertBack(object value, Type targetType,
+            object parameter, CultureInfo culture)
+        {
+            Debugger.Break();
+            return value;
+        }
+    }
+
     public class IntToDecimalConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             int? i = value as int?;

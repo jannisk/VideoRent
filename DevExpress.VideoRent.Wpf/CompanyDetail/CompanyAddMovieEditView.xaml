@@ -10,7 +10,7 @@
     xmlns:helpers="clr-namespace:DevExpress.VideoRent.Wpf.Helpers"
     xmlns:local="clr-namespace:DevExpress.VideoRent.Wpf"
     ShowMethodType="{DynamicResource ShowType}" MinWidth="400" MinHeight="250">
-    
+
     <mb:CustomShowUserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -43,7 +43,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <dxlc:LayoutControl x:Name="MainLayoutControl" Orientation="Vertical">
+        <dxlc:LayoutControl x:Name="MainLayoutControl" Orientation="Vertical" Grid.ColumnSpan="4">
             <dxlc:LayoutItem Label="{helpers:ConstString ID=MovieLabel}">
                 <dxg:LookUpEdit x:Name="MovieEdit" Style="{StaticResource MovieLookUpEdit}" />
             </dxlc:LayoutItem>
@@ -51,7 +51,7 @@
                 <dxe:TextEdit x:Name="DescriptionEdit" Style="{StaticResource MultilineShortTextEdit}" />
             </dxlc:LayoutItem>
         </dxlc:LayoutControl>
-        <dx:UniformStackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="12,0,12,12">
+        <dx:UniformStackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,12,12" Grid.Column="3">
             <Button x:Name="AddButton" Content="{helpers:ConstString ID=Add}" MinWidth="120" />
             <Button x:Name="CancelButton" Content="{helpers:ConstString ID=Cancel}" MinWidth="120" />
         </dx:UniformStackPanel>

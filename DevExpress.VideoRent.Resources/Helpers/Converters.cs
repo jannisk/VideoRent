@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using DevExpress.Utils;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace DevExpress.VideoRent.Resources.Helpers {
     public class DrawingImageToImageSourceConverter : DependencyObject, IValueConverter {
@@ -118,5 +119,8 @@ namespace DevExpress.VideoRent.Resources.Helpers {
             if(image == null) return null;
             return DrawingImageToImageSourceConverter.ConvertBack((BitmapSource)image.Source);
         }
+
+       
     }
+   
 }

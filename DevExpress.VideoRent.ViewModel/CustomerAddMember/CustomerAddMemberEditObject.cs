@@ -10,9 +10,9 @@ namespace DevExpress.VideoRent.ViewModel
 {
     public interface ICustomerAddMemberEditObjectParent : IAddVRObjectEditObjectParent { }
 
-    public class CustomerAddMemberDetailObject: AddVRObjectEditObject<Customer>
+    public class CustomerAddMemberEditObject: AddVRObjectEditObject<Customer>
     {
-        public CustomerAddMemberDetailObject(EditableObject parent, Guid customerOid) : base(parent, customerOid) { }
+        public CustomerAddMemberEditObject(EditableObject parent, Guid customerOid) : base(parent, customerOid) { }
         public new ICustomerAddMemberEditObjectParent AddVRObjectEditObjectParent { get { return (ICustomerAddMemberEditObjectParent)Parent; } }
 
         protected override Customer CreateObjectOverride()

@@ -7,7 +7,7 @@ namespace DevExpress.VideoRent.ViewModel {
     public class CustomerDetailObject : VRObjectDetailObject<Customer>, ICustomerEditObjectParent, ICustomerAddMemberEditObjectParent
     {
         CustomerEditObject _customerEditObject;
-        private CustomerAddMemberDetailObject _addCustomerEditObject;
+        private CustomerAddMemberEditObject _addCustomerEditObject;
 
         public CustomerDetailObject(Session session, Guid? customerOid) : base(session, customerOid) { }
         protected override Customer CreateNewObjectOverride() {
@@ -21,12 +21,12 @@ namespace DevExpress.VideoRent.ViewModel {
                 return _customerEditObject;
             }
         }
-        internal CustomerAddMemberDetailObject AddCustomerMemberObject
+        internal CustomerAddMemberEditObject AddCustomerMemberObject
         {
             get
             {
                 if (_addCustomerEditObject == null)
-                    _addCustomerEditObject = new CustomerAddMemberDetailObject(this, VideoRentObjectOid);
+                    _addCustomerEditObject = new CustomerAddMemberEditObject(this, VideoRentObjectOid);
                 return _addCustomerEditObject;
             }
         }
