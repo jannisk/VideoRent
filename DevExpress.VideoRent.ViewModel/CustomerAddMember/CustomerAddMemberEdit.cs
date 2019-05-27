@@ -22,7 +22,8 @@ namespace DevExpress.VideoRent.ViewModel
         {
             base.OnEditObjectUpdated(sender, e);
             
-             CustomerAddMemberEditData =  new CustomerAddMemberEditData(AddVRObjectEditObject.VideoRentObject.Session);
+            CustomerAddMemberEditData =  new CustomerAddMemberEditData(AddVRObjectEditObject.VideoRentObject.Session);
+            AddVRObjectEditObject.VideoRentObject.LastName = AddVRObjectEditObject.VideoRentObject.Parent.LastName;
         }
 
         protected override void DisposeManaged()

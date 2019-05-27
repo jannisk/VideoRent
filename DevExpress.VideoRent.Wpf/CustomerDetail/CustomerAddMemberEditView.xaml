@@ -39,11 +39,11 @@
             <helpers:BindingInfo ElementName="resource:ElementLayoutDataStore" Property="{x:Static local:ElementLayoutDataStore.DisposeSignalSlotProperty}" Value="{Binding DisposeSignal}" />
             <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static mb:ShowType.CloseSignalSlotProperty}" Value="{Binding DisposeSignal}" />
             <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static helpers:CustomEventCommandHelper.ClosingProperty}" Value="{Binding CommandDispose}" />
-            <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static mb:PopupShowType.TitleProperty}" Value="{Binding AddVRObjectEditObject.VideoRentObject.Parent.FirstName}" />
+            <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static mb:PopupShowType.TitleProperty}" Value="{Binding EditObject.VideoRentObject.Parent!.FullName}" />
             <helpers:BindingInfo ElementName="PhotoEdit" Property="{x:Static dxe:ImageEdit.SourceProperty}" Value="{Binding EditObject.VideoRentObject.Photo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DrawingImageToImageSourceConverter}}" />
             <helpers:BindingInfo ElementName="FirstNameEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="MiddleNameEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.MiddleName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <helpers:BindingInfo ElementName="LastNameEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding  EditObject.VideoRentObject, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DebugBinding}}" />
+            <helpers:BindingInfo ElementName="LastNameEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding  EditObject.VideoRentObject.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="GenderEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="GenderEdit" Property="{x:Static dxe:LookUpEditBase.ItemsSourceProperty}" Value="{Binding PersonGenderEditData.List}" />
             <helpers:BindingInfo ElementName="GenderColumnEdit" Property="{x:Static dxe:LookUpEditBase.ItemsSourceProperty}" Value="{Binding PersonGenderEditData.List}" />
@@ -53,16 +53,10 @@
             <helpers:BindingInfo ElementName="AddressEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="EmailEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="EmailEdit" Property="{x:Static helpers:CommandHelper.Command0Property}" Value="{Binding CommandSendEmail}"/>
-            <helpers:BindingInfo ElementName="DiscountLevelEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.DiscountLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <helpers:BindingInfo ElementName="DiscountLevelEdit" Property="{x:Static dxe:LookUpEditBase.ItemsSourceProperty}" Value="{Binding DiscountLevelEditData.List}" />
-            <helpers:BindingInfo ElementName="DiscountEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Discount, Mode=OneWay}" />
-            <helpers:BindingInfo ElementName="MembershipTypeEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.MembershipType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <helpers:BindingInfo ElementName="MembershipTypeEdit" Property="{x:Static dxe:LookUpEditBase.ItemsSourceProperty}" Value="{Binding MembershipTypeEditData.List}" />
-            <helpers:BindingInfo ElementName="MembershipStartDateEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.MembershipStartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="CommentsEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Comments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:ValidationInfo EditName0="FirstNameEdit" Rule="{StaticResource ValidationRuleIsNotBlank}" />
             <!--<helpers:ValidationInfo EditName0="LastNameEdit" Rule="{StaticResource ValidationRuleIsNotBlank}" />-->
-            <helpers:BindingInfo ElementName="OKButton" Property="{x:Static helpers:CustomEventCommandHelper.ClickProperty}" Value="{Binding CommandSaveAndDispose}" />
+            <helpers:BindingInfo ElementName="AddButton" Property="{x:Static helpers:CustomEventCommandHelper.ClickProperty}" Value="{Binding CommandSaveAndDispose}" />
             <!--<helpers:BindingInfo ElementName="OKButton" Property="{x:Static ContentElement.IsEnabledProperty}" Value="{Binding ListEdit.CurrentRecord, Converter={StaticResource NullContentToBoolConverter}}" />-->
             <helpers:BindingInfo ElementName="CancelButton" Property="{x:Static helpers:CustomEventCommandHelper.ClickProperty}" Value="{Binding CommandDispose}" />
             <helpers:ElementLayoutInfo ElementName="MainLayoutControl" StoreFolder="LayoutControl:CustomerAddMemberEdit-MainLayoutControl" Store="{StaticResource ElementLayoutDataStore}" />
@@ -96,7 +90,6 @@
                             <dxe:DateEdit x:Name="BirthDateEdit" />
                         </dxlc:LayoutItem>
                     </dxlc:LayoutGroup>
-                    <dxlc:LayoutGroup View="Tabs">
                         <dxlc:LayoutGroup Header="{helpers:ConstString ID=Address}" Orientation="Vertical">
                             <dxlc:LayoutItem VerticalAlignment="Top" Label="{helpers:ConstString ID=PhoneLabel}" LabelHorizontalAlignment="Right">
                                 <dxe:TextEdit x:Name="PhoneEdit" Style="{StaticResource PhoneTextEdit}" />
@@ -106,26 +99,6 @@
                             </dxlc:LayoutItem>
                             <dxlc:LayoutItem VerticalAlignment="Bottom" Label="{helpers:ConstString ID=EmailLabel}" LabelHorizontalAlignment="Right"/>
                         </dxlc:LayoutGroup>
-                        <dxlc:LayoutGroup Header="{helpers:ConstString ID=Discount}" Orientation="Vertical">
-                            <dxlc:LayoutItem Label="{helpers:ConstString ID=DiscountLevelLabel}" VerticalAlignment="Top">
-                                <dxe:ComboBoxEdit x:Name="DiscountLevelEdit" Style="{StaticResource CustomerDiscountLevelComboBoxEdit}" IsReadOnly="True" IsEnabled="False" />
-                            </dxlc:LayoutItem>
-                            <dxlc:LayoutItem Label="{helpers:ConstString ID=DiscountLabel}" VerticalAlignment="Top">
-                                <dxe:TextEdit x:Name="DiscountEdit" Style="{StaticResource PercentTextEdit}" IsReadOnly="True" />
-                            </dxlc:LayoutItem>
-                            <dxlc:LayoutItem VerticalAlignment="Bottom">
-                                <helpers:NoteControl Text="{helpers:ConstString ID=DiscountNote}" />
-                            </dxlc:LayoutItem>
-                        </dxlc:LayoutGroup>
-                        <dxlc:LayoutGroup Header="{helpers:ConstString ID=Membership}" Orientation="Vertical">
-                            <dxlc:LayoutItem Label="{helpers:ConstString ID=MembershipTypeLabel}" VerticalAlignment="Top">
-                                <dxe:ComboBoxEdit x:Name="MembershipTypeEdit" Style="{StaticResource CustomerMembershipTypeComboBoxEdit}" IsReadOnly="False" IsEnabled="True" />
-                            </dxlc:LayoutItem>
-                            <dxlc:LayoutItem Label="{helpers:ConstString ID=StartDateLabel}">
-                                <dxe:DateEdit x:Name="MembershipStartDateEdit" />
-                            </dxlc:LayoutItem>
-                        </dxlc:LayoutGroup>
-                    </dxlc:LayoutGroup>
                 </dxlc:LayoutGroup>
             </dxlc:LayoutGroup>
             <dxlc:LayoutItem Label="{helpers:ConstString ID=Comments}" LabelPosition="Top" Height="150">
