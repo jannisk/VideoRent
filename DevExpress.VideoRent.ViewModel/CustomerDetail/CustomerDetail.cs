@@ -86,6 +86,13 @@ namespace DevExpress.VideoRent.ViewModel {
             CustomerAddMemberEdit = null;
         }
 
+        public Action<object> CommandEditMember { get { return DoCommandEditMember; } }
+
+        private void DoCommandEditMember(object obj)
+        {
+            CustomerAddMemberEdit = new CustomerAddMemberEdit(VRObjectDetailEditObject.AddCustomerMemberObject, this);
+        }
+
         #endregion
     }
 }

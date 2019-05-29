@@ -15,7 +15,7 @@
     xmlns:rhelpers="clr-namespace:DevExpress.VideoRent.Resources.Helpers;assembly=DevExpress.VideoRent.Resources"
     xmlns:helpers="clr-namespace:DevExpress.VideoRent.Wpf.Helpers"
     xmlns:resources="clr-namespace:DevExpress.VideoRent.Resources;assembly=DevExpress.VideoRent.Resources"
-    ShowMethodType="{DynamicResource ShowType}" MinWidth="400" MinHeight="250">
+    ShowMethodType="{DynamicResource ShowType}" MinWidth="500" MinHeight="250">
 
     <mb:CustomShowUserControl.Resources>
         <ResourceDictionary>
@@ -62,14 +62,14 @@
             <helpers:ElementLayoutInfo ElementName="MainLayoutControl" StoreFolder="LayoutControl:CustomerAddMemberEdit-MainLayoutControl" Store="{StaticResource ElementLayoutDataStore}" />
         </helpers:BindingsInfoCollection>
     </helpers:DataBindingsHelper.Bindings>
-    <Grid>
+    <Grid Width='600'>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <dxlc:LayoutControl x:Name="MainLayoutControl" Orientation="Vertical" helpers:ImageEditHelper.ImageEdit="{Binding ElementName=PhotoEdit}" Padding="0">
             <dxlc:LayoutGroup Orientation="Horizontal">
-                <dxlc:LayoutItem dxlc:LayoutControl.AllowHorizontalSizing="True" Width="370" HorizontalAlignment="Left" VerticalAlignment="Stretch">
+                <dxlc:LayoutItem dxlc:LayoutControl.AllowHorizontalSizing="True" Width="270" HorizontalAlignment="Left" VerticalAlignment="Stretch">
                     <helpers:CustomImageEdit x:Name="PhotoEdit" Style="{StaticResource CustomerPhotoImageEdit}" />
                 </dxlc:LayoutItem>
                 <dxlc:LayoutGroup Orientation="Vertical" dxlc:LayoutControl.AllowHorizontalSizing="True">
