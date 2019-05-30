@@ -46,7 +46,7 @@
             <helpers:BindingInfo ElementName="LastNameEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding  EditObject.VideoRentObject.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="GenderEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="GenderEdit" Property="{x:Static dxe:LookUpEditBase.ItemsSourceProperty}" Value="{Binding PersonGenderEditData.List}" />
-            <helpers:BindingInfo ElementName="GenderColumnEdit" Property="{x:Static dxe:LookUpEditBase.ItemsSourceProperty}" Value="{Binding PersonGenderEditData.List}" />
+            <helpers:BindingInfo ElementName="GenderColumnEdit" Property="{x:Static helpers:EditHelper.ItemsSourceProperty}" Value="{Binding PersonGenderEditData.List}" />
             <helpers:BindingInfo ElementName="BirthDateColumnEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="BirthDateEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="PhoneEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -55,9 +55,8 @@
             <helpers:BindingInfo ElementName="EmailEdit" Property="{x:Static helpers:CommandHelper.Command0Property}" Value="{Binding CommandSendEmail}"/>
             <helpers:BindingInfo ElementName="CommentsEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Comments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:ValidationInfo EditName0="FirstNameEdit" Rule="{StaticResource ValidationRuleIsNotBlank}" />
-            <!--<helpers:ValidationInfo EditName0="LastNameEdit" Rule="{StaticResource ValidationRuleIsNotBlank}" />-->
+            <helpers:ValidationInfo EditName0="LastNameEdit" Rule="{StaticResource ValidationRuleIsNotBlank}" />
             <helpers:BindingInfo ElementName="AddButton" Property="{x:Static helpers:CustomEventCommandHelper.ClickProperty}" Value="{Binding CommandSaveAndDispose}" />
-            <!--<helpers:BindingInfo ElementName="OKButton" Property="{x:Static ContentElement.IsEnabledProperty}" Value="{Binding ListEdit.CurrentRecord, Converter={StaticResource NullContentToBoolConverter}}" />-->
             <helpers:BindingInfo ElementName="CancelButton" Property="{x:Static helpers:CustomEventCommandHelper.ClickProperty}" Value="{Binding CommandDispose}" />
             <helpers:ElementLayoutInfo ElementName="MainLayoutControl" StoreFolder="LayoutControl:CustomerAddMemberEdit-MainLayoutControl" Store="{StaticResource ElementLayoutDataStore}" />
         </helpers:BindingsInfoCollection>

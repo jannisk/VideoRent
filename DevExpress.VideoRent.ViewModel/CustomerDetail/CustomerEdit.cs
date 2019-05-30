@@ -21,6 +21,7 @@ namespace DevExpress.VideoRent.ViewModel {
             get { return _personGenderEditData; }
             private set { SetValue<PersonGenderEditData>("PersonGenderEditData", ref _personGenderEditData, value); }
         }
+
         public DiscountLevelEditData DiscountLevelEditData {
             get { return _discountLevelEditData; }
             private set { SetValue<DiscountLevelEditData>("DiscountLevelEditData", ref _discountLevelEditData, value); }

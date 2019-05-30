@@ -21,7 +21,7 @@ namespace DevExpress.VideoRent.ViewModel {
             return true;
         }
         #region Commands
-        public Action<object> CommandSaveAndDispose { get { return DoCommandSaveAndDispose; } }
+        public Action<object> CommandSaveAndDispose { get{ return DoCommandSaveAndDispose; } }
         void DoCommandSaveAndDispose(object p) { SaveAndDispose(); }
         #endregion
     }

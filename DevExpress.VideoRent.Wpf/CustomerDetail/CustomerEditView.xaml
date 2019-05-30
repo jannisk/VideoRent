@@ -22,6 +22,7 @@
             </ResourceDictionary.MergedDictionaries>
             <rhelpers:DrawingImageToImageConverter x:Key="CustomerPhotoTooltipConverter" Height="250" Stretch="Uniform" />
             <rhelpers:DrawingImageToImageSourceConverter x:Key="DrawingImageToImageSourceConverter" />
+            <local:GenderToGenderItemConverter x:Key="GenderToGenderItemConverter" />
             <helpers:DataSource x:Key="DataSource" />
             <local:ElementLayoutDataStore x:Key="ElementLayoutDataStore"/>
             <resources:ImagesSourceHelper x:Key="ImagesHelper" />
@@ -29,6 +30,8 @@
             <helpers:ImageCollectionImageSource x:Key="AddButtonImageSource" ImageCollection="{Binding Source={StaticResource ImagesHelper}, Path=BarImages}" ImageIndex="0" />
             <helpers:ImageCollectionImageSource x:Key="DeleteButtonImageSource" ImageCollection="{Binding Source={StaticResource ImagesHelper}, Path=BarImages}" ImageIndex="2" />
             <helpers:ImageCollectionImageSource x:Key="AllowEditingButtonImageSource" ImageCollection="{Binding Source={StaticResource ImagesHelper}, Path=BarImages}" ImageIndex="5" />
+            <helpers:NullContentToBoolConverter x:Key="NullContentToBoolConverter" />
+            <helpers:BoolToAnyConverter x:Key="DisplayTextToImageSourceConverter" InnerConverter="{StaticResource NullContentToBoolConverter}" TrueValue="{Binding Source={StaticResource ReferenceImages}, Path=UnknownPerson, Converter={StaticResource DrawingImageToImageSourceConverter}}" />
         </ResourceDictionary>
     </UserControl.Resources>
     <helpers:DataBindingsHelper.Bindings>
@@ -40,7 +43,7 @@
             <helpers:BindingInfo ElementName="LastNameEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="GenderEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="GenderEdit" Property="{x:Static dxe:LookUpEditBase.ItemsSourceProperty}" Value="{Binding PersonGenderEditData.List}" />
-            <helpers:BindingInfo ElementName="GenderColumnEdit" Property="{x:Static dxe:LookUpEditBase.ItemsSourceProperty}" Value="{Binding PersonGenderEditData.List}" />
+            <helpers:BindingInfo ElementName="GenderColumnEdit" Property="{x:Static helpers:EditHelper.ItemsSourceProperty}" Value="{Binding PersonGenderEditData.List}" />
             <helpers:BindingInfo ElementName="BirthDateColumnEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="BirthDateEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="PhoneEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -110,9 +113,20 @@
                                         <dxg:GridColumn x:Name="LastNameColumn" FieldName="LastName" Header="{helpers:ConstString ID=LastName}">
                                         </dxg:GridColumn>
                                         <dxg:GridColumn x:Name="GenderColumn" FieldName="Gender" Header="{helpers:ConstString ID=Gender}">
-                                            <dxg:GridColumn.EditSettings>
-                                                <dxe:ComboBoxEditSettings x:Name="GenderColumnEdit" helpers:StyleConverter.Style="{StaticResource IconAndValueComboBoxEdit}" />
-                                            </dxg:GridColumn.EditSettings>
+                                            <dxg:GridColumn.EditTemplate>
+                                                <ControlTemplate>
+                                                    <dxe:ComboBoxEdit x:Name="PART_Editor" Style="{StaticResource OnlyIconComboBoxEdit}"
+                                            ItemsSource="{Binding Path=DataContext.Column.(helpers:EditHelper.ItemsSource), RelativeSource={RelativeSource TemplatedParent}}"
+                                            EditValue="{Binding Path=EditValue, RelativeSource={RelativeSource TemplatedParent}}"
+                                            SelectedItem="{Binding Path=EditValue, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource GenderToGenderItemConverter}}" />
+                                                </ControlTemplate>
+                                            </dxg:GridColumn.EditTemplate>
+
+                                            <dxg:GridColumn.DisplayTemplate>
+                                                <ControlTemplate>
+                                                    <Image Stretch="None" Source="{Binding Path=DisplayText, Mode=OneWay, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource GenderToGenderIconConverter}}" RenderOptions.BitmapScalingMode="NearestNeighbor" />
+                                                </ControlTemplate>
+                                             </dxg:GridColumn.DisplayTemplate>
                                         </dxg:GridColumn>
                                         <dxg:GridColumn x:Name="BirthDateColumn" FieldName="BirthDate" Header="{helpers:ConstString ID=BirthDate}">
                                         </dxg:GridColumn>
