@@ -115,6 +115,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AthletsList\AthletsList.cs" />
+    <Compile Include="AthletsList\AthletsListObject.cs" />
     <Compile Include="CustomerAddMember\CustomerAddMemberDetail.cs" />
     <Compile Include="CustomerAddMember\CustomerAddMemberEditObject.cs" />
     <Compile Include="Announcer\Announcer.cs" />

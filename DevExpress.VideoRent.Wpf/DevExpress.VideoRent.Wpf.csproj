@@ -238,6 +238,12 @@
     <Compile Include="ArtistsList\ArtistPicturesEditView.xaml.cs">
       <DependentUpon>ArtistPicturesEditView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AthletsList\AthletsEditView.xaml.cs">
+      <DependentUpon>AthletsEditView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AthletsList\AthletsListView.xaml.cs">
+      <DependentUpon>AthletsListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ChartDataHelpers.cs" />
     <Compile Include="CompaniesList\CompaniesEditView.xaml.cs">
       <DependentUpon>CompaniesEditView.xaml</DependentUpon>
@@ -430,6 +436,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ArtistsList\ArtistPicturesEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AthletsList\AthletsEditView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AthletsList\AthletsListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

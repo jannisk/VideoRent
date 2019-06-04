@@ -29,7 +29,6 @@ namespace DevExpress.VideoRent.ViewModel {
             Period = 12;
             LayoutManager.Current.Subscribe(OnLayoutManagerAfterLoad, OnLayoutManagerBeforeSave);
             CurrentCustomerProvider.Current.CurrentCustomerOidChanged += OnCurrentCustomerProviderCurrentCustomerOidChanged;
-            AllObjects<Customer>.Set.Updated += OnCustomersSetUpdated;
         }
         public new CurrentCustomerRentsEditObject VRObjectsEditObject { get { return (CurrentCustomerRentsEditObject)EditObject; } }
         public DateTime StartDate {

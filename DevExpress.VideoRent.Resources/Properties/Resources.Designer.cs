@@ -683,6 +683,15 @@ namespace DevExpress.VideoRent.Resources.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Athlets.
+        /// </summary>
+        public static string AthletsModule {
+            get {
+                return ResourceManager.GetString("AthletsModule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To quickly locate a customer, type the customer&apos;s name or a part of his/her name in the Name column in the top row. You can also search against other columns in the same way..
         /// </summary>
         public static string AutoFilterRowHint {

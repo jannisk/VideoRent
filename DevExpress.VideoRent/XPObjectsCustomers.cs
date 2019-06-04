@@ -155,6 +155,12 @@ namespace DevExpress.VideoRent {
             set { SetPropertyValue("Parent", ref _parent, value); }
         }
 
+        public bool IsParent
+        {
+            get { return _parent == null; }
+        }
+        
+
         [NonPersistent, Association("ParentSubordinates")]
         public XPCollection<Customer>  Children
         {

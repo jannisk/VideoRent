@@ -10,6 +10,7 @@ namespace DevExpress.VideoRent.ViewModel {
             ModulesManager.Current.RegisterModuleObjectDetailType(typeof(CompanyDetailObject), typeof(CompanyDetail));
             ModulesManager.Current.RegisterModuleObjectDetailType(typeof(CustomersListObject), typeof(CustomersList));
             ModulesManager.Current.RegisterModuleObjectDetailType(typeof(CustomerDetailObject), typeof(CustomerDetail));
+            ModulesManager.Current.RegisterModuleObjectDetailType(typeof(AthletsListObject), typeof(AthletsList));
             ModulesManager.Current.RegisterModuleObjectDetailType(typeof(CurrentCustomerRentsDetailObject), typeof(CurrentCustomerRentsDetail));
             ModulesManager.Current.RegisterModuleObjectDetailType(typeof(CurrentCustomerTransactionsDetailObject), typeof(CurrentCustomerTransactionsDetail));
             ModulesManager.Current.RegisterModuleObjectDetailType(typeof(FindCustomerDetailObject), typeof(FindCustomerDetail));

@@ -34,6 +34,7 @@ namespace DevExpress.VideoRent.Wpf {
         public static DemoModuleCategory CategoryCustomers;
         public static DemoModuleCategory CategoryCurrentCustomerRents;
         public static DemoModuleCategory CategoryCurrentCustomerTransactions;
+        public static DemoModuleCategory CategoryAthlets;
         /// <summary>
         /// Store all views in a local dictionary
         /// </summary>
@@ -70,6 +71,7 @@ namespace DevExpress.VideoRent.Wpf {
             viewsManager.RegisterView(typeof(CompanyAddMovieEdit), typeof(CompanyAddMovieEditView));
             viewsManager.RegisterView(typeof(CustomersEdit), typeof(CustomersEditView));
             viewsManager.RegisterView(typeof(CustomersList), typeof(CustomersListView));
+            viewsManager.RegisterView(typeof(AthletsList), typeof(AthletsListView));
             viewsManager.RegisterView(typeof(CustomersViewOptionsEdit), typeof(CustomersViewOptionsEditView));
             viewsManager.RegisterView(typeof(CustomerEdit), typeof(CustomerEditView));
             viewsManager.RegisterView(typeof(CustomerDetail), typeof(CustomerDetailView));
@@ -99,7 +101,9 @@ namespace DevExpress.VideoRent.Wpf {
             CategoryCompanies = new VideoRentModuleCategory(GroupCatalog, ConstStrings.Get("CompaniesModule"), "Company");
             
             CategoryCustomers = new VideoRentModuleCategory(GroupRental, ConstStrings.Get("CustomersModule"), "Person");
-            CategoryCurrentCustomerTransactions= new VideoRentModuleCategory(GroupRental, ConstStrings.Get("AccountTransactions"), "Revenue");
+            CategoryAthlets = new VideoRentModuleCategory(GroupRental, ConstStrings.Get("AthletsModule"), "Person");
+            CategoryCurrentCustomerTransactions = new VideoRentModuleCategory(GroupRental, ConstStrings.Get("AccountTransactions"), "Revenue");
+
             CategoryCurrentCustomerRents = GetPreparedCurrentCustomersRentCategory();
         }
         
@@ -127,6 +131,7 @@ namespace DevExpress.VideoRent.Wpf {
             ModulesManager.Current.OpenModuleObjectDetail(new CurrentCustomerRentsDetailObject(session), false);
             ModulesManager.Current.OpenModuleObjectDetail(new CurrentCustomerTransactionsDetailObject(session), false);
             ModulesManager.Current.OpenModuleObjectDetail(new CustomersListObject(session), false);
+            ModulesManager.Current.OpenModuleObjectDetail(new AthletsListObject(session), false);
             ModulesManager.Current.OpenModuleObjectDetail(new MoviesListObject(session), false);
             ModulesManager.Current.OpenModuleObjectDetail(new MovieCategoriesListObject(session), false, typeof(ClassicShowType));
             ModulesManager.Current.OpenModuleObjectDetail(new ArtistsListObject(session), false);

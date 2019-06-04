@@ -1,10 +1,9 @@
 ﻿using System.Windows.Controls;
 
 namespace DevExpress.VideoRent.Wpf {
-    public partial class CustomerEditView : UserControl {
-        public CustomerEditView() {
+    public partial class AthletsEditView : UserControl {
+        public AthletsEditView() {
             InitializeComponent();
-         
         }
     }
 }

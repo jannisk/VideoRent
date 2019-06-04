@@ -5,22 +5,23 @@ using DevExpress.Xpo.DB;
 using DevExpress.Data.Filtering;
 
 namespace DevExpress.VideoRent.ViewModel {
-    public class CustomersListObject : VRObjectsListObject<Customer>, ICustomersEditObjectParent {
+    public class AthletsListObject : VRObjectsListObject<Customer>, ICustomersEditObjectParent {
 
         internal CustomersEditObject CustomersEditObject { get { return (CustomersEditObject)ListEditObject; } }
         internal CustomersViewOptionsEditObject CustomersViewOptionsEditObject { get { return (CustomersViewOptionsEditObject)ViewOptionsEditObject; } }
 
-        public CustomersListObject(Session session) : base(session) { }
+        public AthletsListObject(Session session) : base(session) { }
 
         /// <summary>
-        /// Gets all Customer objects in the database
+        /// Athlets are not parents
         /// </summary>
         /// <returns></returns>
         public override AllObjects<Customer> GetVideoRentObjects() {
-            return new AllObjects<Customer>(Session, CriteriaOperator.Parse("IsParent = ?", true), new SortProperty("[CustomerId]", SortingDirection.Ascending));
+            return new AllObjects<Customer>(Session, CriteriaOperator.Parse("IsParent = ?", false), new SortProperty("[BirthDate]", SortingDirection.Descending));
         }
-       
-       
+
+        public override object Key { get { return typeof(AthletsList); } }
+
         protected override EditableSubobject CreateListEditObject() {
             return new CustomersEditObject(this);
         }

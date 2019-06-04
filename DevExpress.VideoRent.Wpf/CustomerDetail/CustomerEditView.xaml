@@ -26,6 +26,7 @@
             <helpers:DataSource x:Key="DataSource" />
             <local:ElementLayoutDataStore x:Key="ElementLayoutDataStore"/>
             <resources:ImagesSourceHelper x:Key="ImagesHelper" />
+            <dx:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
             <helpers:ValidationRuleIsNotBlank x:Key="ValidationRuleIsNotBlank" Message="{helpers:ConstString ID=RuleIsNotBlankWarning}" />
             <helpers:ImageCollectionImageSource x:Key="AddButtonImageSource" ImageCollection="{Binding Source={StaticResource ImagesHelper}, Path=BarImages}" ImageIndex="0" />
             <helpers:ImageCollectionImageSource x:Key="DeleteButtonImageSource" ImageCollection="{Binding Source={StaticResource ImagesHelper}, Path=BarImages}" ImageIndex="2" />
@@ -54,6 +55,7 @@
             <helpers:BindingInfo ElementName="MembersAssociationsGrid" Property="{x:Static helpers:CustomEventCommandHelper.DeleteItemClickProperty}" Value="{Binding CommandDeleteCurrentMember}" />
             <helpers:BindingInfo ElementName="MembersAssociationsGrid" Property="{x:Static helpers:AddDeleteBar.AllowDeleteProperty}" Value="{Binding CurrentMember.AllowDeleteMember}" />
             <helpers:BindingInfo ElementName="MembersGrid" Property="{x:Static dxg:GridControl.ItemsSourceProperty}" Value="{Binding EditObject.VideoRentObject.Children}" />
+            <helpers:BindingInfo ElementName="MembersLayoutGroup" Property="{x:Static UIElement.VisibilityProperty}"  Value="{Binding  EditObject.VideoRentObject.IsParent, Converter={StaticResource BoolToVisibilityConverter}, TargetNullValue=Collapsed, FallbackValue=Collapsed}" />
             <helpers:BindingInfo ElementName="MembersGridView" Property="{x:Static dxg:GridViewBase.FocusedRowProperty}" Value="{Binding CurrentMember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="MembersGridView" Property="{x:Static helpers:CustomEventCommandHelper.MouseDoubleClickProperty}" Value="{Binding Detail.CommandEditMember}" />
             <helpers:BindingInfo ElementName="DiscountLevelEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.DiscountLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -92,7 +94,7 @@
                     </dxlc:LayoutItem>
                 </dxlc:LayoutGroup>
                 <dxlc:LayoutGroup View="Tabs">
-                    <dxlc:LayoutGroup Header="{helpers:ConstString ID=DependendMembers}" Orientation="Vertical">
+                    <dxlc:LayoutGroup x:Name="MembersLayoutGroup" Header="{helpers:ConstString ID=DependendMembers}" Orientation="Vertical">
                         <helpers:AssociationsGrid x:Name="MembersAssociationsGrid" AddItemContent="{helpers:ConstString ID=Add}" DeleteItemContent="{helpers:ConstString ID=Delete}" AllowEditingItemContent="{helpers:ConstString ID=AllowEditing}" AddItemGlyph="{Binding Source={StaticResource AddButtonImageSource}, Path=ImageSource}" DeleteItemGlyph="{Binding Source={StaticResource DeleteButtonImageSource}, Path=ImageSource}" AllowEditingItemGlyph="{Binding Source={StaticResource AllowEditingButtonImageSource}, Path=ImageSource}">
                             <helpers:AssociationsGrid.MainContent>
                                 <dxg:GridControl x:Name="MembersGrid" ShowBorder="False">
@@ -101,14 +103,11 @@
                                     </dxg:GridControl.View>
                                     <dxg:GridControl.Columns>
                                         <dxg:GridColumn x:Name="FirstNameColumn" FieldName="FirstName" Header="{helpers:ConstString ID=FirstName}">
-                                            <!--<dxg:GridColumn.EditSettings>
-                                                <dxg:LookUpEditSettings x:Name="MoviesGridMovieEditSettings"  helpers:StyleConverter.Style="{StaticResource MovieLookUpEdit}" />
-                                            </dxg:GridColumn.EditSettings>-->
+                                            <dxg:GridColumn.EditSettings>
+                                                <dxe:TextEditSettings HorizontalContentAlignment="Right" />
+                                            </dxg:GridColumn.EditSettings>
                                         </dxg:GridColumn>
                                         <dxg:GridColumn x:Name="MiddleNameColumn" FieldName="MiddleName" Header="{helpers:ConstString ID=MiddleName}">
-                                            <!--<dxg:GridColumn.EditSettings>
-                                                <dxe:MemoEditSettings helpers:StyleConverter.Style="{StaticResource MemoEdit}" />
-                                            </dxg:GridColumn.EditSettings>-->
                                         </dxg:GridColumn>
                                         <dxg:GridColumn x:Name="LastNameColumn" FieldName="LastName" Header="{helpers:ConstString ID=LastName}">
                                         </dxg:GridColumn>
