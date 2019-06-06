@@ -167,7 +167,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
             }
             releasesUnlock.Set();
         }
-    }
+   } 
     public class DataSource : DependencyObject {
         #region Dependency Properties
         public static readonly DependencyProperty DataObjectProperty;

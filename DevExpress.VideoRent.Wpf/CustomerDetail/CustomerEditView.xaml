@@ -51,13 +51,13 @@
             <helpers:BindingInfo ElementName="AddressEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="EmailEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="EmailEdit" Property="{x:Static helpers:CommandHelper.Command0Property}" Value="{Binding CommandSendEmail}"/>
-            <helpers:BindingInfo ElementName="MembersAssociationsGrid" Property="{x:Static helpers:CustomEventCommandHelper.AddItemClickProperty}" Value="{Binding Detail.CommandAddMember}" />
+            <helpers:BindingInfo ElementName="MembersAssociationsGrid" Property="{x:Static helpers:CustomEventCommandHelper.AddItemClickProperty}" Value="{Binding CommandAddMember}" />
             <helpers:BindingInfo ElementName="MembersAssociationsGrid" Property="{x:Static helpers:CustomEventCommandHelper.DeleteItemClickProperty}" Value="{Binding CommandDeleteCurrentMember}" />
             <helpers:BindingInfo ElementName="MembersAssociationsGrid" Property="{x:Static helpers:AddDeleteBar.AllowDeleteProperty}" Value="{Binding CurrentMember.AllowDeleteMember}" />
             <helpers:BindingInfo ElementName="MembersGrid" Property="{x:Static dxg:GridControl.ItemsSourceProperty}" Value="{Binding EditObject.VideoRentObject.Children}" />
             <helpers:BindingInfo ElementName="MembersLayoutGroup" Property="{x:Static UIElement.VisibilityProperty}"  Value="{Binding  EditObject.VideoRentObject.IsParent, Converter={StaticResource BoolToVisibilityConverter}, TargetNullValue=Collapsed, FallbackValue=Collapsed}" />
             <helpers:BindingInfo ElementName="MembersGridView" Property="{x:Static dxg:GridViewBase.FocusedRowProperty}" Value="{Binding CurrentMember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <helpers:BindingInfo ElementName="MembersGridView" Property="{x:Static helpers:CustomEventCommandHelper.MouseDoubleClickProperty}" Value="{Binding Detail.CommandEditMember}" />
+            <helpers:BindingInfo ElementName="MembersGridView" Property="{x:Static helpers:CustomEventCommandHelper.MouseDoubleClickProperty}" Value="{Binding CommandEditCurrentMember}" />
             <helpers:BindingInfo ElementName="DiscountLevelEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.DiscountLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="DiscountLevelEdit" Property="{x:Static dxe:LookUpEditBase.ItemsSourceProperty}" Value="{Binding DiscountLevelEditData.List}" />
             <helpers:BindingInfo ElementName="DiscountEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Discount, Mode=OneWay}" />

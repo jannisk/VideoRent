@@ -89,7 +89,7 @@ namespace DevExpress.VideoRent.ViewModel {
                 ViewOptionsEdit.AfterDispose += OnViewOptionsEditAfterDispose;
         }
         /// <summary>
-        /// Opens the detail override.
+        /// Opens the details of selected row in a module object.
         /// </summary>
         /// <param name="vroOid">The vro oid.</param>
         /// <param name="parameter">The parameter.</param>

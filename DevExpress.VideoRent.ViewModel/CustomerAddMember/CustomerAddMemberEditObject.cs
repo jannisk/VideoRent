@@ -20,4 +20,9 @@ namespace DevExpress.VideoRent.ViewModel
             return new Customer(SessionHelper.GetObjectByKey<Customer>(ParentVRObjectOid, NestedSession));
         }
     }
+
+    public interface ICustomerMemberEditObjectParent
+    {
+        Customer GetVideoRentObject(Guid videoRentObjectOid);
+    }
 }

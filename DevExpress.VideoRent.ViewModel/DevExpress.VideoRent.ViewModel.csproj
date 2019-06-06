@@ -163,6 +163,8 @@
     <Compile Include="CurrentCustomerTransactions\PaymentInputEdit.cs" />
     <Compile Include="CurrentCustomerTransactions\PaymentInputEditObject.cs" />
     <Compile Include="CustomerAddMember\CustomerAddMemberEdit.cs" />
+    <Compile Include="CustomerAddMember\CustomerMemberEdit.cs" />
+    <Compile Include="CustomerAddMember\CustomerMemberEditObject.cs" />
     <Compile Include="CustomerDetail\CustomerDetail.cs" />
     <Compile Include="CustomerDetail\CustomerDetailObject.cs" />
     <Compile Include="CustomerDetail\CustomerEdit.cs" />

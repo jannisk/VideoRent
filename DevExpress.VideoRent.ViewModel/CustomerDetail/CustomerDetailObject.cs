@@ -4,16 +4,18 @@ using DevExpress.VideoRent.ViewModel.ViewModelBase;
 using DevExpress.Xpo;
 
 namespace DevExpress.VideoRent.ViewModel {
-    public class CustomerDetailObject : VRObjectDetailObject<Customer>, ICustomerEditObjectParent, ICustomerAddMemberEditObjectParent
+    public class CustomerDetailObject : VRObjectDetailObject<Customer>, ICustomerEditObjectParent, ICustomerAddMemberEditObjectParent, ICustomerMemberEditObjectParent
     {
         CustomerEditObject _customerEditObject;
-        private CustomerAddMemberEditObject _addCustomerEditObject;
+        private CustomerAddMemberEditObject _customerAddMemberEditObject;
+        private CustomerMemberEditObject _customerMemberEditObject;
 
         public CustomerDetailObject(Session session, Guid? customerOid) : base(session, customerOid) { }
         protected override Customer CreateNewObjectOverride() {
             return new Customer(Session);
         }
         #region Subobjects
+
         internal CustomerEditObject CustomerEditObject {
             get {
                 if(_customerEditObject == null)
@@ -21,16 +23,26 @@ namespace DevExpress.VideoRent.ViewModel {
                 return _customerEditObject;
             }
         }
-        internal CustomerAddMemberEditObject AddCustomerMemberObject
+
+        internal CustomerAddMemberEditObject CustomerAddMemberObject
         {
             get
             {
-                if (_addCustomerEditObject == null)
-                    _addCustomerEditObject = new CustomerAddMemberEditObject(this, VideoRentObjectOid);
-                return _addCustomerEditObject;
+                if (_customerAddMemberEditObject == null)
+                    _customerAddMemberEditObject = new CustomerAddMemberEditObject(this, VideoRentObjectOid);
+                return _customerAddMemberEditObject;
             }
         }
 
+        internal CustomerMemberEditObject CustomerEditMemberObject
+        {
+            get
+            {
+                if (_customerMemberEditObject == null)
+                    _customerMemberEditObject = new CustomerMemberEditObject(this, VideoRentObjectOid);
+                return _customerMemberEditObject;
+            }
+        }
         internal override IEnumerable<EditableSubobject> Subobjects {
             get {
                 var list = new List<EditableSubobject>(base.Subobjects);
@@ -46,9 +58,15 @@ namespace DevExpress.VideoRent.ViewModel {
                 return true;
             }
 
-            if (editableSubobject == _addCustomerEditObject)
+            if (editableSubobject == _customerAddMemberEditObject)
             {
-                _addCustomerEditObject = null;
+                _customerAddMemberEditObject = null;
+                return true;
+            }
+
+            if (editableSubobject == _customerMemberEditObject)
+            {
+                _customerMemberEditObject = null;
                 return true;
             }
             return false;

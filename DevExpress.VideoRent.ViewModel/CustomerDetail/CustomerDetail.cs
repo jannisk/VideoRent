@@ -5,9 +5,10 @@ using DevExpress.VideoRent.ViewModel.ViewModelBase;
 
 namespace DevExpress.VideoRent.ViewModel {
     public class CustomerDetail : VRObjectDetail<Customer> {
-        CustomerEdit customerEdit;
+        CustomerEdit _customerEdit;
         bool allowSetAsCurrentCustomer = true;
         private CustomerAddMemberEdit _customerAddMemberEdit;
+        private CustomerMemberEdit _customerEditMember;
 
         public CustomerDetail(CustomerDetailObject editObject) : this(editObject, null) { }
         public CustomerDetail(CustomerDetailObject editObject, object tag)
@@ -19,12 +20,12 @@ namespace DevExpress.VideoRent.ViewModel {
         public new CustomerDetailObject VRObjectDetailEditObject { get { return (CustomerDetailObject)EditObject; } }
         #region Edits
         public CustomerEdit CustomerEdit {
-            get { return customerEdit; }
-            private set { SetValue<CustomerEdit>("CustomerEdit", ref customerEdit, value); }
+            get { return _customerEdit; }
+            private set { SetValue<CustomerEdit>("CustomerEdit", ref _customerEdit, value); }
         }
         protected override IEnumerable<ModuleObjectEdit> ModuleObjectEdits {
             get {
-                List<ModuleObjectEdit> list = new List<ModuleObjectEdit>(base.ModuleObjectEdits);
+                var list = new List<ModuleObjectEdit>(base.ModuleObjectEdits);
                 if(CustomerEdit != null)
                     list.Add(CustomerEdit);
                 return list;
@@ -67,6 +68,13 @@ namespace DevExpress.VideoRent.ViewModel {
             private set { SetValue<CustomerAddMemberEdit>("CustomerAddMemberEdit", ref _customerAddMemberEdit, value); }
         }
 
+        public CustomerMemberEdit CustomerEditMember
+        {
+            get { return _customerEditMember; }
+
+            private set { SetValue<CustomerMemberEdit>("CustomerEditMember", ref _customerEditMember, value); }
+        }
+
         private void DoCommandAddMember(object obj)
         {
             AddMember();
@@ -77,7 +85,7 @@ namespace DevExpress.VideoRent.ViewModel {
             //ModulesManager.Current.OpenModuleObjectDetail(new CustomerAddMemberEditObject(VRObjectDetailEditObject,
             //    (Guid) CurrentCustomerProvider.Current.CurrentCustomerOid));
 
-            CustomerAddMemberEdit = new CustomerAddMemberEdit(VRObjectDetailEditObject.AddCustomerMemberObject, this);
+            CustomerAddMemberEdit = new CustomerAddMemberEdit(VRObjectDetailEditObject.CustomerAddMemberObject, this);
             CustomerAddMemberEdit.AfterDispose += OnCustomerAddMemberEditAfterDispose;
         }
 
@@ -90,7 +98,10 @@ namespace DevExpress.VideoRent.ViewModel {
 
         private void DoCommandEditMember(object obj)
         {
-            CustomerAddMemberEdit = new CustomerAddMemberEdit(VRObjectDetailEditObject.AddCustomerMemberObject, this);
+            CustomerEditMember = new CustomerMemberEdit(VRObjectDetailEditObject.CustomerEditMemberObject, this);
+           // CustomerAddMemberEdit = new CustomerAddMemberEdit(VRObjectDetailEditObject.CustomerEditMemberObject, this);
+           // CustomerAddMemberEdit.AfterDispose += OnCustomerAddMemberEditAfterDispose;
+          
         }
 
         #endregion
