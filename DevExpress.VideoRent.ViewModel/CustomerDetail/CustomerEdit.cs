@@ -9,12 +9,13 @@ namespace DevExpress.VideoRent.ViewModel {
         private Customer currentMember;
         private CustomerMemberEdit _customerMemberEdit;
         private CustomerAddMemberEdit _customerAddMemberEdit;
+        private CustomerMemberEditObject _customerMemberEditObject;
 
         public CustomerEdit(CustomerEditObject editObject, ModuleObjectDetail detail) : base(editObject, detail) {
             PersonGenderEditData = new PersonGenderEditData();
             DiscountLevelEditData = new DiscountLevelEditData();
             MembershipTypeEditData = new MembershipTypeEditData();
-           // detail.EditObject.
+            //detail.
         }
      
         public new CustomerEditObject VRObjectEditObject { get { return (CustomerEditObject)EditObject; } }
@@ -71,8 +72,19 @@ namespace DevExpress.VideoRent.ViewModel {
 
         private void DoCommandEditMember(object obj)
         {
-            CustomerMemberEdit = new CustomerMemberEdit(VRObjectEditObject, this.Detail);
 
+            CustomerMemberEdit = new CustomerMemberEdit(CustomerEditMemberObject, Detail);
+
+        }
+
+        private CustomerMemberEditObject CustomerEditMemberObject
+        {
+            get
+            {
+                if (_customerMemberEditObject == null)
+                    _customerMemberEditObject = new CustomerMemberEditObject(VRObjectEditObject.Parent, currentMember.Oid );
+                return _customerMemberEditObject;
+            }
         }
 
         public Action<object> CommandDeleteCurrentMember { get { return DoCommandDeleteCurrentMember; } }

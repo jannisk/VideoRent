@@ -4,13 +4,17 @@ using DevExpress.VideoRent.ViewModel.ViewModelBase;
 namespace DevExpress.VideoRent.ViewModel {
     public interface ICustomerEditObjectParent : IVRObjectEditObjectParent<Customer> { }
     public sealed class CustomerEditObject : VRObjectEditObject<Customer> {
+        private CustomerMemberEditObject _customerMemberEditObject;
+
         public CustomerEditObject(EditableObject parent, Guid customerOid)
             : base(parent, customerOid) {
             Update();
         }
         public new ICustomerEditObjectParent VideoRentEditObjectParent { get { return (ICustomerEditObjectParent)Parent; } }
-    
-    
+
+
+
+       
 
     }
 }

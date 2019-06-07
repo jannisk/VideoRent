@@ -99,9 +99,9 @@ namespace DevExpress.VideoRent.ViewModel {
         private void DoCommandEditMember(object obj)
         {
             CustomerEditMember = new CustomerMemberEdit(VRObjectDetailEditObject.CustomerEditMemberObject, this);
-           // CustomerAddMemberEdit = new CustomerAddMemberEdit(VRObjectDetailEditObject.CustomerEditMemberObject, this);
-           // CustomerAddMemberEdit.AfterDispose += OnCustomerAddMemberEditAfterDispose;
-          
+            // CustomerAddMemberEdit = new CustomerAddMemberEdit(VRObjectDetailEditObject.CustomerEditMemberObject, this);
+            // CustomerAddMemberEdit.AfterDispose += OnCustomerAddMemberEditAfterDispose;
+
         }
 
         #endregion

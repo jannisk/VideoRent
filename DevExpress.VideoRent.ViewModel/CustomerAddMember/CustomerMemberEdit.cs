@@ -6,13 +6,12 @@ using DevExpress.VideoRent.ViewModel.ViewModelBase;
 
 namespace DevExpress.VideoRent.ViewModel
 {
-    public class CustomerMemberEdit:VRObjectEdit<Customer>
+    public class CustomerMemberEdit:ModuleObjectEdit
     {
         CustomerAddMemberData _customerAddMemberData;
 
-        public CustomerMemberEdit(VRObjectEditObject<Customer> editObject, ModuleObjectDetail detail) : base(editObject, detail)
+        public CustomerMemberEdit(CustomerMemberEditObject editObject, ModuleObjectDetail detail) : base(editObject, detail)
         {
-
             //CustomerAddMemberData = new CustomerAddMemberData
             //{
             //    LastName =  VRObjectEditObject.VideoRentObject.LastName,
