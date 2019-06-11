@@ -6,7 +6,7 @@ namespace DevExpress.VideoRent.ViewModel {
         PersonGenderEditData _personGenderEditData;
         DiscountLevelEditData _discountLevelEditData;
         private MembershipTypeEditData _membershipTypeEditData;
-        private Customer currentMember;
+        private Customer _currentMember;
         private CustomerMemberEdit _customerMemberEdit;
         private CustomerAddMemberEdit _customerAddMemberEdit;
         private CustomerMemberEditObject _customerMemberEditObject;
@@ -15,7 +15,6 @@ namespace DevExpress.VideoRent.ViewModel {
             PersonGenderEditData = new PersonGenderEditData();
             DiscountLevelEditData = new DiscountLevelEditData();
             MembershipTypeEditData = new MembershipTypeEditData();
-            //detail.
         }
      
         public new CustomerEditObject VRObjectEditObject { get { return (CustomerEditObject)EditObject; } }
@@ -45,8 +44,8 @@ namespace DevExpress.VideoRent.ViewModel {
 
         public Customer CurrentMember
         {
-            get { return currentMember; }
-            set { SetValue<Customer>("CurrentMember", ref currentMember, value); }
+            get { return _currentMember; }
+            set { SetValue<Customer>("CurrentMember", ref _currentMember, value); }
         }
 
 
@@ -62,7 +61,7 @@ namespace DevExpress.VideoRent.ViewModel {
         /// </summary>
         public void DeleteCurrentMember()
         {
-            currentMember.Parent = null;
+            _currentMember.Parent = null;
             Detail.Save();
         }
 
@@ -82,7 +81,7 @@ namespace DevExpress.VideoRent.ViewModel {
             get
             {
                 if (_customerMemberEditObject == null)
-                    _customerMemberEditObject = new CustomerMemberEditObject(VRObjectEditObject.Parent, currentMember.Oid );
+                    _customerMemberEditObject = new CustomerMemberEditObject(VRObjectEditObject.Parent, _currentMember.Oid );
                 return _customerMemberEditObject;
             }
         }

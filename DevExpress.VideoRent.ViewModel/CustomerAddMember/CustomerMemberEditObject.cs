@@ -3,13 +3,13 @@ using DevExpress.VideoRent.ViewModel.ViewModelBase;
 
 namespace DevExpress.VideoRent.ViewModel
 {
-    public sealed class CustomerMemberEditObject :EditableSubobject
+    public sealed class CustomerMemberEditObject : VRObjectEditObject<Customer>
     {
         Guid _customerOid;
         Customer _customer;
 
         public CustomerMemberEditObject(EditableObject parent, Guid customerOid)
-            : base(parent)
+            : base(parent, customerOid)
         {
             this._customerOid = customerOid;
             Update();

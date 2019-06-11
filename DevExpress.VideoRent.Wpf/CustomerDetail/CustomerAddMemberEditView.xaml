@@ -41,7 +41,7 @@
             <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static helpers:CustomEventCommandHelper.ClosingProperty}" Value="{Binding CommandDispose}" />
             <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static mb:PopupShowType.TitleProperty}" Value="{Binding EditObject.VideoRentObject.Parent!.FullName}" />
             <helpers:BindingInfo ElementName="PhotoEdit" Property="{x:Static dxe:ImageEdit.SourceProperty}" Value="{Binding EditObject.VideoRentObject.Photo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DrawingImageToImageSourceConverter}}" />
-            <helpers:BindingInfo ElementName="FirstNameEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <helpers:BindingInfo ElementName="FirstNameEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.Customer.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="MiddleNameEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.MiddleName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="LastNameEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding  CustomerAddMemberData.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="GenderEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
