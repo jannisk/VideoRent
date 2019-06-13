@@ -38,6 +38,7 @@ namespace DevExpress.VideoRent.ViewModel
         {
             CustomerAddMemberData = null;
             PersonGenderEditData = null;
+            base.DisposeManaged();
         }
     }
 

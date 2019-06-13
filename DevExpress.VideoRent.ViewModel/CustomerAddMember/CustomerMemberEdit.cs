@@ -28,6 +28,7 @@ namespace DevExpress.VideoRent.ViewModel
         protected override void DisposeManaged()
         {
             CustomerAddMemberData = null;
+            base.DisposeManaged();
         }
     }
 }

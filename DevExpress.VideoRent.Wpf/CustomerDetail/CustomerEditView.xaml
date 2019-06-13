@@ -51,7 +51,7 @@
             <helpers:BindingInfo ElementName="AddressEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="EmailEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="EmailEdit" Property="{x:Static helpers:CommandHelper.Command0Property}" Value="{Binding CommandSendEmail}"/>
-            <helpers:BindingInfo ElementName="MembersAssociationsGrid" Property="{x:Static helpers:CustomEventCommandHelper.AddItemClickProperty}" Value="{Binding CommandAddMember}" />
+            <helpers:BindingInfo ElementName="MembersAssociationsGrid" Property="{x:Static helpers:CustomEventCommandHelper.AddItemClickProperty}" Value="{Binding Detail.CommandAddMember}" />
             <helpers:BindingInfo ElementName="MembersAssociationsGrid" Property="{x:Static helpers:CustomEventCommandHelper.DeleteItemClickProperty}" Value="{Binding CommandDeleteCurrentMember}" />
             <helpers:BindingInfo ElementName="MembersAssociationsGrid" Property="{x:Static helpers:AddDeleteBar.AllowDeleteProperty}" Value="{Binding CurrentMember.AllowDeleteMember}" />
             <helpers:BindingInfo ElementName="MembersGrid" Property="{x:Static dxg:GridControl.ItemsSourceProperty}" Value="{Binding EditObject.VideoRentObject.Children}" />
