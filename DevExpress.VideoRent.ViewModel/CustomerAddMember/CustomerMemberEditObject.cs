@@ -34,7 +34,6 @@ namespace DevExpress.VideoRent.ViewModel
         protected override void DisposeManaged()
         {
             Customer = null;
-            base.DisposeManaged();
         }
     }
 }

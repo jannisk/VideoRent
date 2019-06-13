@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 using DevExpress.VideoRent.ViewModel.ViewModelBase;
 
 namespace DevExpress.VideoRent.ViewModel {
@@ -8,7 +9,6 @@ namespace DevExpress.VideoRent.ViewModel {
         private MembershipTypeEditData _membershipTypeEditData;
         private Customer _currentMember;
         private CustomerMemberEdit _customerMemberEdit;
-        private CustomerAddMemberEdit _customerAddMemberEdit;
         private CustomerMemberEditObject _customerMemberEditObject;
 
         public CustomerEdit(CustomerEditObject editObject, ModuleObjectDetail detail) : base(editObject, detail) {
@@ -49,13 +49,6 @@ namespace DevExpress.VideoRent.ViewModel {
         }
 
 
-        public CustomerAddMemberEdit CustomerAddMemberEdit
-        {
-            get { return _customerAddMemberEdit; }
-
-            private set { SetValue<CustomerAddMemberEdit>("CustomerAddMemberEdit", ref _customerAddMemberEdit, value); }
-        }
-
         /// <summary>
         /// Erases the relationship to the parent customer object
         /// </summary>
@@ -71,11 +64,10 @@ namespace DevExpress.VideoRent.ViewModel {
 
         private void DoCommandEditMember(object obj)
         {
-
             CustomerMemberEdit = new CustomerMemberEdit(CustomerEditMemberObject, Detail);
-
+            CustomerMemberEdit.AfterDispose += OnCustomerMemberEditAfterDispose;
         }
-
+      
         private CustomerMemberEditObject CustomerEditMemberObject
         {
             get
@@ -86,6 +78,7 @@ namespace DevExpress.VideoRent.ViewModel {
             }
         }
 
+       
         public Action<object> CommandDeleteCurrentMember { get { return DoCommandDeleteCurrentMember; } }
 
         private void DoCommandDeleteCurrentMember(object obj)
@@ -93,25 +86,12 @@ namespace DevExpress.VideoRent.ViewModel {
             DeleteCurrentMember();
         }
 
-        public Action<object> CommandAddMember { get { return DoCommandAddMember; } }
+     
 
-        private void DoCommandAddMember(object obj)
+        private void OnCustomerMemberEditAfterDispose(object sender, EventArgs e)
         {
-            AddMember();
-        }
-
-        private void AddMember()
-        {
-            //ModulesManager.Current.OpenModuleObjectDetail(new CustomerAddMemberEditObject(VRObjectDetailEditObject,
-            //    (Guid) CurrentCustomerProvider.Current.CurrentCustomerOid));
-
-            //stomerAddMemberEdit = new CustomerAddMemberEdit(Detail., this);
-            //CustomerAddMemberEdit.AfterDispose += OnCustomerAddMemberEditAfterDispose;
-        }
-
-        private void OnCustomerAddMemberEditAfterDispose(object sender, EventArgs e)
-        {
-            CustomerAddMemberEdit = null;
+            CustomerMemberEdit.EditObject.Dispose();
+            CustomerMemberEdit.Dispose();
         }
 
 

@@ -4,11 +4,11 @@ using DevExpress.VideoRent.Resources;
 using DevExpress.VideoRent.ViewModel.ViewModelBase;
 
 namespace DevExpress.VideoRent.ViewModel {
+
     public class CustomerDetail : VRObjectDetail<Customer> {
         CustomerEdit _customerEdit;
-        bool allowSetAsCurrentCustomer = true;
         private CustomerAddMemberEdit _customerAddMemberEdit;
-        private CustomerMemberEdit _customerEditMember;
+        bool allowSetAsCurrentCustomer = true;
 
         public CustomerDetail(CustomerDetailObject editObject) : this(editObject, null) { }
         public CustomerDetail(CustomerDetailObject editObject, object tag)
@@ -55,11 +55,6 @@ namespace DevExpress.VideoRent.ViewModel {
         void UpdateAllowSetCurrentCustomer() {
             AllowSetAsCurrentCustomer = CustomerEdit == null || CustomerEdit.VRObjectEditObject.VideoRentObjectOid != CurrentCustomerProvider.Current.CurrentCustomerOid && !VRObjectDetailEditObject.WasCreatedNewObject;
         }
-        #region Commands
-        public Action<object> CommandSetAsCurrentCustomer { get { return DoCommandSetAsCurrentCustomer; } }
-        void DoCommandSetAsCurrentCustomer(object p) { SetAsCurrentCustomer(); }
-
-        public Action<object> CommandAddMember { get { return DoCommandAddMember; } }
 
         public CustomerAddMemberEdit CustomerAddMemberEdit
         {
@@ -68,13 +63,8 @@ namespace DevExpress.VideoRent.ViewModel {
             private set { SetValue<CustomerAddMemberEdit>("CustomerAddMemberEdit", ref _customerAddMemberEdit, value); }
         }
 
-        public CustomerMemberEdit CustomerEditMember
-        {
-            get { return _customerEditMember; }
-
-            private set { SetValue<CustomerMemberEdit>("CustomerEditMember", ref _customerEditMember, value); }
-        }
-
+        #region Commands
+        public Action<object> CommandAddMember { get { return DoCommandAddMember; } }
         private void DoCommandAddMember(object obj)
         {
             AddMember();
@@ -82,8 +72,7 @@ namespace DevExpress.VideoRent.ViewModel {
 
         private void AddMember()
         {
-            //ModulesManager.Current.OpenModuleObjectDetail(new CustomerAddMemberEditObject(VRObjectDetailEditObject,
-            //    (Guid) CurrentCustomerProvider.Current.CurrentCustomerOid));
+            //use Detail.CommandAddMember in xaml to bind this command to UI
 
             CustomerAddMemberEdit = new CustomerAddMemberEdit(VRObjectDetailEditObject.CustomerAddMemberObject, this);
             CustomerAddMemberEdit.AfterDispose += OnCustomerAddMemberEditAfterDispose;
@@ -91,19 +80,12 @@ namespace DevExpress.VideoRent.ViewModel {
 
         private void OnCustomerAddMemberEditAfterDispose(object sender, EventArgs e)
         {
-            CustomerAddMemberEdit = null;
+            CustomerAddMemberEdit.EditObject.Dispose();
+            CustomerAddMemberEdit.Dispose();
         }
 
-        public Action<object> CommandEditMember { get { return DoCommandEditMember; } }
-
-        private void DoCommandEditMember(object obj)
-        {
-            CustomerEditMember = new CustomerMemberEdit(VRObjectDetailEditObject.CustomerEditMemberObject, this);
-            // CustomerAddMemberEdit = new CustomerAddMemberEdit(VRObjectDetailEditObject.CustomerEditMemberObject, this);
-            // CustomerAddMemberEdit.AfterDispose += OnCustomerAddMemberEditAfterDispose;
-
-        }
-
+        public Action<object> CommandSetAsCurrentCustomer { get { return DoCommandSetAsCurrentCustomer; } }
+        void DoCommandSetAsCurrentCustomer(object p) { SetAsCurrentCustomer(); }
         #endregion
     }
 }

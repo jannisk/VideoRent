@@ -8,7 +8,6 @@ namespace DevExpress.VideoRent.ViewModel {
     {
         CustomerEditObject _customerEditObject;
         private CustomerAddMemberEditObject _customerAddMemberEditObject;
-        private CustomerMemberEditObject _customerMemberEditObject;
 
         public CustomerDetailObject(Session session, Guid? customerOid) : base(session, customerOid) { }
         protected override Customer CreateNewObjectOverride() {
@@ -24,6 +23,7 @@ namespace DevExpress.VideoRent.ViewModel {
             }
         }
 
+
         internal CustomerAddMemberEditObject CustomerAddMemberObject
         {
             get
@@ -34,20 +34,14 @@ namespace DevExpress.VideoRent.ViewModel {
             }
         }
 
-        internal CustomerMemberEditObject CustomerEditMemberObject
-        {
-            get
-            {
-                if (_customerMemberEditObject == null)
-                    _customerMemberEditObject = new CustomerMemberEditObject(this, VideoRentObjectOid);
-                return _customerMemberEditObject;
-            }
-        }
+
         internal override IEnumerable<EditableSubobject> Subobjects {
             get {
                 var list = new List<EditableSubobject>(base.Subobjects);
                 if(_customerEditObject != null)
                     list.Add(_customerEditObject);
+                if (_customerAddMemberEditObject != null)
+                    list.Add(_customerAddMemberEditObject);
                 return list;
             }
         }
@@ -57,16 +51,9 @@ namespace DevExpress.VideoRent.ViewModel {
                 _customerEditObject = null;
                 return true;
             }
-
             if (editableSubobject == _customerAddMemberEditObject)
             {
                 _customerAddMemberEditObject = null;
-                return true;
-            }
-
-            if (editableSubobject == _customerMemberEditObject)
-            {
-                _customerMemberEditObject = null;
                 return true;
             }
             return false;

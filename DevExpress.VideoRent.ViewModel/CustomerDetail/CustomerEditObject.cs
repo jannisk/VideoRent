@@ -13,8 +13,5 @@ namespace DevExpress.VideoRent.ViewModel {
         public new ICustomerEditObjectParent VideoRentEditObjectParent { get { return (ICustomerEditObjectParent)Parent; } }
 
 
-
-       
-
     }
 }
