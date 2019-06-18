@@ -7,25 +7,11 @@ namespace DevExpress.VideoRent.ViewModel
 {
     public class CustomerAddMemberEdit : AddVRObjectEdit<Customer>
     {
-        CustomerAddMemberData _customerAddMemberData;
         PersonGenderEditData _personGenderEditData;
 
         public CustomerAddMemberEdit(CustomerAddMemberEditObject editObject, ModuleObjectDetail detail) : base(editObject, detail)
         {
             PersonGenderEditData = new PersonGenderEditData();
-            AddVRObjectEditObject.VideoRentObject.LastName = AddVRObjectEditObject.VideoRentObject.Parent.LastName;
-            AddVRObjectEditObject.VideoRentObject.Address = AddVRObjectEditObject.VideoRentObject.Parent.Address;
-            CustomerAddMemberData = new CustomerAddMemberData
-            {
-                LastName = AddVRObjectEditObject.VideoRentObject.LastName,
-                Address = AddVRObjectEditObject.VideoRentObject.Address
-            };
-        }
-
-        public CustomerAddMemberData CustomerAddMemberData
-        {
-            get { return _customerAddMemberData; }
-            private set { SetValue<CustomerAddMemberData>("CustomerAddMemberData", ref _customerAddMemberData, value, true); }
         }
 
         public PersonGenderEditData PersonGenderEditData
@@ -36,7 +22,6 @@ namespace DevExpress.VideoRent.ViewModel
 
         protected override void DisposeManaged()
         {
-            CustomerAddMemberData = null;
             PersonGenderEditData = null;
             base.DisposeManaged();
         }

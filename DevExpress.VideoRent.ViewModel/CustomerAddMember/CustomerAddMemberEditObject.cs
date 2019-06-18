@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Reflection.Emit;
 using DevExpress.VideoRent.Helpers;
 using DevExpress.VideoRent.ViewModel.ViewModelBase;
 using System.Collections.Generic;
@@ -12,13 +13,30 @@ namespace DevExpress.VideoRent.ViewModel
 
     public class CustomerAddMemberEditObject: AddVRObjectEditObject<Customer>
     {
+        private Customer _customer;
+
         public CustomerAddMemberEditObject(EditableObject parent, Guid customerOid) : base(parent, customerOid) { }
+        
         public new ICustomerAddMemberEditObjectParent AddVRObjectEditObjectParent { get { return (ICustomerAddMemberEditObjectParent)Parent; } }
 
-        protected override Customer CreateObjectOverride()
+        public string Title
         {
-            return new Customer(SessionHelper.GetObjectByKey<Customer>(ParentVRObjectOid, NestedSession));
+            get { return VideoRentObject.Parent.FullName; }
         }
+
+        public Customer Customer
+        {
+            get { return VideoRentObject; }
+        }
+        protected override Customer CreateObjectOverride()
+        {      
+            var anewCustomer = new Customer(SessionHelper.GetObjectByKey<Customer>(ParentVRObjectOid, NestedSession));
+            //Init with some values from the parent
+            anewCustomer.LastName = anewCustomer.Parent.LastName;
+            anewCustomer.Address = anewCustomer.Parent.Address;
+            return anewCustomer;
+        }
+
     }
 
     public interface ICustomerMemberEditObjectParent

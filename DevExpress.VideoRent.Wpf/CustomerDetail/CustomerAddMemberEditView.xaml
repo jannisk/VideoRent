@@ -39,21 +39,21 @@
             <helpers:BindingInfo ElementName="resource:ElementLayoutDataStore" Property="{x:Static local:ElementLayoutDataStore.DisposeSignalSlotProperty}" Value="{Binding DisposeSignal}" />
             <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static mb:ShowType.CloseSignalSlotProperty}" Value="{Binding DisposeSignal}" />
             <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static helpers:CustomEventCommandHelper.ClosingProperty}" Value="{Binding CommandDispose}" />
-            <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static mb:PopupShowType.TitleProperty}" Value="{Binding EditObject.VideoRentObject.Parent!.FullName}" />
-            <helpers:BindingInfo ElementName="PhotoEdit" Property="{x:Static dxe:ImageEdit.SourceProperty}" Value="{Binding EditObject.VideoRentObject.Photo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DrawingImageToImageSourceConverter}}" />
+            <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static mb:PopupShowType.TitleProperty}" Value="{Binding EditObject.Title}" />
+            <helpers:BindingInfo ElementName="PhotoEdit" Property="{x:Static dxe:ImageEdit.SourceProperty}" Value="{Binding EditObject.Customer.Photo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DrawingImageToImageSourceConverter}}" />
             <helpers:BindingInfo ElementName="FirstNameEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.Customer.FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <helpers:BindingInfo ElementName="MiddleNameEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.MiddleName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <helpers:BindingInfo ElementName="LastNameEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding  CustomerAddMemberData.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <helpers:BindingInfo ElementName="GenderEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <helpers:BindingInfo ElementName="MiddleNameEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.Customer.MiddleName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <helpers:BindingInfo ElementName="LastNameEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding  EditObject.Customer.LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <helpers:BindingInfo ElementName="GenderEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.Customer.Gender, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="GenderEdit" Property="{x:Static dxe:LookUpEditBase.ItemsSourceProperty}" Value="{Binding PersonGenderEditData.List}" />
             <helpers:BindingInfo ElementName="GenderColumnEdit" Property="{x:Static helpers:EditHelper.ItemsSourceProperty}" Value="{Binding PersonGenderEditData.List}" />
-            <helpers:BindingInfo ElementName="BirthDateColumnEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <helpers:BindingInfo ElementName="BirthDateEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <helpers:BindingInfo ElementName="PhoneEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <helpers:BindingInfo ElementName="AddressEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding CustomerAddMemberData.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <helpers:BindingInfo ElementName="EmailEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <helpers:BindingInfo ElementName="BirthDateColumnEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.Customer.BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <helpers:BindingInfo ElementName="BirthDateEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.Customer.BirthDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <helpers:BindingInfo ElementName="PhoneEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.Customer.Phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <helpers:BindingInfo ElementName="AddressEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.Customer.Address, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <helpers:BindingInfo ElementName="EmailEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.Customer.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="EmailEdit" Property="{x:Static helpers:CommandHelper.Command0Property}" Value="{Binding CommandSendEmail}"/>
-            <helpers:BindingInfo ElementName="CommentsEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Comments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <helpers:BindingInfo ElementName="CommentsEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.Customer.Comments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:ValidationInfo EditName0="FirstNameEdit" Rule="{StaticResource ValidationRuleIsNotBlank}" />
             <helpers:ValidationInfo EditName0="LastNameEdit" Rule="{StaticResource ValidationRuleIsNotBlank}" />
             <helpers:BindingInfo ElementName="AddButton" Property="{x:Static helpers:CustomEventCommandHelper.ClickProperty}" Value="{Binding CommandSaveAndDispose}" />

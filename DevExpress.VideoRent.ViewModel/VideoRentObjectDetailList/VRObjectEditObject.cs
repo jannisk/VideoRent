@@ -26,6 +26,7 @@ namespace DevExpress.VideoRent.ViewModel {
             base.DisposeManaged();
         }
     }
+
     public abstract class VRObjectMainEditObject<T> : VRObjectEditObjectBase<T> where T : VideoRentBaseObject {
         public VRObjectMainEditObject(EditableObject parent, Guid videoRentObjectOid)
             : base(parent, videoRentObjectOid) {

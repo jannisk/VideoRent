@@ -8,27 +8,39 @@ namespace DevExpress.VideoRent.ViewModel
 {
     public class CustomerMemberEdit:ModuleObjectEdit
     {
-        CustomerAddMemberData _customerAddMemberData;
+        PersonGenderEditData _personGenderEditData;
+
 
         public CustomerMemberEdit(CustomerMemberEditObject editObject, ModuleObjectDetail detail) : base(editObject, detail)
         {
-            //CustomerAddMemberData = new CustomerAddMemberData
-            //{
-            //    LastName =  VRObjectEditObject.VideoRentObject.LastName,
-            //    Address =  VRObjectEditObject.VideoRentObject.Address
-            //};
-        }
+            PersonGenderEditData = new PersonGenderEditData();
 
-        public CustomerAddMemberData CustomerAddMemberData
+        }
+        
+        public PersonGenderEditData PersonGenderEditData
         {
-            get { return _customerAddMemberData; }
-            private set { SetValue<CustomerAddMemberData>("CustomerAddMemberData", ref _customerAddMemberData, value, true); }
+            get { return _personGenderEditData; }
+            private set { SetValue<PersonGenderEditData>("PersonGenderEditData", ref _personGenderEditData, value); }
         }
 
         protected override void DisposeManaged()
         {
-            CustomerAddMemberData = null;
+            _personGenderEditData = null;
             base.DisposeManaged();
         }
+
+        #region Commands
+        public Action<object> CommandSaveAndDispose { get { return DoCommandSaveAndDispose; } }
+        void DoCommandSaveAndDispose(object p) { SaveAndDispose(); }
+
+        private void SaveAndDispose()
+        {
+            if (!DoValidate()) return;
+            Detail.Save();
+            Dispose();
+        }
+
+        #endregion
+
     }
 }

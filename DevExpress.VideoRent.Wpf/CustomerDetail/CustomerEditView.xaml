@@ -57,7 +57,7 @@
             <helpers:BindingInfo ElementName="MembersGrid" Property="{x:Static dxg:GridControl.ItemsSourceProperty}" Value="{Binding EditObject.VideoRentObject.Children}" />
             <helpers:BindingInfo ElementName="MembersLayoutGroup" Property="{x:Static UIElement.VisibilityProperty}"  Value="{Binding  EditObject.VideoRentObject.IsParent, Converter={StaticResource BoolToVisibilityConverter}, TargetNullValue=Collapsed, FallbackValue=Collapsed}" />
             <helpers:BindingInfo ElementName="MembersGridView" Property="{x:Static dxg:GridViewBase.FocusedRowProperty}" Value="{Binding CurrentMember, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <helpers:BindingInfo ElementName="MembersGridView" Property="{x:Static helpers:CustomEventCommandHelper.MouseDoubleClickProperty}" Value="{Binding CommandEditCurrentMember}" />
+            <helpers:BindingInfo ElementName="MembersGridView" Property="{x:Static helpers:CustomEventCommandHelper.MouseDoubleClickProperty}" Value="{Binding Detail.CommandEditCurrentMember}" />
             <helpers:BindingInfo ElementName="DiscountLevelEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.DiscountLevel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="DiscountLevelEdit" Property="{x:Static dxe:LookUpEditBase.ItemsSourceProperty}" Value="{Binding DiscountLevelEditData.List}" />
             <helpers:BindingInfo ElementName="DiscountEdit" Property="{x:Static dxe:BaseEdit.EditValueProperty}" Value="{Binding EditObject.VideoRentObject.Discount, Mode=OneWay}" />

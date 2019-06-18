@@ -22,6 +22,13 @@ namespace DevExpress.VideoRent.ViewModel
             private set { SetValue<Guid>("customerOid", ref _customerOid, value); }
         }
 
+
+        public string Title
+        {
+            get { return Customer.Parent.FullName; }
+        }
+
+
         public Customer Customer
         {
             get { return _customer; }

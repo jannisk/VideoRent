@@ -8,10 +8,12 @@ namespace DevExpress.VideoRent.ViewModel {
         DiscountLevelEditData _discountLevelEditData;
         private MembershipTypeEditData _membershipTypeEditData;
         private Customer _currentMember;
-        private CustomerMemberEdit _customerMemberEdit;
-        private CustomerMemberEditObject _customerMemberEditObject;
 
-        public CustomerEdit(CustomerEditObject editObject, ModuleObjectDetail detail) : base(editObject, detail) {
+        public event EventHandler CurrentMemberChanged;
+
+        public CustomerEdit(CustomerEditObject editObject, ModuleObjectDetail detail)
+            : base(editObject, detail)
+        {
             PersonGenderEditData = new PersonGenderEditData();
             DiscountLevelEditData = new DiscountLevelEditData();
             MembershipTypeEditData = new MembershipTypeEditData();
@@ -35,17 +37,18 @@ namespace DevExpress.VideoRent.ViewModel {
             private set { SetValue<MembershipTypeEditData>("MembershipTypeEditData", ref _membershipTypeEditData, value); }
         }
 
-        public CustomerMemberEdit CustomerMemberEdit
+   
+        void RaiseCurrentMemberChanged(Customer oldValue, Customer newValue)
         {
-            get { return _customerMemberEdit; }
-
-            private set { SetValue<CustomerMemberEdit>("CustomerMemberEdit", ref _customerMemberEdit, value); }
+            if (CurrentMemberChanged != null)
+                CurrentMemberChanged(this, EventArgs.Empty);
         }
+
 
         public Customer CurrentMember
         {
             get { return _currentMember; }
-            set { SetValue<Customer>("CurrentMember", ref _currentMember, value); }
+            set { SetValue<Customer>("CurrentMember", ref _currentMember, value, RaiseCurrentMemberChanged); }
         }
 
 
@@ -54,46 +57,18 @@ namespace DevExpress.VideoRent.ViewModel {
         /// </summary>
         public void DeleteCurrentMember()
         {
-            _currentMember.Parent = null;
+            _currentMember.Delete();
             Detail.Save();
         }
 
         #region Commands
 
-        public Action<object> CommandEditCurrentMember { get { return DoCommandEditMember; } }
-
-        private void DoCommandEditMember(object obj)
-        {
-            CustomerMemberEdit = new CustomerMemberEdit(CustomerEditMemberObject, Detail);
-            CustomerMemberEdit.AfterDispose += OnCustomerMemberEditAfterDispose;
-        }
-      
-        private CustomerMemberEditObject CustomerEditMemberObject
-        {
-            get
-            {
-                if (_customerMemberEditObject == null)
-                    _customerMemberEditObject = new CustomerMemberEditObject(VRObjectEditObject.Parent, _currentMember.Oid );
-                return _customerMemberEditObject;
-            }
-        }
-
-       
         public Action<object> CommandDeleteCurrentMember { get { return DoCommandDeleteCurrentMember; } }
 
         private void DoCommandDeleteCurrentMember(object obj)
         {
             DeleteCurrentMember();
         }
-
-     
-
-        private void OnCustomerMemberEditAfterDispose(object sender, EventArgs e)
-        {
-            CustomerMemberEdit.EditObject.Dispose();
-            CustomerMemberEdit.Dispose();
-        }
-
 
         public Action<object> CommandSendEmail { get { return DoCommandSendEmail; } }
         void DoCommandSendEmail(object p) { ObjectHelper.SendMessageTo(VRObjectEditObject.VideoRentObject.Email); }
