@@ -13,15 +13,16 @@ namespace DevExpress.VideoRent.ViewModel {
         private CustomerAddMemberEdit _customerAddMemberEdit;
 
         public CustomerDetail(CustomerDetailObject editObject) : this(editObject, null) { }
+        
         public CustomerDetail(CustomerDetailObject editObject, object tag)
             : base(editObject, tag) {
             CustomerEdit = new CustomerEdit(VRObjectDetailEditObject.CustomerEditObject, this);
-            CustomerEdit.CurrentMemberChanged += CustomerEdit_CurrentMemberChanged;
+            CustomerEdit.CurrentMemberChanged += OnCurrentMemberChanged;
             UpdateAllowSetCurrentCustomer();
             CurrentCustomerProvider.Current.CurrentCustomerOidChanged += OnCurrentCustomerProviderCurrentCustomerOidChanged;
         }
 
-        void CustomerEdit_CurrentMemberChanged(object sender, EventArgs e)
+        void OnCurrentMemberChanged(object sender, EventArgs e)
         {
             VRObjectDetailEditObject.CurrentMember = CustomerEdit.CurrentMember;
         }
@@ -45,19 +46,23 @@ namespace DevExpress.VideoRent.ViewModel {
             get { return allowSetAsCurrentCustomer; }
             private set { SetValue<bool>("AllowSetAsCurrentCustomer", ref allowSetAsCurrentCustomer, value); }
         }
+        
         public bool SetAsCurrentCustomer() {
             if(!AllowSetAsCurrentCustomer) return false;
             CurrentCustomerProvider.Current.CurrentCustomerOid = CustomerEdit.VRObjectEditObject.VideoRentObject.Oid;
             return true;
         }
+        
         public override object GetModuleTypeKey() {
             return string.Concat(base.GetModuleTypeKey(), Tag);
         }
+        
         protected override void OnEditObjectReloaded(object sender, EventArgs e) {
             base.OnEditObjectReloaded(sender, e);
             TitleDraft = VRObjectDetailEditObject.WasCreatedNewObject ? ConstStrings.Get("NewCustomer") : VRObjectDetailEditObject.CustomerEditObject.VideoRentObject.FullName;
             UpdateAllowSetCurrentCustomer();
         }
+
         void OnCurrentCustomerProviderCurrentCustomerOidChanged(object sender, EventArgs e) {
             UpdateAllowSetCurrentCustomer();
         }

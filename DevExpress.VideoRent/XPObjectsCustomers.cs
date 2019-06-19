@@ -45,12 +45,13 @@ namespace DevExpress.VideoRent {
 
         public Customer(Customer customer):this(customer.Session)
         {
-            this.Parent = customer;
+            Parent = customer;
         }
 
         public override void AfterConstruction() {
             base.AfterConstruction();
             discountLevel = CustomerDiscountLevel.FirstTime;
+            if (!IsParent) return;
             new Account(Session, this);
             Membership = new Membership(this, MembershipType.Regular, MembershipStatus.Active);
         }
@@ -119,7 +120,10 @@ namespace DevExpress.VideoRent {
 
         public string AccountName
         {
-            get { return Accounts[0].Name; }
+            get
+            {
+                return Accounts != null ? Accounts[0].Name : "N/A";
+            }
         }
       
         public void AddPlayer(Player aPlayer)
