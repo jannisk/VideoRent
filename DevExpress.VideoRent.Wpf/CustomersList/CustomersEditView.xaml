@@ -123,6 +123,8 @@
                         <dxe:MemoEditSettings helpers:StyleConverter.Style="{StaticResource MemoEdit}" />
                     </dxg:GridColumn.EditSettings>
                 </dxg:GridColumn>
+            
+            
             </dxg:GridControl.Columns>
         </dxg:GridControl>
     </Grid>

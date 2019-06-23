@@ -52,9 +52,9 @@
             <helpers:BindingInfo ElementName="CustomersGrid" Property="{x:Static  helpers:FocusedRowRestoringHelper.ItemsSourceInterfaceProperty}" Value="{Binding EditObject.VideoRentObjects}" />
             <helpers:BindingInfo ElementName="resource:TableView" Property="{x:Static dxg:GridViewBase.FocusedRowProperty}" Value="{Binding CurrentRecord, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             <helpers:BindingInfo ElementName="resource:TableView" Property="{x:Static helpers:CustomEventCommandHelper.MouseDoubleClickProperty}" Value="{Binding Detail.CommandEdit}" />
-            <helpers:ValueInfo ElementName="resource:TableView" Property="{x:Static helpers:CustomEventCommandHelper.MouseDoubleClickParameterProperty}" Value="{x:Static local:WpfViewsManager.CategoryCustomers}" />
+            <helpers:ValueInfo ElementName="resource:TableView" Property="{x:Static helpers:CustomEventCommandHelper.MouseDoubleClickParameterProperty}" Value="{x:Static local:WpfViewsManager.CategoryAthlets}" />
             <helpers:BindingInfo ElementName="resource:TableView" Property="{x:Static helpers:CustomEventCommandHelper.EnterKeyDownProperty}" Value="{Binding Detail.CommandEdit}" />
-            <helpers:ValueInfo ElementName="resource:TableView" Property="{x:Static helpers:CustomEventCommandHelper.EnterKeyDownParameterProperty}" Value="{x:Static local:WpfViewsManager.CategoryCustomers}" />
+            <helpers:ValueInfo ElementName="resource:TableView" Property="{x:Static helpers:CustomEventCommandHelper.EnterKeyDownParameterProperty}" Value="{x:Static local:WpfViewsManager.CategoryAthlets}" />
             <helpers:BindingInfo ElementName="resource:TableView" Property="{x:Static dxg:TableView.AllowPerPixelScrollingProperty}" Value="{Binding GridUIOptions.AllowPerPixelScrolling}" />
             <helpers:BindingInfo ElementName="resource:TableView" Property="{x:Static dxg:TableView.AllowCascadeUpdateProperty}" Value="{Binding GridUIOptions.AllowCascadeUpdate}" />
             <helpers:BindingInfo ElementName="resource:TableView" Property="{x:Static dxg:DataViewBase.AllowEditingProperty}" Value="{Binding GridUIOptions.AllowEditing}" />

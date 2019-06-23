@@ -12,6 +12,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/DevExpress.VideoRent.Wpf;component/Themes/EditsStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <helpers:DebugDataBindingConverter x:Key="DebugBinding"/>
             <DataTemplate x:Key="CustomersInfoTemplate">
                 <Grid Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Grid.RowDefinitions>
@@ -19,19 +20,16 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <dxlc:LayoutControl Grid.Row="0" Orientation="Vertical" Padding="0" ItemSpace="0">
+                    <dxlc:LayoutControl Grid.Row="0" Orientation="Vertical" Padding="0" ItemSpace="0" HorizontalAlignment="Stretch">
                         <dxlc:LayoutItem>
                             <TextBlock Text="{helpers:ConstString ID=CustomersStatsTitle1}" FontSize="22" TextWrapping="Wrap" />
                         </dxlc:LayoutItem>
                         <dxlc:LayoutItem Margin="10,0">
-                            <TextBlock Text="ASD" FontSize="21" />
+                            <TextBlock Text="24" FontSize="21" />
                         </dxlc:LayoutItem>                      
-                        <dxlc:LayoutGroup Orientation="Vertical">
-                            <dxlc:LayoutItem HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent"  VerticalContentAlignment="Top">
-                                <TextBlock  Text="{Binding CustomersCount}" TextAlignment="Left" FontSize="16"></TextBlock>
-                            </dxlc:LayoutItem>
-                            <dxlc:LayoutItem>
-                                <TextBlock Foreground="#FFF9F4F4" HorizontalAlignment="Left" Height="130" Width="230"  VerticalAlignment="Top" Background="#FF0C5580"/>
+                        <dxlc:LayoutGroup Orientation="Vertical" HorizontalAlignment="Stretch">
+                            <dxlc:LayoutItem >
+                                <TextBlock Text="{Binding Path=Count, Converter={StaticResource DebugBinding}}" TextAlignment="Left" Foreground="#FFF9F4F4" HorizontalAlignment="Left" Height="130" Width="230"  VerticalAlignment="Top" Background="#FF0C5580"/>
                             </dxlc:LayoutItem>
                             <dxlc:LayoutGroup Orientation="Horizontal">
                                 <dxlc:LayoutItem>
@@ -48,13 +46,6 @@
             <helpers:DataSource x:Key="DataSource" />
         </ResourceDictionary>
     </UserControl.Resources>
-   
-    <helpers:DataBindingsHelper.Bindings>
-        <helpers:BindingsInfoCollection DataContext="{Binding Source={StaticResource DataSource}, Path=DataObject}">
-            <helpers:BindingInfo ElementName="CustomersInfoPresenter" Property="{x:Static ContentControl.ContentProperty}" Value="{Binding ListEdit.View}" />
-        </helpers:BindingsInfoCollection>
-    </helpers:DataBindingsHelper.Bindings>
-    
     <ScrollViewer  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <dxlc:LayoutControl x:Name="CustomerStatsLayoutControl" Orientation="Horizontal" Padding="0" ItemSpace="12" VerticalAlignment="Stretch">
             <dxlc:LayoutItem>

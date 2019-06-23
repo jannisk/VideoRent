@@ -33,10 +33,10 @@
             <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static mb:ShowType.CloseSignalSlotProperty}" Value="{Binding DisposeSignal}" />
             <helpers:BindingInfo ElementName="resource:ShowType" Property="{x:Static mb:ClassicShowType.SelectSignalSlotProperty}" Value="{Binding FocusSignal}" />
             <helpers:BindingInfo ElementName="BbiAdd" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding CommandAdd}" />
-            <helpers:ValueInfo ElementName="BbiAdd" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickParameterProperty}" Value="{x:Static local:WpfViewsManager.CategoryCustomers}" />
+            <helpers:ValueInfo ElementName="BbiAdd" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickParameterProperty}" Value="{x:Static local:WpfViewsManager.CategoryAthlets}" />
             <helpers:BindingInfo ElementName="BbiView" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding CommandChangeViewOptions}" />
             <helpers:BindingInfo ElementName="BbiEdit" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding CommandEdit}" />
-            <helpers:ValueInfo ElementName="BbiEdit" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickParameterProperty}" Value="{x:Static local:WpfViewsManager.CategoryCustomers}" />
+            <helpers:ValueInfo ElementName="BbiEdit" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickParameterProperty}" Value="{x:Static local:WpfViewsManager.CategoryAthlets}" />
             <helpers:BindingInfo ElementName="BbiEdit" Property="{x:Static ContentElement.IsEnabledProperty}" Value="{Binding ListEdit.CurrentRecord,Converter={StaticResource NullContentToBoolConverter}}" />
             <helpers:BindingInfo ElementName="BbiDelete" Property="{x:Static ContentElement.IsEnabledProperty}" Value="{Binding ListEdit.AllowDelete}" />
             <helpers:BindingInfo ElementName="BbiDelete"  Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding ListEdit.CommandDeleteCurrentRecord}" />

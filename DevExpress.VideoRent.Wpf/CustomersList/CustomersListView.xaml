@@ -13,6 +13,7 @@
     xmlns:mb="clr-namespace:DevExpress.VideoRent.Wpf.ModulesBase"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+               
     mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="900"
     ShowMethodType="{DynamicResource ShowType}">
 
@@ -26,6 +27,7 @@
             <helpers:DataSource x:Key="GridSource" DataObject="{Binding Source={StaticResource DataSource}, Path=DataObject.ListEdit.View.Content.(helpers:GridControlHelper.Grid)}" />
             <helpers:DataSource x:Key="GridCommandsSource" DataObject="{Binding Source={StaticResource GridSource}, Path=DataObject.View.Commands}" />
             <mb:ClassicShowType x:Key="ShowType" Category="{x:Static local:WpfViewsManager.CategoryCustomers}" />
+            <helpers:DebugDataBindingConverter x:Key="DebugBinding"/>
         </ResourceDictionary>
     </mb:DemoModule.Resources>
     <helpers:DataBindingsHelper.Bindings>
@@ -48,6 +50,8 @@
             <helpers:BindingInfo ElementName="BbiUp" Property="{x:Static dxb:BarItem.CommandProperty}" Value="{Binding Source={StaticResource GridCommandsSource}, Path=DataObject.MovePrevRow}" />
             <helpers:BindingInfo ElementName="BbiDown" Property="{x:Static dxb:BarItem.CommandProperty}" Value="{Binding Source={StaticResource GridCommandsSource}, Path=DataObject.MoveNextRow}" />
             <helpers:BindingInfo ElementName="CustomersEditViewPresenter" Property="{x:Static ContentControl.ContentProperty}" Value="{Binding ListEdit.View}" />
+            <helpers:BindingInfo ElementName="CustomerStatsViewPresenter" Property="{x:Static ContentControl.ContentProperty}" Value="{Binding EditObject.Customers}" />
+
         </helpers:BindingsInfoCollection>
     </helpers:DataBindingsHelper.Bindings>
     <Grid>
@@ -96,9 +100,9 @@
                 <dxdo:LayoutPanel ShowCaption="False" ShowBorder="False" Caption="{helpers:ConstString ID=Companies}" Background="Transparent">
                     <ContentControl x:Name="CustomersEditViewPresenter" Style="{StaticResource ModulePresenter}" />
                 </dxdo:LayoutPanel>
-                <!--<dxdo:LayoutPanel x:Name="CustomerStatsPanel" ItemHeight="*" AllowClose="False" ShowCloseButton="False" Background="Transparent">
-                  <local:CustomerStatsView x:Name="CustomerStatsViewPresenter"/>
-                </dxdo:LayoutPanel>-->
+                <dxdo:LayoutPanel x:Name="CustomerStatsPanel" ItemHeight="*" AllowClose="False" ShowCloseButton="False" Background="Transparent">
+                    <local:CustomerStatsView x:Name="CustomerStatsViewPresenter" Style="{StaticResource ModulePresenter}"/>
+                </dxdo:LayoutPanel>
             </dxdo:LayoutGroup>
         </dxdo:DockLayoutManager> 
         

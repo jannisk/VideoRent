@@ -13,6 +13,7 @@ namespace DevExpress.VideoRent.ViewModel {
         public new MoviesListObject VRObjectsListObject { get { return (MoviesListObject)EditObject; } }
         public MoviesEdit MoviesEdit { get { return (MoviesEdit)ListEdit; } }
         public MoviesViewOptionsEdit MoviesViewOptionsEdit { get { return (MoviesViewOptionsEdit)ViewOptionsEdit; } }
+        
         #region Edits
         public MoviePicturesEdit MoviePicturesEdit {
             get { return moviePicturesEdit; }
@@ -28,6 +29,7 @@ namespace DevExpress.VideoRent.ViewModel {
             }
         }
         #endregion
+
         protected override void OnListEditCurrentRecordChanged(object sender, EventArgs e) {
             base.OnListEditCurrentRecordChanged(sender, e);
             MoviePicturesEdit = MoviesEdit.CurrentRecord == null ? null : CreateMoviePicturesEdit();
