@@ -79,9 +79,9 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         public IBindingList EditCollection { get { return (IBindingList)GetValue(EditCollectionProperty); } set { SetValue(EditCollectionProperty, value); } }
         protected override void OnIsReadOnlyChanged() {
             base.OnIsReadOnlyChanged();
-            ShowBorder = AllowDefaultButton = !IsReadOnly;
+            ShowBorder = (bool)(AllowDefaultButton =  !IsReadOnly);
             if(IsReadOnly) {
-                savedIsTextEditable = IsTextEditable;
+                savedIsTextEditable = (bool)IsTextEditable;
                 IsTextEditable = true;
             } else {
                 IsTextEditable = savedIsTextEditable;

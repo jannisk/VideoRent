@@ -4,7 +4,7 @@
     xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
     xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-    xmlns:dxgc="clr-namespace:DevExpress.Xpf.Grid;assembly=DevExpress.Xpf.Grid.v13.1.Core"
+    xmlns:dxgc="clr-namespace:DevExpress.Xpf.Grid;assembly=DevExpress.Xpf.Grid.v21.2.Core"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
@@ -18,7 +18,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:videorent="clr-namespace:DevExpress.VideoRent;assembly=DevExpress.VideoRent"
-    mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="900">
+    mc:Ignorable="d" d:DesignHeight="400" d:DesignWidth="900" Loaded="UserControl_Loaded">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -50,7 +50,7 @@
                     <dxgc:GridViewNavigationStyle>Cell</dxgc:GridViewNavigationStyle>
                 </helpers:BoolToAnyConverter.TrueValue>
             </helpers:BoolToAnyConverter>
-            <dxg:TableView x:Key="TableView" AllowGrouping="False" ShowGroupPanel="False" BestFitMode="Smart" AllowBestFit="True" AutoWidth="True" />
+            <dxg:TableView x:Key="TableView"  AllowGrouping="False" ShowGroupPanel="False" BestFitMode="Smart" AllowBestFit="True" AutoWidth="True" />
             <dxg:CardView x:Key="CardView" AllowEditing="False" CardLayout="Rows" CardAlignment="Center" AllowCardResizing="False" AllowGrouping="False" ShowGroupPanel="False" NavigationStyle="Row"
                 CardHeaderBinding="{Binding Data.MovieIndexInfo, RelativeSource={RelativeSource Self}}">
                 <dxg:CardView.CardTemplate>
@@ -179,7 +179,7 @@
             </dxg:GridColumn>
             <dxg:GridColumn FieldName="Photo" Width="100" Header="{helpers:ConstString ID=Photo}">
                 <dxg:GridColumn.CellStyle>
-                    <Style TargetType="dxg:CellContentPresenter">
+                    <Style TargetType="dxg:LightweightCellEditor" >
                         <Setter Property="ToolTip" Value="{Binding RowData.Row.Photo, Converter={StaticResource MoviePictureTooltipConverter}}" />
                     </Style>
                 </dxg:GridColumn.CellStyle>

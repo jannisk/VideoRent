@@ -57,6 +57,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
                 return true;
             }
         }
+
         class BarItemEqualityComparer : IEqualityComparer<BarItem> {
             static StringIdGenerator namesGenerator = new StringIdGenerator();
 
@@ -254,7 +255,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
             return items;
         }
         RibbonPage DetachPage(RibbonControl rc) {
-            RibbonPage page = rc.Categories[0].Pages[0];
+            RibbonPage page = rc.SelfCategories[0].Pages[0];
             page.PageCategory.Pages.Remove(page);
             return page;
         }

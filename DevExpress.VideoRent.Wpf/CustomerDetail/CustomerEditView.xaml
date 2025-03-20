@@ -131,7 +131,7 @@
                                         </dxg:GridColumn>
                                         <dxg:GridColumn x:Name="PhotoColumn" FieldName="Photo" Header="{helpers:ConstString ID=Photo}" Width="50">
                                             <dxg:GridColumn.CellStyle>
-                                                <Style TargetType="dxg:CellContentPresenter">
+                                                <Style TargetType="dxg:LightweightCellEditor">
                                                     <Setter Property="ToolTip" Value="{Binding RowData.Row.Photo, Converter={StaticResource CustomerPhotoTooltipConverter}}" />
                                                 </Style>
                                             </dxg:GridColumn.CellStyle>

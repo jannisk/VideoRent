@@ -7,5 +7,10 @@ namespace DevExpress.VideoRent.Wpf {
         public MoviesEditView() {
             InitializeComponent();
         }
+
+        private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
     }
 }

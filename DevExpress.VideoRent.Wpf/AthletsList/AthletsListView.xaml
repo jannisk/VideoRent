@@ -42,7 +42,7 @@
             <helpers:BindingInfo ElementName="BbiDelete"  Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding ListEdit.CommandDeleteCurrentRecord}" />
             <helpers:BindingInfo ElementName="BbiRefresh" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding EditObject.CommandReload}" />
             <helpers:BindingInfo ElementName="BbiCloseDetails" Property="{x:Static ContentElement.IsEnabledProperty}" Value="{Binding HasDetailsToClose}" />
-            <helpers:BindingInfo ElementName="BbiCloseDetails" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding CommandCloseDetails}" />
+            <helpers:BindingInfo ElementName="BbiCloseDetails" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding  }" />
             <helpers:BindingInfo ElementName="BbiSetAsCurrentCustomer" Property="{x:Static helpers:CustomEventCommandHelper.ItemClickProperty}" Value="{Binding CommandSetAsCurrent}" />
             <helpers:BindingInfo ElementName="BbiSetAsCurrentCustomer" Property="{x:Static ContentElement.IsEnabledProperty}" Value="{Binding ListEdit.CurrentRecord,Converter={StaticResource NullContentToBoolConverter}}" />
             <helpers:BindingInfo ElementName="BbiUp" Property="{x:Static dxb:BarItem.CommandProperty}" Value="{Binding Source={StaticResource GridCommandsSource}, Path=DataObject.MovePrevRow}" />

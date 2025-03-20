@@ -124,6 +124,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
         public static readonly DependencyProperty ValueWritingProperty;
         public static readonly DependencyProperty EnterKeyDownProperty;
         public static readonly DependencyProperty EnterKeyDownParameterProperty;
+        
         static CustomEventCommandHelper() {
             var ownerType = typeof(CustomEventCommandHelper);
             ClickProperty = DependencyProperty.RegisterAttached("Click", typeof(object), ownerType, new PropertyMetadata(null, RaiseClickChanged));

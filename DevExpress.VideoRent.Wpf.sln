@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Blend for Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExpress.VideoRent.Wpf", "DevExpress.VideoRent.Wpf\DevExpress.VideoRent.Wpf.csproj", "{DE3AA91B-D8FC-4C1B-A8FD-E84C63C2C89F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExpress.VideoRent", "DevExpress.VideoRent\DevExpress.VideoRent.csproj", "{64358044-1010-4E3D-A18D-ACB7755C40FA}"
@@ -9,13 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExpress.VideoRent.Resour
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExpress.VideoRent.ViewModel", "DevExpress.VideoRent.ViewModel\DevExpress.VideoRent.ViewModel.csproj", "{E2ACD1A2-B73F-466A-8282-101F846ED8FA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{625971F4-2151-48D1-A87B-D4307CDF4DA4}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestVideorent", "UnitTestVideorent\UnitTestVideorent.csproj", "{5D83B5EF-994A-4DE7-AAE8-5A0B71A5C075}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridControlTemplateViewBug", "..\DevExpress-Examples\GridControlTemplateViewBug_160517\GridControlTemplateViewBug\GridControlTemplateViewBug\GridControlTemplateViewBug.csproj", "{3E1227D6-777C-4CD4-BCF4-AADB919E2C86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,8 +82,23 @@ Global
 		{5D83B5EF-994A-4DE7-AAE8-5A0B71A5C075}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D83B5EF-994A-4DE7-AAE8-5A0B71A5C075}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5D83B5EF-994A-4DE7-AAE8-5A0B71A5C075}.Release|x86.ActiveCfg = Release|Any CPU
+		{3E1227D6-777C-4CD4-BCF4-AADB919E2C86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E1227D6-777C-4CD4-BCF4-AADB919E2C86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E1227D6-777C-4CD4-BCF4-AADB919E2C86}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3E1227D6-777C-4CD4-BCF4-AADB919E2C86}.Debug|x86.Build.0 = Debug|Any CPU
+		{3E1227D6-777C-4CD4-BCF4-AADB919E2C86}.DebugTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E1227D6-777C-4CD4-BCF4-AADB919E2C86}.DebugTest|Any CPU.Build.0 = Debug|Any CPU
+		{3E1227D6-777C-4CD4-BCF4-AADB919E2C86}.DebugTest|x86.ActiveCfg = Debug|Any CPU
+		{3E1227D6-777C-4CD4-BCF4-AADB919E2C86}.DebugTest|x86.Build.0 = Debug|Any CPU
+		{3E1227D6-777C-4CD4-BCF4-AADB919E2C86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E1227D6-777C-4CD4-BCF4-AADB919E2C86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E1227D6-777C-4CD4-BCF4-AADB919E2C86}.Release|x86.ActiveCfg = Release|Any CPU
+		{3E1227D6-777C-4CD4-BCF4-AADB919E2C86}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3C687C3B-2B70-44E5-9F48-3CD55964A81E}
 	EndGlobalSection
 EndGlobal

@@ -40,6 +40,9 @@ namespace DevExpress.VideoRent.Wpf
             InitializeComponent();
             InitializeThemes();
             dataSession = new UnitOfWork(Session.DefaultSession.DataLayer);
+  
+            Console.WriteLine("DefaultStyleKey: " + Modules.GetDefaultStyleKey());
+
             Loaded += OnLoaded;
            // Closing += OnClosing;
         }

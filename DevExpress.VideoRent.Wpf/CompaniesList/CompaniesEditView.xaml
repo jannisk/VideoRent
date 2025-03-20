@@ -4,7 +4,7 @@
     xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
     xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-    xmlns:dxgc="clr-namespace:DevExpress.Xpf.Grid;assembly=DevExpress.Xpf.Grid.v13.1.Core"
+    xmlns:dxgc="clr-namespace:DevExpress.Xpf.Grid;assembly=DevExpress.Xpf.Grid.v21.2.Core"
     xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"

@@ -31,7 +31,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
                 Dispatcher.BeginInvoke((Action)(() => { DXSplashScreen.Close(); }), DispatcherPriority.ApplicationIdle);
                 MouseHelper.WaitIdle();
             }
-            ThemeManager.ApplicationThemeName = theme.Name;
+            ApplicationThemeHelper.ApplicationThemeName = theme.Name;
         }
     }
 }

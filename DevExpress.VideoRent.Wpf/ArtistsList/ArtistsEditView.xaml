@@ -4,7 +4,7 @@
     xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
     xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-    xmlns:dxgc="clr-namespace:DevExpress.Xpf.Grid;assembly=DevExpress.Xpf.Grid.v13.1.Core"
+    xmlns:dxgc="clr-namespace:DevExpress.Xpf.Grid;assembly=DevExpress.Xpf.Grid.v21.2.Core"
     xmlns:dxgt="http://schemas.devexpress.com/winfx/2008/xaml/grid/themekeys"
     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
@@ -41,7 +41,7 @@
                     <dxgc:GridViewNavigationStyle>Cell</dxgc:GridViewNavigationStyle>
                 </helpers:BoolToAnyConverter.TrueValue>
             </helpers:BoolToAnyConverter>
-            <dxg:TableView x:Key="TableView" ShowGroupedColumns="True" AutoWidth="True" BestFitMode="Smart" BestFitArea="All" />
+            <dxg:TableView x:Key="TableView" UseLightweightTemplates="None" ShowGroupedColumns="True" AutoWidth="True" BestFitMode="Smart" BestFitArea="All" />
         </ResourceDictionary>
     </UserControl.Resources>
     <helpers:DataBindingsHelper.Bindings>

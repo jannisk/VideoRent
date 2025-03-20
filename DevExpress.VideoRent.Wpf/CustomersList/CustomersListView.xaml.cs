@@ -7,5 +7,9 @@ namespace DevExpress.VideoRent.Wpf {
             InitializeComponent();
         }
 
+        private void DemoModule_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+           
+        }
     }
 }

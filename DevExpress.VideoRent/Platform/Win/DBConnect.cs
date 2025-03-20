@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data.SqlClient;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 using DevExpress.VideoRent.Helpers;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -32,9 +33,9 @@ namespace DevExpress.VideoRent {
         {
             get
             {
-                Server = "localhost";
+                Server = "w0094";
                 DBName = "videorent";
-                Login = "root";
+                Login = "user";
                 Password = "manager";
                 var connectionString = "SERVER=" + Server + ";" + "DATABASE=" +
                 DBName + ";" + "UID=" + Login + ";" + "PASSWORD=" + Password + ";" + "Charset=" + "utf8";
@@ -223,7 +224,7 @@ namespace DevExpress.VideoRent {
         }
         public static bool CheckDefaults(IniFile iniFile) {
             bool ret = true;
-            if(!iniFile.ContainKey(MdbPathKey)) { iniFile.Add<string>(MdbPathKey, "VideoRent.mdb"); ret = false; }
+            if(!iniFile.ContainKey(MdbPathKey)) { iniFile.Add<string>(MdbPathKey, "VideoRent.accdb"); ret = false; }
             if(!iniFile.ContainKey(SqlDBNameKey)) { iniFile.Add<string>(SqlDBNameKey, "VideoRent"); ret = false; }
             if(!iniFile.ContainKey(DBFormatKey)) { iniFile.Add<DBFormat>(DBFormatKey, DBFormat.Mdb); ret = false; }
             if(!iniFile.ContainKey(ServerKey)) { iniFile.Add<string>(ServerKey, ".\\SQLExpress"); ret = false; }
@@ -237,7 +238,9 @@ namespace DevExpress.VideoRent {
         public static string CurrentLanguageString { get { return System.Threading.Thread.CurrentThread.CurrentCulture.Name; } }
         public string GetSqlConnectionString() { return sqlDBHandle.ConnectionString; }
         public string GetMdbConnectionString() {
-            return string.Format("Provider=Microsoft.Jet.OLEDB.4.0;User ID={0};Data Source={1};Mode=Share Deny None;", "Admin", MdbPath);
+
+           return string.Format("Provider=Microsoft.ACE.OLEDB.12.0;User ID={0};Data Source={1};Mode=Share Deny None;", "Admin", MdbPath);
+           //return string.Format("Provider=Microsoft.Jet.OLEDB.4.0;User ID={0};Data Source={1};Mode=Share Deny None;", "Admin", MdbPath);
         }
     }
     public interface ICreateInitialDbDialog {
@@ -277,7 +280,7 @@ namespace DevExpress.VideoRent {
                 dbConnectData.Language = DBConnectData.CurrentLanguageString;
             }
             if(!createNew) {
-                UnitOfWork session = OpenDb(false, false);
+                UnitOfWork session = OpenDb(true, true);
                 if(session != null) {
                     XpoDefault.Session = session;
                     return true;
@@ -354,12 +357,15 @@ namespace DevExpress.VideoRent {
                     session = null;
                 } else
                 {
-                    var aProvider = new MyMySqlConnectionProvider(new MySqlConnection(connectionString),
-                        AutoCreateOption.SchemaAlreadyExists);
-                    XpoDefault.DataLayer =
-                        //string conn = DevExpress.Xpo.DB.MySqlConnectionProvider.GetConnectionString(dbConnectData.Server, dbConnectData.Login, dbConnectData.Password, dbConnectData.SqlDBName);
-                        XpoDefault.DataLayer = new SimpleDataLayer(aProvider);  // XpoDefault.GetDataLayer(conn, AutoCreateOption.DatabaseAndSchema);
+                    XpoDefault.DataLayer = XpoDefault.GetDataLayer(connectionString, AutoCreateOption.DatabaseAndSchema);
                     session = new UnitOfWork(XpoDefault.DataLayer);
+                    //var aProvider = new MyMySqlConnectionProvider(new MySqlConnection(connectionString),
+                    //    AutoCreateOption.SchemaAlreadyExists);
+                    //XpoDefault.DataLayer =
+                    //    //string conn = DevExpress.Xpo.DB.MySqlConnectionProvider.GetConnectionString(dbConnectData.Server, dbConnectData.Login, dbConnectData.Password, dbConnectData.SqlDBName);
+                    //    XpoDefault.DataLayer = new SimpleDataLayer(aProvider);  //
+                   // XpoDefault.GetDataLayer(conn, AutoCreateOption.DatabaseAndSchema);
+                    //session = new UnitOfWork(XpoDefault.DataLayer);
                 }
             } catch { }
             if(session == null) {
@@ -373,7 +379,7 @@ namespace DevExpress.VideoRent {
             using(UnitOfWork xmlSession = new UnitOfWork()) {
                 xmlSession.ConnectionString = xmlConnectionString;
                 xmlSession.Connect();
-                UnitOfWork dbSession = OpenDb(false, false);
+                UnitOfWork dbSession = OpenDb(false, true);
                 if(dbSession == null) {
                     unableToCreateDb = true;
                 } else {

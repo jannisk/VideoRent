@@ -50,21 +50,21 @@ namespace DevExpress.VideoRent {
         public static Image UnknownPerson {
             get {
                 if(person == null)
-                    person = ResourceImageHelper.CreateImageFromResources("DevExpress.VideoRent.Images.Unknown-user.png", typeof(Customer).Assembly);
+                    person = ResourceImageHelperCore.CreateImageFromResources("DevExpress.VideoRent.Images.Unknown-user.png", typeof(Customer).Assembly);
                 return person;
             }
         }
         public static Image UnknownPerson_Small {
             get {
                 if(person_small == null)
-                    person_small = ResourceImageHelper.CreateImageFromResources("DevExpress.VideoRent.Images.Unknown-user-small.png", typeof(Customer).Assembly);
+                    person_small = ResourceImageHelperCore.CreateImageFromResources("DevExpress.VideoRent.Images.Unknown-user-small.png", typeof(Customer).Assembly);
                 return person_small;
             }
         }
         public static Image UnknownMovie {
             get {
                 if(movie == null)
-                    movie = ResourceImageHelper.CreateImageFromResources("DevExpress.VideoRent.Images.Unknown-movie.png", typeof(Movie).Assembly);
+                    movie = ResourceImageHelperCore.CreateImageFromResources("DevExpress.VideoRent.Images.Unknown-movie.png", typeof(Movie).Assembly);
                 return movie;
             }
         }

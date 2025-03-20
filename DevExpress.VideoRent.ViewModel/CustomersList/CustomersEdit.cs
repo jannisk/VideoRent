@@ -10,7 +10,7 @@ namespace DevExpress.VideoRent.ViewModel {
 
         public CustomersEdit(CustomersEditObject editObject, ModuleObjectDetail detail) : base(editObject, detail) {
             PersonGenderEditData = new PersonGenderEditData();
-            LayoutManager.Current.Subscribe(OnLayoutManagerAfterLoad, OnLayoutManagerBeforeSave);
+         //   LayoutManager.Current.Subscribe(OnLayoutManagerAfterLoad, OnLayoutManagerBeforeSave);
         }
         public new CustomersEditObject VRObjectsEditObject { get { return (CustomersEditObject)EditObject; } }
         public PersonGenderEditData PersonGenderEditData {

@@ -26,7 +26,7 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <dxdo:DockLayoutManager x:Name="DockLayoutManager" Background="Transparent">
+                            <dxdo:DockLayoutManager x:Name="DockLayoutManager" Background="Transparent" Foreground="Red">
                                 <dxdo:LayoutGroup Orientation="Horizontal" Background="Transparent">
                                     <dxdo:LayoutPanel ShowCaption="False" Caption="Module" ShowBorder="False" Padding="3" Background="Transparent">
                                         <dxn:NavBarControl x:Name="NavBar" MaxWidth="200">

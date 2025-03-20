@@ -80,7 +80,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
             throw new NotSupportedException();
         }
     }
-    public class SummConteverter : IValueConverter {
+    public class SummConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             double? dn = value as double?;
             double d = dn == null ? 0.0 : (double)dn;

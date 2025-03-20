@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -7,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using DevExpress.Utils.Design;
 using DevExpress.VideoRent.Resources.Helpers;
 using DevExpress.VideoRent.Wpf.Helpers;
 using DevExpress.Xpf.Bars;
@@ -95,7 +97,7 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
                     link.BarItemName = string.Format("{0}_{1}", Id, link.BarItemName);
                 }
             }
-            foreach(var rpcb in ribbonControl.Categories) {
+            foreach(var rpcb in ribbonControl.SelfCategories) {
                 foreach(var page in rpcb.Pages) {
                     page.Name = string.Format("{0}_{1}", Id, page.Name);
                     foreach(var group in page.Groups) {
@@ -108,6 +110,7 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
             foreach(var itemLinkBase in ribbonControl.PageHeaderItemLinks)
                 AddPrefixToBarItemLink(itemLinkBase);
         }
+
         internal object Root { get; set; }
         internal BarManager BarManager { get; set; }
         internal RibbonControl RibbonControl { get; set; }
@@ -249,7 +252,8 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
                 }
                 _demoModulePresenter.Content = DefaultPage;
                 if(_navBar.SelectedItem != null)
-                    _navBar.SelectedItem.Group.SelectedItemIndex = -1;
+                   // _navBar.SelectedItem.Group.SelectedItemIndex = -1;
+                    _navBar.SelectedGroup = null;
             } else {
                 _navBar.View.SelectItem(_navBarItems[((ClassicShowType)demoModule.ShowMethodType).Category]);
                 Ribbon.SelectedPage = demoModule.Bar;
@@ -285,13 +289,13 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
             }
         }
         RibbonControl Ribbon { get { return (RibbonControl)BarManager.Child; } }
-        DemoModuleCategory CurrentCategory { get { return _navBar.SelectedItem == null ? null : (DemoModuleCategory)_navBar.SelectedItem.DataContext; } }
+        DemoModuleCategory CurrentCategory { get { return _navBar.SelectedItem == null ? null : ((DemoModuleCategory)_navBar.SelectedItem); } }
         void PrepareDemoModuleBar(DemoModule demoModule) {
             var grid = (Grid)demoModule.Content;
             demoModule.BarManager = (BarManager)grid.Children[0];
             demoModule.RibbonControl = (RibbonControl)demoModule.BarManager.Child;
             grid.Children.Remove(demoModule.BarManager);
-            demoModule.Bar = demoModule.RibbonControl.Categories[0].Pages[0];
+            demoModule.Bar = demoModule.RibbonControl.SelfCategories[0].Pages[0];
             demoModule.BarIsSelectedChanged = (s, e) => RaiseDemoModuleBarIsSelectedChanged(demoModule);
             demoModule.PageHeaderItemLinks = new List<BarItemLinkBase>(demoModule.RibbonControl.PageHeaderItemLinks);
             foreach(var link in demoModule.PageHeaderItemLinks)
@@ -317,7 +321,7 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
                 rpcb = _subcategories[((ClassicShowType)demoModule.ShowMethodType).Subcategory];
             } else {
                 rpcb = new RibbonPageCategory() { Caption = ((ClassicShowType)demoModule.ShowMethodType).Subcategory };
-                Ribbon.Categories.Add(rpcb);
+                Ribbon.SelfCategories.Add(rpcb);
                 _subcategories.Add(((ClassicShowType)demoModule.ShowMethodType).Subcategory, rpcb);
             }
             rpcb.IsVisible = isVisible;
@@ -329,7 +333,7 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
             var rpcb = _subcategories[((ClassicShowType)demoModule.ShowMethodType).Subcategory];
             this.ribbonManager.Unmerge(demoModule.Bar);
             if(rpcb.Pages.Count == 0) {
-                Ribbon.Categories.Remove(_subcategories[((ClassicShowType)demoModule.ShowMethodType).Subcategory]);
+                Ribbon.SelfCategories.Remove(_subcategories[((ClassicShowType)demoModule.ShowMethodType).Subcategory]);
                 _subcategories.Remove(((ClassicShowType)demoModule.ShowMethodType).Subcategory);
             } else {
                 var isVisible = false;
@@ -424,8 +428,9 @@ namespace DevExpress.VideoRent.Wpf.ModulesBase {
                 SelectDemoModule(null);
         }
         public override void OnApplyTemplate() {
+            if (DesignerProperties.GetIsInDesignMode(this)) return;
             base.OnApplyTemplate();
-            _subcategories.Add(string.Empty, Ribbon.Categories[0]);
+            _subcategories.Add(string.Empty, Ribbon.SelfCategories[0]);
             _navBar = (NavBarControl)GetTemplateChild("NavBar");
             _navBar.View.GroupAdding += OnNavBarGroupAdding;
             _navBar.View.ItemAdding += OnNavBarItemAdding;

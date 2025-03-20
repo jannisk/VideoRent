@@ -39,7 +39,7 @@ namespace DevExpress.VideoRent.ViewModel {
         object detailsTypeKey = null;
         VRObjectsEdit<T> _listEdit;
         ModuleObjectEdit _viewOptionsEdit;
-        bool _hasDetailsToClose = false;
+        bool _hasDetailsToClose = false; 
 
         public VRObjectsList(VRObjectsListObject<T> editObject) : base(editObject) { }
         

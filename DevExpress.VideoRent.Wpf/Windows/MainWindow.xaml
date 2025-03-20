@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"    
     xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
-    xmlns:dxbt="clr-namespace:DevExpress.Xpf.Bars.Themes;assembly=DevExpress.Xpf.Core.v13.1"
+    xmlns:dxbt="clr-namespace:DevExpress.Xpf.Bars.Themes;assembly=DevExpress.Xpf.Core.v21.2"
     xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
     xmlns:helpers="clr-namespace:DevExpress.VideoRent.Wpf.Helpers"
     xmlns:viewmodelbase="clr-namespace:DevExpress.VideoRent.ViewModel.ViewModelBase;assembly=DevExpress.VideoRent.ViewModel"
@@ -104,9 +104,9 @@
             </dxb:BarManager>
         </mb:DemoModulesControl.StatusBarManager>
         <mb:DemoModulesControl.DefaultToolbarItems>
-            <dxb:BarButtonItem local:ImagesHelper.VideoRentImage="Refresh" Content="{helpers:ConstString ID=Refresh}" />
+            <!--<dxb:BarButtonItem local:ImagesHelper.VideoRentImage="Refresh" Content="{helpers:ConstString ID=Refresh}" />
             <dxb:BarButtonItem local:ImagesHelper.VideoRentImage="CloseDetails" Content="{helpers:ConstString ID=CloseDetailViews}" />
-            <dxb:BarButtonItem local:ImagesHelper.VideoRentImage="Edit" Content="{helpers:ConstString ID=Edit}" />
+            <dxb:BarButtonItem local:ImagesHelper.VideoRentImage="Edit" Content="{helpers:ConstString ID=Edit}" />-->
             <dxb:BarButtonItem local:ImagesHelper.VideoRentImage="Home" helpers:RibbonManager.Action="Home" />
             <dxb:BarButtonItem local:ImagesHelper.VideoRentImage="Save" Content="{helpers:ConstString ID=Save}" />
             <dxb:BarButtonItem local:ImagesHelper.VideoRentImage="SaveAndClose" Content="{helpers:ConstString ID=SaveAndClose}" />

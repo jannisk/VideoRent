@@ -38,7 +38,7 @@ namespace DevExpress.VideoRent.Wpf.Helpers {
             FrameworkElement contentElement = Content as FrameworkElement;
             double horizontalPadding = ActualWidth - contentElement.ActualWidth;
             double verticalPadding = ActualHeight - contentElement.ActualHeight;
-            IValueConverter sumConverter = new SummConteverter();
+            IValueConverter sumConverter = new SummConverter();
             SetBinding(MinWidthProperty, new Binding("Content.MinWidth") { Source = this, Converter = sumConverter, ConverterParameter = horizontalPadding });
             SetBinding(MaxWidthProperty, new Binding("Content.MaxWidth") { Source = this, Converter = sumConverter, ConverterParameter = horizontalPadding });
             SetBinding(MinHeightProperty, new Binding("Content.MinHeight") { Source = this, Converter = sumConverter, ConverterParameter = verticalPadding });

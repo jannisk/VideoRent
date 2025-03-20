@@ -4,7 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"    
       xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
-      xmlns:dxbt="clr-namespace:DevExpress.Xpf.Bars.Themes;assembly=DevExpress.Xpf.Core.v13.1"
+      xmlns:dxbt="clr-namespace:DevExpress.Xpf.Bars.Themes;assembly=DevExpress.Xpf.Core.v21.2"
       xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
       xmlns:local="clr-namespace:DevExpress.VideoRent.Wpf"
       xmlns:helpers="clr-namespace:DevExpress.VideoRent.Wpf.Helpers"
@@ -23,13 +23,13 @@
             <local:ElementLayoutDataStore x:Key="ElementLayoutDataStore" />
         </ResourceDictionary>
     </dxr:DXRibbonWindow.Resources>
-    <helpers:DataBindingsHelper.Bindings>
+    <!--<helpers:DataBindingsHelper.Bindings>
         <helpers:BindingsInfoCollection>
             <helpers:BindingInfo ElementName="CurrentEmployee" Property="{x:Static dxb:BarItem.ContentProperty}" Value="{Binding CurrentEmployee.Login, Source={x:Static viewmodel:CurrentEmployeeProvider.Current}}" />
             <helpers:ElementLayoutInfo ElementName="top:Window" StoreFolder="Window:MainWindow-Window" Store="{StaticResource ElementLayoutDataStore}" />
             <helpers:ElementLayoutInfo ElementName="Modules" StoreFolder="RibbonControl:MainWindow-RibbonControl" Store="{StaticResource ElementLayoutDataStore}" />
         </helpers:BindingsInfoCollection>
-    </helpers:DataBindingsHelper.Bindings>
+    </helpers:DataBindingsHelper.Bindings>-->
     <mb:DemoModulesControl x:Name="Modules">
         <mb:DemoModulesControl.BarManager>
             <dxb:BarManager x:Name="BarManager">

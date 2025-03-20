@@ -421,6 +421,7 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase
         void DoCommandClose(object p) { Close(); }
         #endregion
     }
+
     public class ModuleObjectDetailEventArgs : EventArgs
     {
         ModuleObjectDetail moduleObjectDetail;
@@ -552,7 +553,11 @@ namespace DevExpress.VideoRent.ViewModel.ViewModelBase
             else
             {
                 if (tag == null)
-                    moduleObjectDetail = (ModuleObjectDetail)GetModuleObjectDetailContructor(moduleObjectDetailType, editObject.GetType()).Invoke(new object[] { editObject });
+                {
+                    var cons = (ConstructorInfo)GetModuleObjectDetailContructor(moduleObjectDetailType, editObject.GetType());
+                    moduleObjectDetail = (ModuleObjectDetail)cons.Invoke(new object[] { editObject });
+
+                }
                 else
                     moduleObjectDetail = (ModuleObjectDetail)GetModuleObjectDetailContructorWithTag(moduleObjectDetailType, editObject.GetType()).Invoke(new object[] { editObject, tag });
             }

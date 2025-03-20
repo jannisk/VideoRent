@@ -10,7 +10,7 @@ namespace DevExpress.VideoRent.ViewModel {
     /// Holds all objects of the provided typedef for a session 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class AllObjects<T> : XPCollection<T> where T : VideoRentBaseObject {
+    public class AllObjects<T> : XPCollection   <T> where T : VideoRentBaseObject {
         public static readonly EditableObjectSet Set = new EditableObjectSet();
 
         bool disposed = false;

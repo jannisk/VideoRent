@@ -25,7 +25,8 @@ namespace DevExpress.VideoRent.ViewModel
             : base(editObject, detail)
         {
             Period = 12;
-            Amount = CurrentCustomer.DefaultMemberAmount;
+            if (CurrentCustomer != null)
+                Amount = CurrentCustomer.DefaultMemberAmount;
             CurrentCustomerProvider.Current.CurrentCustomerOidChanged += OnCurrentCustomerProviderCurrentCustomerOidChanged;
             AllObjects<Customer>.Set.Updated += OnCustomersSetUpdated;
         }
